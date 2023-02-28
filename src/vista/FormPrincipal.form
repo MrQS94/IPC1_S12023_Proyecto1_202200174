@@ -82,6 +82,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manejo de departamentos y municipios"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDepartamentosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReportes">
               <Properties>

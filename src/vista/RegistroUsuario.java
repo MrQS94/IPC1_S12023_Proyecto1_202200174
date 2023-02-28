@@ -126,7 +126,7 @@ public class RegistroUsuario extends javax.swing.JInternalFrame {
         jLabel13.setText("Rol");
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 200, -1));
 
-        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario Individual", "Usuario Empresarial", "Kiosco" }));
+        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario Individual", "Kiosco" }));
         getContentPane().add(jComboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 200, -1));
 
         jComboBoxNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Guatemala", "Alemania", "Italia", "Francia", " " }));

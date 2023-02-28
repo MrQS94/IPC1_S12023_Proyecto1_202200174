@@ -78,8 +78,7 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
             modPersona.setFotografia("No existe foto");
         }
         ModeloPersona mod = new ModeloPersona(nombre, apellido, correo, pass, dpi,
-                fechaNac, genero, nacionalidad, alias, telefono, rol, foto);
-
+                fechaNac, genero, nacionalidad, alias, telefono, rol, foto);  
         list.add(mod);
     }
 
@@ -314,7 +313,7 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         if (e.getSource() == registro.jTextFieldYYYY
                 || e.getSource() == registro.jTextFieldDPI
                 || e.getSource() == registro.jTextFieldTelefono) {
-            if (c >= 57 || c <= 47) {
+            if (c >= 58 || c <= 46) {
                 e.consume();
             }
         } else if (e.getSource() == registro.jTextFieldNombre

@@ -21,13 +21,12 @@ import vista.RegistroUsuario;
  *
  * @author queza
  */
-public class ControladorPrincipal implements ActionListener {
+public class ControladorPrincipal implements ActionListener{
 
     Autenticacion aut = new Autenticacion();
     RegistroUsuario registro = new RegistroUsuario();
     ModeloPersona modPersona = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
             "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "Admin", "");
-   
 
     List<ModeloPersona> listaPersona = new ArrayList();
     List<ModeloKiosco> listaKiosco = new ArrayList();
@@ -71,6 +70,5 @@ public class ControladorPrincipal implements ActionListener {
         } else if (e.getSource() == aut.jButtonIngresar) {
             Autentificar();
         }
-    }
-
+    }   
 }

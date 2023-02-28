@@ -5,6 +5,7 @@
 package vista;
 
 import controlador.ControladorKioscos;
+import controlador.ControladorRegiones;
 import controlador.ControladorRegistro;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -136,6 +137,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuItemDepartamentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemDepartamentos.setText("Manejo de departamentos y municipios");
+        jMenuItemDepartamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDepartamentosActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItemDepartamentos);
 
         jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -199,6 +205,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         ControladorKioscos kiosco = new ControladorKioscos(manejo, listKiosco);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemKioscosActionPerformed
+
+    private void jMenuItemDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDepartamentosActionPerformed
+        // TODO add your handling code here:
+        ManejoDepartamentos manejo = new ManejoDepartamentos();
+        ControladorRegiones control = new ControladorRegiones();
+        EvitarAbrir(manejo);
+    }//GEN-LAST:event_jMenuItemDepartamentosActionPerformed
 
     /**
      * @param args the command line arguments
