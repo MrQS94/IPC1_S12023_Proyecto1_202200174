@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
+import modelo.ModeloDepartamentos;
 import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
-import modelo.ModeloNacionalidad;
 import vista.Autenticacion;
 import vista.FormPrincipal;
 import vista.RegistroUsuario;
@@ -27,16 +27,18 @@ public class ControladorPrincipal implements ActionListener{
     RegistroUsuario registro = new RegistroUsuario();
     ModeloPersona modPersona = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
             "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "Admin", "");
-
+    ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala", "VN", "Villa Nueva");
+    
     List<ModeloPersona> listaPersona = new ArrayList();
-    List<ModeloKiosco> listaKiosco = new ArrayList();
-    List<ModeloNacionalidad> listNacio = new ArrayList();
+    List<ModeloDepartamentos> listaDepart = new ArrayList();
+    List<ModeloKiosco> listKiosc = new ArrayList();
 
     public ControladorPrincipal(Autenticacion aut) {
         this.aut = aut;
         this.aut.jButtonIngresar.addActionListener(this);
         this.aut.jCheckBoxMostrar.addActionListener(this);
         listaPersona.add(modPersona);
+        listaDepart.add(modDepart);
     }
 
     public ControladorPrincipal(RegistroUsuario reg) {
@@ -47,7 +49,7 @@ public class ControladorPrincipal implements ActionListener{
         for (int i = 0; i < listaPersona.size(); i++) {
             if (aut.jTextFieldCorreo.getText().equals(listaPersona.get(i).getCorreo())
                     && aut.jPasswordField.getText().equals(listaPersona.get(i).getPass())) {
-                FormPrincipal form = new FormPrincipal(listaPersona, listaKiosco);
+                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosc);
                 this.aut.dispose();
                 form.setVisible(true);
                 break;

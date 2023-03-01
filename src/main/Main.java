@@ -5,7 +5,6 @@
 package main;
 
 import controlador.ControladorPrincipal;
-import modelo.ModeloKiosco;
 import vista.Autenticacion;
 /**
  *

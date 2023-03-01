@@ -4,9 +4,6 @@
  */
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author queza
@@ -16,13 +13,8 @@ public class ModeloKiosco {
     private String nombre;
     private String codigoKiosco;
     private String codigoRegion;
-    private List<ModeloKiosco> list = new ArrayList();
 
-    public ModeloKiosco() {
-
-    }
-
-    public ModeloKiosco(String nombre, String codigoKiosco, String codigoRegion) {
+    public ModeloKiosco(String nombre, String codigoRegion, String codigoKiosco) {
         this.nombre = nombre;
         this.codigoKiosco = codigoKiosco;
         this.codigoRegion = codigoRegion;
@@ -32,31 +24,12 @@ public class ModeloKiosco {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getCodigoKiosco() {
         return codigoKiosco;
-    }
-
-    public void setCodigoKiosco(String codigoKiosco) {
-        this.codigoKiosco = codigoKiosco;
     }
 
     public String getCodigoRegion() {
         return codigoRegion;
     }
 
-    public void setCodigoRegion(String codigoRegion) {
-        this.codigoRegion = codigoRegion;
-    }
-
-    public List<ModeloKiosco> getList() {
-        return list;
-    }
-
-    public void setList(List<ModeloKiosco> list) {
-        this.list = list;
-    }
 }

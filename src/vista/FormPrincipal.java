@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import modelo.ModeloDepartamentos;
 import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
 
@@ -26,18 +27,20 @@ public class FormPrincipal extends javax.swing.JFrame {
      * Creates new form FramePrincipal
      */
     List<ModeloPersona> listPersona;
-    List<ModeloKiosco> listKiosco;
+    List<ModeloDepartamentos> listDepart;
+    List<ModeloKiosco> listKiosc;
 
     public FormPrincipal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    public FormPrincipal(List<ModeloPersona> list, List<ModeloKiosco> listKiosco) {
+    public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart, List<ModeloKiosco> listKiosc) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.listPersona = list;
-        this.listKiosco = listKiosco;
+        this.listDepart = listDepart;
+        this.listKiosc = listKiosc;
     }
 
     /**
@@ -78,11 +81,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jDesktopPane.setLayout(jDesktopPaneLayout);
         jDesktopPaneLayout.setHorizontalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
+            .addGap(0, 606, Short.MAX_VALUE)
         );
         jDesktopPaneLayout.setVerticalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 414, Short.MAX_VALUE)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Archivo");
@@ -202,14 +205,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemKioscosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemKioscosActionPerformed
         // TODO add your handling code here:
         ManejoKioscos manejo = new ManejoKioscos();
-        ControladorKioscos kiosco = new ControladorKioscos(manejo, listKiosco);
+        ControladorKioscos kiosco = new ControladorKioscos(manejo, listDepart, listKiosc);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemKioscosActionPerformed
 
     private void jMenuItemDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDepartamentosActionPerformed
         // TODO add your handling code here:
         ManejoDepartamentos manejo = new ManejoDepartamentos();
-        ControladorRegiones control = new ControladorRegiones();
+        ControladorRegiones control = new ControladorRegiones(manejo, listDepart);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemDepartamentosActionPerformed
 

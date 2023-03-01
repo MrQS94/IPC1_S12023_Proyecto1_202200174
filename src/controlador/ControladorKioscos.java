@@ -4,12 +4,13 @@
  */
 package controlador;
 
+import modelo.ModeloKiosco;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
-import modelo.ModeloKiosco;
+import modelo.ModeloDepartamentos;
 import vista.ManejoKioscos;
 
 /**
@@ -18,46 +19,46 @@ import vista.ManejoKioscos;
  */
 public class ControladorKioscos implements ActionListener, KeyListener {
 
-    ManejoKioscos manejo;
-    List<ModeloKiosco> lista;
-    ModeloKiosco kiosco = new ModeloKiosco();
+    ManejoKioscos manejoKiosc = new ManejoKioscos();
+    ControladorRegiones controlReg = new ControladorRegiones();
+    List<ModeloDepartamentos> listDepart;
+    List<ModeloKiosco> listKiosc;
 
-    public ControladorKioscos() {
-
+    public ControladorKioscos(ManejoKioscos manejo, List<ModeloDepartamentos> listDepart, List<ModeloKiosco> listKiosc) {
+        manejoKiosc = manejo;
+        manejoKiosc.jButtonEnviar.addActionListener(this);
+        this.listDepart = listDepart;
+        this.listKiosc = listKiosc;
+        manejoKiosc.jTextFieldNombre.addKeyListener(this);
+        PullRegion();
     }
 
-    public ControladorKioscos(ManejoKioscos manejo, List lista) {
-        this.manejo = manejo;
-        this.manejo.jTextFieldNombre.addKeyListener(this);
-        this.manejo.jTextFieldCodigoKiosco.addKeyListener(this);
-        this.manejo.jTextFieldCodigoRegion.addKeyListener(this);
-        this.manejo.jButtonEnviar.addActionListener(this);
-        this.lista = lista;
-    }
-
-    private void AgregarKioscos() {
-        String nombre = manejo.jTextFieldNombre.getText();
-        String codigoKiosco = manejo.jTextFieldCodigoKiosco.getText();
-        String codigoRegion = manejo.jTextFieldCodigoRegion.getText();
-        ModeloKiosco modelo = new ModeloKiosco(nombre, codigoKiosco, codigoRegion);
-        lista.add(modelo);
-        
-        for (int i = 0; i < lista.size(); i++) {
-            System.out.println(lista.get(i).getNombre() + " - " + i);
+    private void PullRegion() {
+        for (int i = 0; i < listDepart.size(); i++) {
+            manejoKiosc.jComboBoxRegion.addItem(listDepart.get(i).getCodigo());
         }
+    }
+
+    private void AgregarKiosco() {
+        String nombre = manejoKiosc.jTextFieldNombre.getText();
+        String codigoKiosc = manejoKiosc.jTextFieldCodigoKiosco.getText();
+        String codigoReg = (String) manejoKiosc.jComboBoxRegion.getSelectedItem();
+
+        ModeloKiosco mod = new ModeloKiosco(nombre, codigoReg, codigoKiosc);
+        listKiosc.add(mod);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == manejo.jButtonEnviar) {
-            AgregarKioscos();
+        if (e.getSource() == manejoKiosc.jButtonEnviar) {
+            AgregarKiosco();
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
         char c = e.getKeyChar();
-        if (e.getSource() == manejo.jTextFieldNombre) {
+        if (e.getSource() == manejoKiosc.jTextFieldNombre) {
             if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
                 e.consume();
             }
