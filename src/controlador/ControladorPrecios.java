@@ -65,6 +65,7 @@ public class ControladorPrecios implements ActionListener, MouseListener {
         manejo.jTextFieldPrecioEstandar.setText(String.valueOf(manejo.jTable.getValueAt(selec, 1)));
         manejo.jTextFieldPrecioEspecial.setText(String.valueOf(manejo.jTable.getValueAt(selec, 2)));
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
