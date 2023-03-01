@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
+import modelo.ModeloPrecios;
 import vista.Autenticacion;
 import vista.FormPrincipal;
 import vista.RegistroUsuario;
@@ -21,7 +23,7 @@ import vista.RegistroUsuario;
  *
  * @author queza
  */
-public class ControladorPrincipal implements ActionListener{
+public class ControladorPrincipal implements ActionListener {
 
     Autenticacion aut = new Autenticacion();
     RegistroUsuario registro = new RegistroUsuario();
@@ -29,9 +31,19 @@ public class ControladorPrincipal implements ActionListener{
             "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "Admin", "");
     ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala", "VN", "Villa Nueva");
     
+    ModeloPrecios modPrec1 = new ModeloPrecios("(M) Metropolitana", 25, 35);
+    ModeloPrecios modPrec2 = new ModeloPrecios("(NT) Norte", 45.55, 68.50);
+    ModeloPrecios modPrec3 = new ModeloPrecios("(NO) Nororiente", 35.48, 58.68);
+    ModeloPrecios modPrec4 = new ModeloPrecios("(SO) Suroriente", 32.48, 38.68);
+    ModeloPrecios modPrec5 = new ModeloPrecios("(SOC) Suroccidente", 29.00, 34.00);
+    ModeloPrecios modPrec6 = new ModeloPrecios("(NOC) Noroccidente", 40.00, 44.50);
+
     List<ModeloPersona> listaPersona = new ArrayList();
     List<ModeloDepartamentos> listaDepart = new ArrayList();
     List<ModeloKiosco> listKiosc = new ArrayList();
+    List<ModeloPrecios> listPrecio = new ArrayList();
+    
+    private int intentos = 3;
 
     public ControladorPrincipal(Autenticacion aut) {
         this.aut = aut;
@@ -39,6 +51,12 @@ public class ControladorPrincipal implements ActionListener{
         this.aut.jCheckBoxMostrar.addActionListener(this);
         listaPersona.add(modPersona);
         listaDepart.add(modDepart);
+        listPrecio.add(modPrec1);
+        listPrecio.add(modPrec2);
+        listPrecio.add(modPrec3);
+        listPrecio.add(modPrec4);
+        listPrecio.add(modPrec5);
+        listPrecio.add(modPrec6);
     }
 
     public ControladorPrincipal(RegistroUsuario reg) {
@@ -49,10 +67,16 @@ public class ControladorPrincipal implements ActionListener{
         for (int i = 0; i < listaPersona.size(); i++) {
             if (aut.jTextFieldCorreo.getText().equals(listaPersona.get(i).getCorreo())
                     && aut.jPasswordField.getText().equals(listaPersona.get(i).getPass())) {
-                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosc);
+                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosc, listPrecio);
                 this.aut.dispose();
                 form.setVisible(true);
                 break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Tiene " + intentos-- + " intentos restantes.", "WARNING!", JOptionPane.WARNING_MESSAGE);
+                if (intentos < 0) {
+                    JOptionPane.showMessageDialog(null, "Se va a cerrar el programa", "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
             }
         }
     }
@@ -72,5 +96,5 @@ public class ControladorPrincipal implements ActionListener{
         } else if (e.getSource() == aut.jButtonIngresar) {
             Autentificar();
         }
-    }   
+    }
 }

@@ -5,10 +5,12 @@
 package vista;
 
 import controlador.ControladorKioscos;
+import controlador.ControladorPrecios;
 import controlador.ControladorRegiones;
 import controlador.ControladorRegistro;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,6 +18,7 @@ import javax.swing.JInternalFrame;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
+import modelo.ModeloPrecios;
 
 /**
  *
@@ -29,18 +32,20 @@ public class FormPrincipal extends javax.swing.JFrame {
     List<ModeloPersona> listPersona;
     List<ModeloDepartamentos> listDepart;
     List<ModeloKiosco> listKiosc;
+    List<ModeloPrecios> listPrecios;
 
     public FormPrincipal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart, List<ModeloKiosco> listKiosc) {
+    public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart, List<ModeloKiosco> listKiosc, List<ModeloPrecios> listPrecios) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.listPersona = list;
         this.listDepart = listDepart;
         this.listKiosc = listKiosc;
+        this.listPrecios = listPrecios;
     }
 
     /**
@@ -136,6 +141,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuItemRegiones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemRegiones.setText("Manejo de regiones y precios");
+        jMenuItemRegiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegionesActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItemRegiones);
 
         jMenuItemDepartamentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
@@ -215,6 +225,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         ControladorRegiones control = new ControladorRegiones(manejo, listDepart);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemDepartamentosActionPerformed
+
+    private void jMenuItemRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegionesActionPerformed
+        // TODO add your handling code here:
+        ManejoPrecios manejo = new ManejoPrecios();
+        ControladorPrecios control = new ControladorPrecios(manejo, listPrecios);
+        EvitarAbrir(manejo);
+    }//GEN-LAST:event_jMenuItemRegionesActionPerformed
 
     /**
      * @param args the command line arguments
