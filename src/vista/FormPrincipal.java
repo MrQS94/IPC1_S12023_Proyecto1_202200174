@@ -75,7 +75,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuItemRegiones = new javax.swing.JMenuItem();
         jMenuItemDepartamentos = new javax.swing.JMenuItem();
         jMenuItemReportes = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuEnvios = new javax.swing.JMenu();
         jMenuItemTarjeta = new javax.swing.JMenuItem();
         jMenuItemFacturacion = new javax.swing.JMenuItem();
         jMenuItemPaquetes = new javax.swing.JMenuItem();
@@ -169,30 +169,30 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuAdmin);
 
-        jMenu3.setText("Cliente");
+        jMenuEnvios.setText("Cliente");
 
         jMenuItemTarjeta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemTarjeta.setText("Registro de Tarjeta de Crédito/Débito");
-        jMenu3.add(jMenuItemTarjeta);
+        jMenuEnvios.add(jMenuItemTarjeta);
 
         jMenuItemFacturacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemFacturacion.setText("Registro de Datos de Facturación");
-        jMenu3.add(jMenuItemFacturacion);
+        jMenuEnvios.add(jMenuItemFacturacion);
 
         jMenuItemPaquetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemPaquetes.setText("Cotización de Paquetes");
-        jMenu3.add(jMenuItemPaquetes);
+        jMenuEnvios.add(jMenuItemPaquetes);
 
         jMenuItemCompra.setText(" Compra ");
-        jMenu3.add(jMenuItemCompra);
+        jMenuEnvios.add(jMenuItemCompra);
 
         jMenuItemDescargar.setText("Descargar Factura y Guía");
-        jMenu3.add(jMenuItemDescargar);
+        jMenuEnvios.add(jMenuItemDescargar);
 
         jMenuItemEnvios.setText("Ver Envíos Solicitados ");
-        jMenu3.add(jMenuItemEnvios);
+        jMenuEnvios.add(jMenuItemEnvios);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuEnvios);
 
         setJMenuBar(jMenuBar1);
 
@@ -304,9 +304,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenuAdmin;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuEnvios;
     private javax.swing.JMenuItem jMenuItemCompra;
     private javax.swing.JMenuItem jMenuItemCotizacion;
     private javax.swing.JMenuItem jMenuItemDepartamentos;

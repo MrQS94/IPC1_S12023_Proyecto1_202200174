@@ -102,7 +102,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
+        <Menu class="javax.swing.JMenu" name="jMenuEnvios">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
