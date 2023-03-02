@@ -6,9 +6,12 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import modelo.ModeloPrecios;
@@ -18,7 +21,7 @@ import vista.ManejoPrecios;
  *
  * @author queza
  */
-public class ControladorPrecios implements ActionListener, MouseListener {
+public class ControladorPrecios implements ActionListener, MouseListener, KeyListener {
 
     ManejoPrecios manejo;
     List<ModeloPrecios> list;
@@ -27,8 +30,10 @@ public class ControladorPrecios implements ActionListener, MouseListener {
         this.manejo = manejo;
         this.list = list;
         this.manejo.jButtonEnviar.addActionListener(this);
-        this.manejo.jButtonPrecios.addActionListener(this);
         this.manejo.jTable.addMouseListener(this);
+        this.manejo.jCheckBoxMostrar.addActionListener(this);
+        this.manejo.jTextFieldPrecioEstandar.addKeyListener(this);
+        this.manejo.jTextFieldPrecioEspecial.addKeyListener(this);
         LlenarTabla();
     }
 
@@ -43,8 +48,14 @@ public class ControladorPrecios implements ActionListener, MouseListener {
                 list.get(i).setPrecioEspecial(precioEspecial);
             }
         }
+        manejo.jComboBoxRegion.setSelectedIndex(0);
+        manejo.jTextFieldPrecioEstandar.setText("");
+        manejo.jTextFieldPrecioEspecial.setText("");
+        manejo.jTextFieldPrecioEstandar.setEnabled(false);
+        manejo.jTextFieldPrecioEspecial.setEnabled(false);
+        manejo.jCheckBoxMostrar.setSelected(false);
+        manejo.jCheckBoxMostrar.setText("MOSTRAR");
         LlenarTabla();
-
     }
 
     private void LlenarTabla() {
@@ -60,19 +71,47 @@ public class ControladorPrecios implements ActionListener, MouseListener {
         }
     }
 
+    private void ComprobarCampos() {
+        String codigo = (String) manejo.jComboBoxRegion.getSelectedItem();
+        String precioEstandar = manejo.jTextFieldPrecioEstandar.getText();
+        String precioEspecial = manejo.jTextFieldPrecioEspecial.getText();
+        if (codigo.isEmpty() || precioEstandar.isEmpty() || precioEspecial.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione un dato de la tabla para modificar si deasea ser modificado.", "ADVERTENCIA!!", JOptionPane.WARNING_MESSAGE);
+            manejo.jCheckBoxMostrar.setSelected(false);
+            manejo.jTextFieldPrecioEstandar.setEnabled(false);
+            manejo.jTextFieldPrecioEspecial.setEnabled(false);
+            manejo.jCheckBoxMostrar.setText("MOSTRAR");
+        } else {
+            manejo.jTextFieldPrecioEstandar.setEnabled(true);
+            manejo.jTextFieldPrecioEspecial.setEnabled(true);
+            manejo.jCheckBoxMostrar.setText("CONFIRMAR");
+        }
+    }
+
+    private void HabilitarBoton() {
+        String codigo = manejo.jTextFieldPrecioEspecial.getText();
+        String codigoDepart = manejo.jTextFieldPrecioEstandar.getText();
+        if (!(codigo.isEmpty() || codigoDepart.isEmpty())) {
+            manejo.jButtonEnviar.setEnabled(true);
+        } else {
+            manejo.jButtonEnviar.setEnabled(false);
+        }
+    }
+
     private void SelecionarDatos(int selec) {
         manejo.jComboBoxRegion.setSelectedItem(String.valueOf(manejo.jTable.getValueAt(selec, 0)));
         manejo.jTextFieldPrecioEstandar.setText(String.valueOf(manejo.jTable.getValueAt(selec, 1)));
         manejo.jTextFieldPrecioEspecial.setText(String.valueOf(manejo.jTable.getValueAt(selec, 2)));
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejo.jButtonEnviar) {
             CambiarPrecios();
-        } else if (e.getSource() == manejo.jButtonPrecios) {
-            // MostrarDatos();
+        } else if (e.getSource() == manejo.jCheckBoxMostrar) {
+            if (manejo.jCheckBoxMostrar.isSelected()) {
+                ComprobarCampos();
+            }
         }
     }
 
@@ -81,6 +120,18 @@ public class ControladorPrecios implements ActionListener, MouseListener {
         int select = manejo.jTable.rowAtPoint(e.getPoint());
         if (e.getSource() == manejo.jTable) {
             SelecionarDatos(select);
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        if (e.getSource() == manejo.jTextFieldPrecioEstandar
+                || e.getSource() == manejo.jTextFieldPrecioEspecial) {
+            if ((c < '0' || c > '9') && c != '.') {
+                e.consume();
+            }
+            HabilitarBoton();
         }
     }
 
@@ -100,6 +151,16 @@ public class ControladorPrecios implements ActionListener, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 
 }

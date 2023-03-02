@@ -10,7 +10,6 @@ import controlador.ControladorRegiones;
 import controlador.ControladorRegistro;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -71,11 +70,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItemRegistro = new javax.swing.JMenuItem();
         jMenuItemCotizacion = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuAdmin = new javax.swing.JMenu();
         jMenuItemKioscos = new javax.swing.JMenuItem();
         jMenuItemRegiones = new javax.swing.JMenuItem();
         jMenuItemDepartamentos = new javax.swing.JMenuItem();
         jMenuItemReportes = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItemTarjeta = new javax.swing.JMenuItem();
+        jMenuItemFacturacion = new javax.swing.JMenuItem();
+        jMenuItemPaquetes = new javax.swing.JMenuItem();
+        jMenuItemCompra = new javax.swing.JMenuItem();
+        jMenuItemDescargar = new javax.swing.JMenuItem();
+        jMenuItemEnvios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pantalla Principal");
@@ -128,7 +134,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Admin");
+        jMenuAdmin.setText("Admin");
 
         jMenuItemKioscos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemKioscos.setText("Manejo de Kioscos");
@@ -137,29 +143,54 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jMenuItemKioscosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItemKioscos);
+        jMenuAdmin.add(jMenuItemKioscos);
 
         jMenuItemRegiones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemRegiones.setText("Manejo de regiones y precios");
+        jMenuItemRegiones.setText("Manejo de Regiones y Precios");
         jMenuItemRegiones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemRegionesActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItemRegiones);
+        jMenuAdmin.add(jMenuItemRegiones);
 
         jMenuItemDepartamentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemDepartamentos.setText("Manejo de departamentos y municipios");
+        jMenuItemDepartamentos.setText("Manejo de Departamentos y Municipios");
         jMenuItemDepartamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemDepartamentosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItemDepartamentos);
+        jMenuAdmin.add(jMenuItemDepartamentos);
 
         jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemReportes.setText("Reportes");
-        jMenu3.add(jMenuItemReportes);
+        jMenuAdmin.add(jMenuItemReportes);
+
+        jMenuBar1.add(jMenuAdmin);
+
+        jMenu3.setText("Cliente");
+
+        jMenuItemTarjeta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemTarjeta.setText("Registro de Tarjeta de Crédito/Débito");
+        jMenu3.add(jMenuItemTarjeta);
+
+        jMenuItemFacturacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemFacturacion.setText("Registro de Datos de Facturación");
+        jMenu3.add(jMenuItemFacturacion);
+
+        jMenuItemPaquetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemPaquetes.setText("Cotización de Paquetes");
+        jMenu3.add(jMenuItemPaquetes);
+
+        jMenuItemCompra.setText(" Compra ");
+        jMenu3.add(jMenuItemCompra);
+
+        jMenuItemDescargar.setText("Descargar Factura y Guía");
+        jMenu3.add(jMenuItemDescargar);
+
+        jMenuItemEnvios.setText("Ver Envíos Solicitados ");
+        jMenu3.add(jMenuItemEnvios);
 
         jMenuBar1.add(jMenu3);
 
@@ -274,13 +305,20 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    public javax.swing.JMenu jMenuAdmin;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemCompra;
     private javax.swing.JMenuItem jMenuItemCotizacion;
     private javax.swing.JMenuItem jMenuItemDepartamentos;
+    private javax.swing.JMenuItem jMenuItemDescargar;
+    private javax.swing.JMenuItem jMenuItemEnvios;
     private javax.swing.JMenuItem jMenuItemExit;
+    private javax.swing.JMenuItem jMenuItemFacturacion;
     private javax.swing.JMenuItem jMenuItemKioscos;
+    private javax.swing.JMenuItem jMenuItemPaquetes;
     private javax.swing.JMenuItem jMenuItemRegiones;
     private javax.swing.JMenuItem jMenuItemRegistro;
     private javax.swing.JMenuItem jMenuItemReportes;
+    private javax.swing.JMenuItem jMenuItemTarjeta;
     // End of variables declaration//GEN-END:variables
 }

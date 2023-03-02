@@ -24,7 +24,7 @@ import vista.RegistroUsuario;
  */
 public class ControladorRegistro extends ControladorPrincipal implements MouseListener, KeyListener {
 
-    ModeloPersona modelo = this.modPersona;
+    ModeloPersona modelo = this.modPersona1;
     List<ModeloPersona> list;
 
     public ControladorRegistro(RegistroUsuario registro) {
@@ -74,8 +74,8 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         String rol = (String) registro.jComboBoxRol.getSelectedItem();
         String foto = registro.jLabelFotografia.getText();
 
-        if (modPersona.getFotografia() == null) {
-            modPersona.setFotografia("No existe foto");
+        if (modPersona1.getFotografia() == null) {
+            modPersona1.setFotografia("No existe foto");
         }
         ModeloPersona mod = new ModeloPersona(nombre, apellido, correo, pass, dpi,
                 fechaNac, genero, nacionalidad, alias, telefono, rol, foto);  
@@ -150,7 +150,7 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
                     registro.jLabelFotografia.getWidth(), registro.jLabelFotografia.getHeight(), Image.SCALE_SMOOTH));
             registro.jLabelFotografia.setIcon(icono);
         }
-        modPersona.setFotografia(url);
+        modPersona1.setFotografia(url);
     }
 
     @Override
