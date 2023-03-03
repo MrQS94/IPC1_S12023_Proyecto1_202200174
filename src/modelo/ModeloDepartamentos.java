@@ -10,38 +10,38 @@ package modelo;
  */
 public class ModeloDepartamentos {
 
-    private String codigo;
-    private String region;
-    private String nombre;
     private String codigoDepart;
+    private String region;
     private String nombreDepart;
+    private String codigoMuni;
+    private String nombreMuni;
 
-    public ModeloDepartamentos(String codigo, String region, String nombre, String codigoDepart, String nombreDepart) {
-        this.codigo = codigo;
-        this.region = region;
-        this.nombre = nombre;
+    public ModeloDepartamentos(String codigoDepart, String region, String nombreDepart, String codigoMuni, String nombreMuni) {
         this.codigoDepart = codigoDepart;
+        this.region = region;
         this.nombreDepart = nombreDepart;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getNombre() {
-        return nombre;
+        this.codigoMuni = codigoMuni;
+        this.nombreMuni = nombreMuni;
     }
 
     public String getCodigoDepart() {
         return codigoDepart;
     }
 
+    public String getRegion() {
+        return region;
+    }
+
     public String getNombreDepart() {
         return nombreDepart;
+    }
+
+    public String getCodigoMuni() {
+        return codigoMuni;
+    }
+
+    public String getNombreMuni() {
+        return nombreMuni;
     }
 
 }

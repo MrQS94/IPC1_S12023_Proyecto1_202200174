@@ -22,35 +22,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Funciones"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRegistro">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Registro de usuarios"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRegistroActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCotizacion">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+2"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Cotizaci&#xf3;n, pago y descarga de factura y gu&#xed;a."/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCotizacionActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuAdmin">
           <Properties>
             <Property name="text" type="java.lang.String" value="Admin"/>
@@ -62,7 +33,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemKioscos">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+3"/>
+                  <KeyStroke key="Alt+1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manejo de Kioscos"/>
               </Properties>
@@ -73,7 +44,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRegiones">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+4"/>
+                  <KeyStroke key="Alt+2"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manejo de Regiones y Precios"/>
               </Properties>
@@ -84,7 +55,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDepartamentos">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+5"/>
+                  <KeyStroke key="Alt+3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manejo de Departamentos y Municipios"/>
               </Properties>
@@ -95,10 +66,21 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReportes">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+6"/>
+                  <KeyStroke key="Alt+4"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Reportes"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemRegistro">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+5"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Registro de usuarios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemRegistroActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -107,37 +89,55 @@
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemTarjeta">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCotizacion">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+7"/>
+                  <KeyStroke key="Alt+6"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Registro de Tarjeta de Cr&#xe9;dito/D&#xe9;bito"/>
+                <Property name="text" type="java.lang.String" value="Cotizaci&#xf3;n, pago y descarga de factura y gu&#xed;a."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCotizacionActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFacturacion">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+8"/>
+                  <KeyStroke key="Alt+7"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Registro de Datos de Facturaci&#xf3;n"/>
+                <Property name="text" type="java.lang.String" value="Registro de Facturacion"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemFacturacionActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPaquetes">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Alt+9"/>
+                  <KeyStroke key="Alt+8"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cotizaci&#xf3;n de Paquetes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPaquetesActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCompra">
               <Properties>
-                <Property name="text" type="java.lang.String" value=" Compra "/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+9"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Compra "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCompraActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemDescargar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Descargar Factura y Gu&#xed;a"/>
               </Properties>
             </MenuItem>

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.ModeloDepartamentos;
 import vista.ManejoDepartamentos;
 
@@ -21,28 +22,37 @@ public class ControladorRegiones implements ActionListener, KeyListener {
     ManejoDepartamentos manejo = new ManejoDepartamentos();
     List<ModeloDepartamentos> lista;
 
-    public ControladorRegiones(){
-        
+    public ControladorRegiones() {
+
     }
-    
+
     public ControladorRegiones(ManejoDepartamentos mane, List<ModeloDepartamentos> list) {
         manejo = mane;
         manejo.jButtonIngresar.addActionListener(this);
         manejo.jTextFieldCodigo.addKeyListener(this);
-        manejo.jTextFieldCodigoDepart.addKeyListener(this);
-        manejo.jTextFieldNombreDepart.addKeyListener(this);
+        manejo.jTextFieldCodigoMuni.addKeyListener(this);
+        manejo.jTextFieldNombreMuni.addKeyListener(this);
         lista = list;
     }
 
     private void GuardarDatos() {
-        String codigo = manejo.jTextFieldCodigo.getText();
-        String region = (String) manejo.jComboBoxRegion.getSelectedItem();
-        String nombre = (String) manejo.jComboBoxNombre.getSelectedItem();
         String codigoDepart = manejo.jTextFieldCodigo.getText();
-        String nombreDepart = manejo.jTextFieldNombreDepart.getText();
+        String region = (String) manejo.jComboBoxRegion.getSelectedItem();
+        String nombreDepart = (String) manejo.jComboBoxNombre.getSelectedItem();
+        String codigoMuni = manejo.jTextFieldCodigoMuni.getText();
+        String nombreMuni = manejo.jTextFieldNombreMuni.getText();
 
-        ModeloDepartamentos mod = new ModeloDepartamentos(codigo, region, nombre, codigoDepart, nombreDepart);
+        ModeloDepartamentos mod = new ModeloDepartamentos(codigoDepart, region, nombreDepart, codigoMuni, nombreMuni);
         lista.add(mod);
+
+        manejo.jTextFieldCodigo.setText("");
+         manejo.jTextFieldCodigo.requestFocus();
+        manejo.jComboBoxRegion.setSelectedIndex(0);
+        manejo.jComboBoxNombre.setSelectedIndex(0);
+        manejo.jTextFieldCodigoMuni.setText("");
+        manejo.jTextFieldNombreMuni.setText("");
+
+        JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     protected List getList() {
@@ -52,18 +62,18 @@ public class ControladorRegiones implements ActionListener, KeyListener {
     private void HabilitarDepart() {
         String codigo = manejo.jTextFieldCodigo.getText();
         if (!codigo.isEmpty()) {
-            manejo.jTextFieldCodigoDepart.setEnabled(true);
-            manejo.jTextFieldNombreDepart.setEnabled(true);
+            manejo.jTextFieldCodigoMuni.setEnabled(true);
+            manejo.jTextFieldNombreMuni.setEnabled(true);
         } else {
-            manejo.jTextFieldCodigoDepart.setEnabled(false);
-            manejo.jTextFieldNombreDepart.setEnabled(false);
+            manejo.jTextFieldCodigoMuni.setEnabled(false);
+            manejo.jTextFieldNombreMuni.setEnabled(false);
         }
     }
 
     private void HabilitarBoton() {
         String codigo = manejo.jTextFieldCodigo.getText();
-        String codigoDepart = manejo.jTextFieldCodigoDepart.getText();
-        String nombreDepart = manejo.jTextFieldNombreDepart.getText();
+        String codigoDepart = manejo.jTextFieldCodigoMuni.getText();
+        String nombreDepart = manejo.jTextFieldNombreMuni.getText();
         if (!(codigo.isEmpty() || codigoDepart.isEmpty() || nombreDepart.isEmpty())) {
             manejo.jButtonIngresar.setEnabled(true);
         } else {
@@ -84,12 +94,12 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         if (e.getSource() == manejo.jTextFieldCodigo) {
             HabilitarDepart();
             HabilitarBoton();
-        } else if (e.getSource() == manejo.jTextFieldNombreDepart) {
+        } else if (e.getSource() == manejo.jTextFieldNombreMuni) {
             if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
                 e.consume();
             }
             HabilitarBoton();
-        } else if (e.getSource() == manejo.jTextFieldCodigoDepart) {
+        } else if (e.getSource() == manejo.jTextFieldCodigoMuni) {
             HabilitarBoton();
         }
     }

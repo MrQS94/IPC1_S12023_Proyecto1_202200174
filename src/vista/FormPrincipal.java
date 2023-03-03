@@ -4,8 +4,11 @@
  */
 package vista;
 
+import controlador.ControladorCotizacion;
+import controlador.ControladorFacturacion;
 import controlador.ControladorKioscos;
 import controlador.ControladorPrecios;
+import controlador.ControladorPrincipal;
 import controlador.ControladorRegiones;
 import controlador.ControladorRegistro;
 import java.awt.Graphics;
@@ -15,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import modelo.ModeloDepartamentos;
+import modelo.ModeloFacturacion;
 import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
 import modelo.ModeloPrecios;
@@ -32,19 +36,22 @@ public class FormPrincipal extends javax.swing.JFrame {
     List<ModeloDepartamentos> listDepart;
     List<ModeloKiosco> listKiosc;
     List<ModeloPrecios> listPrecios;
+    List<ModeloFacturacion> listFact;
 
     public FormPrincipal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart, List<ModeloKiosco> listKiosc, List<ModeloPrecios> listPrecios) {
+    public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart,
+            List<ModeloKiosco> listKiosc, List<ModeloPrecios> listPrecios, List<ModeloFacturacion> listFact) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.listPersona = list;
         this.listDepart = listDepart;
         this.listKiosc = listKiosc;
         this.listPrecios = listPrecios;
+        this.listFact = listFact;
     }
 
     /**
@@ -67,16 +74,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItemRegistro = new javax.swing.JMenuItem();
-        jMenuItemCotizacion = new javax.swing.JMenuItem();
         jMenuAdmin = new javax.swing.JMenu();
         jMenuItemKioscos = new javax.swing.JMenuItem();
         jMenuItemRegiones = new javax.swing.JMenuItem();
         jMenuItemDepartamentos = new javax.swing.JMenuItem();
         jMenuItemReportes = new javax.swing.JMenuItem();
+        jMenuItemRegistro = new javax.swing.JMenuItem();
         jMenuEnvios = new javax.swing.JMenu();
-        jMenuItemTarjeta = new javax.swing.JMenuItem();
+        jMenuItemCotizacion = new javax.swing.JMenuItem();
         jMenuItemFacturacion = new javax.swing.JMenuItem();
         jMenuItemPaquetes = new javax.swing.JMenuItem();
         jMenuItemCompra = new javax.swing.JMenuItem();
@@ -112,31 +117,9 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Funciones");
-
-        jMenuItemRegistro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemRegistro.setText("Registro de usuarios");
-        jMenuItemRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemRegistroActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItemRegistro);
-
-        jMenuItemCotizacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemCotizacion.setText("Cotización, pago y descarga de factura y guía.");
-        jMenuItemCotizacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCotizacionActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItemCotizacion);
-
-        jMenuBar1.add(jMenu2);
-
         jMenuAdmin.setText("Admin");
 
-        jMenuItemKioscos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemKioscos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemKioscos.setText("Manejo de Kioscos");
         jMenuItemKioscos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +128,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenuAdmin.add(jMenuItemKioscos);
 
-        jMenuItemRegiones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemRegiones.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemRegiones.setText("Manejo de Regiones y Precios");
         jMenuItemRegiones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +137,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenuAdmin.add(jMenuItemRegiones);
 
-        jMenuItemDepartamentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemDepartamentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemDepartamentos.setText("Manejo de Departamentos y Municipios");
         jMenuItemDepartamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,29 +146,60 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenuAdmin.add(jMenuItemDepartamentos);
 
-        jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemReportes.setText("Reportes");
         jMenuAdmin.add(jMenuItemReportes);
+
+        jMenuItemRegistro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemRegistro.setText("Registro de usuarios");
+        jMenuItemRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRegistroActionPerformed(evt);
+            }
+        });
+        jMenuAdmin.add(jMenuItemRegistro);
 
         jMenuBar1.add(jMenuAdmin);
 
         jMenuEnvios.setText("Cliente");
 
-        jMenuItemTarjeta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemTarjeta.setText("Registro de Tarjeta de Crédito/Débito");
-        jMenuEnvios.add(jMenuItemTarjeta);
+        jMenuItemCotizacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemCotizacion.setText("Cotización, pago y descarga de factura y guía.");
+        jMenuItemCotizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCotizacionActionPerformed(evt);
+            }
+        });
+        jMenuEnvios.add(jMenuItemCotizacion);
 
-        jMenuItemFacturacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemFacturacion.setText("Registro de Datos de Facturación");
+        jMenuItemFacturacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_7, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemFacturacion.setText("Registro de Facturacion");
+        jMenuItemFacturacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFacturacionActionPerformed(evt);
+            }
+        });
         jMenuEnvios.add(jMenuItemFacturacion);
 
-        jMenuItemPaquetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemPaquetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemPaquetes.setText("Cotización de Paquetes");
+        jMenuItemPaquetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPaquetesActionPerformed(evt);
+            }
+        });
         jMenuEnvios.add(jMenuItemPaquetes);
 
-        jMenuItemCompra.setText(" Compra ");
+        jMenuItemCompra.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemCompra.setText("Compra ");
+        jMenuItemCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCompraActionPerformed(evt);
+            }
+        });
         jMenuEnvios.add(jMenuItemCompra);
 
+        jMenuItemDescargar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemDescargar.setText("Descargar Factura y Guía");
         jMenuEnvios.add(jMenuItemDescargar);
 
@@ -240,6 +254,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCotizacionActionPerformed
         // TODO add your handling code here:
         Cotizacion cotizacion = new Cotizacion();
+        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart);
         EvitarAbrir(cotizacion);
     }//GEN-LAST:event_jMenuItemCotizacionActionPerformed
 
@@ -263,6 +278,22 @@ public class FormPrincipal extends javax.swing.JFrame {
         ControladorPrecios control = new ControladorPrecios(manejo, listPrecios);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemRegionesActionPerformed
+
+    private void jMenuItemFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFacturacionActionPerformed
+        // TODO add your handling code here:
+        DatosFacturacion datos = new DatosFacturacion();
+        ControladorFacturacion control = new ControladorFacturacion(datos, listFact);
+        EvitarAbrir(datos);
+    }//GEN-LAST:event_jMenuItemFacturacionActionPerformed
+
+    private void jMenuItemPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPaquetesActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItemPaquetesActionPerformed
+
+    private void jMenuItemCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCompraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemCompraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,7 +334,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     public javax.swing.JMenu jMenuAdmin;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEnvios;
@@ -319,6 +349,5 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegiones;
     private javax.swing.JMenuItem jMenuItemRegistro;
     private javax.swing.JMenuItem jMenuItemReportes;
-    private javax.swing.JMenuItem jMenuItemTarjeta;
     // End of variables declaration//GEN-END:variables
 }
