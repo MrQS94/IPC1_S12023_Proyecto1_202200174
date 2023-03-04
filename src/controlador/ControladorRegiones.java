@@ -33,7 +33,7 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         manejo.jTextFieldCodigoMuni.addKeyListener(this);
         manejo.jTextFieldNombreMuni.addKeyListener(this);
         lista = list;
-        
+
     }
 
     private void GuardarDatos() {
@@ -42,6 +42,7 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         String nombreDepart = manejo.jComboBoxNombre.getSelectedItem().toString();
         String codigoMuni = manejo.jTextFieldCodigoMuni.getText();
         String nombreMuni = manejo.jTextFieldNombreMuni.getText();
+
         ModeloDepartamentos modMuni = new ModeloDepartamentos(codigoDepart, region, nombreDepart, codigoMuni, nombreMuni);
         lista.add(modMuni);
 
@@ -51,6 +52,7 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         manejo.jComboBoxNombre.setSelectedIndex(0);
         manejo.jTextFieldCodigoMuni.setText("");
         manejo.jTextFieldNombreMuni.setText("");
+        manejo.jButtonIngresar.setEnabled(false);
 
         JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
     }

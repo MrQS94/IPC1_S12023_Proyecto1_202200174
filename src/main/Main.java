@@ -18,6 +18,5 @@ public class Main {
         Autenticacion aut = new Autenticacion();
         ControladorPrincipal control = new ControladorPrincipal(aut);
         aut.setVisible(true);
-
     }
 }

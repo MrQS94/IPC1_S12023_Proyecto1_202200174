@@ -24,23 +24,20 @@ public class ControladorCotizacion implements ItemListener {
         this.listDepart = listDepart;
         this.cot.jComboBoxDestinoMuni.addItemListener(this);
         this.cot.jComboBoxDestinoDept.addItemListener(this);
+        PullDepartametns();
     }
 
-    private void PullMuni() {
-        String destinoDept = cot.jComboBoxDestinoDept.getSelectedItem().toString();
-
+    private void PullDepartametns() {
         for (int i = 0; i < listDepart.size(); i++) {
-            //if (listDepart.get(i).getNombreDepart().equals(destinoDept)) {
-                System.out.println(listDepart.get(i).getNombreDepart());
-            //}
+            cot.jComboBoxDestinoDept.addItem(listDepart.get(i).getNombreDepart());
         }
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
-            if (cot.jComboBoxDestinoDept.getSelectedIndex() > 0) {
-                PullMuni();
+            if (cot.jComboBoxDestinoDept.getSelectedIndex() >= 0) {
+                
             }
         }
     }
