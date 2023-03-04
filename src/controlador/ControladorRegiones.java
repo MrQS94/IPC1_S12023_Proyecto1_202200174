@@ -33,30 +33,26 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         manejo.jTextFieldCodigoMuni.addKeyListener(this);
         manejo.jTextFieldNombreMuni.addKeyListener(this);
         lista = list;
+        
     }
 
     private void GuardarDatos() {
         String codigoDepart = manejo.jTextFieldCodigo.getText();
-        String region = (String) manejo.jComboBoxRegion.getSelectedItem();
-        String nombreDepart = (String) manejo.jComboBoxNombre.getSelectedItem();
+        String region = manejo.jComboBoxRegion.getSelectedItem().toString();
+        String nombreDepart = manejo.jComboBoxNombre.getSelectedItem().toString();
         String codigoMuni = manejo.jTextFieldCodigoMuni.getText();
         String nombreMuni = manejo.jTextFieldNombreMuni.getText();
-
-        ModeloDepartamentos mod = new ModeloDepartamentos(codigoDepart, region, nombreDepart, codigoMuni, nombreMuni);
-        lista.add(mod);
+        ModeloDepartamentos modMuni = new ModeloDepartamentos(codigoDepart, region, nombreDepart, codigoMuni, nombreMuni);
+        lista.add(modMuni);
 
         manejo.jTextFieldCodigo.setText("");
-         manejo.jTextFieldCodigo.requestFocus();
+        manejo.jTextFieldCodigo.requestFocus();
         manejo.jComboBoxRegion.setSelectedIndex(0);
         manejo.jComboBoxNombre.setSelectedIndex(0);
         manejo.jTextFieldCodigoMuni.setText("");
         manejo.jTextFieldNombreMuni.setText("");
 
         JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    protected List getList() {
-        return lista;
     }
 
     private void HabilitarDepart() {

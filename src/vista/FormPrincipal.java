@@ -8,7 +8,6 @@ import controlador.ControladorCotizacion;
 import controlador.ControladorFacturacion;
 import controlador.ControladorKioscos;
 import controlador.ControladorPrecios;
-import controlador.ControladorPrincipal;
 import controlador.ControladorRegiones;
 import controlador.ControladorRegistro;
 import java.awt.Graphics;

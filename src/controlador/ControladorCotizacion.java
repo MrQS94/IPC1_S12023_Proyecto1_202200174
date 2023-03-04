@@ -24,29 +24,23 @@ public class ControladorCotizacion implements ItemListener {
         this.listDepart = listDepart;
         this.cot.jComboBoxDestinoMuni.addItemListener(this);
         this.cot.jComboBoxDestinoDept.addItemListener(this);
-        System.out.println(listDepart.size());
     }
 
     private void PullMuni() {
-        String destinoDept = (String) cot.jComboBoxDestinoDept.getSelectedItem();
-        System.out.println(listDepart.size());
+        String destinoDept = cot.jComboBoxDestinoDept.getSelectedItem().toString();
+
         for (int i = 0; i < listDepart.size(); i++) {
-            if (listDepart.get(i).getNombreDepart().equals(destinoDept)) {
-                System.out.println("hola - " + i);
-                break;
-            }
-            
-            // Agregar la funcion de devolucion de los combobox, no tienen que
-            //repetirse y compararlos con los municipios para que tengan sentido
+            //if (listDepart.get(i).getNombreDepart().equals(destinoDept)) {
+                System.out.println(listDepart.get(i).getNombreDepart());
+            //}
         }
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        
         if (e.getStateChange() == ItemEvent.SELECTED) {
             if (cot.jComboBoxDestinoDept.getSelectedIndex() > 0) {
-                System.out.println("hola");
+                PullMuni();
             }
         }
     }

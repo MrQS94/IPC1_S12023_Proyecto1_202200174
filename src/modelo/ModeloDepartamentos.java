@@ -4,6 +4,9 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author queza
@@ -42,6 +45,26 @@ public class ModeloDepartamentos {
 
     public String getNombreMuni() {
         return nombreMuni;
+    }
+
+    public void setCodigoDepart(String codigoDepart) {
+        this.codigoDepart = codigoDepart;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setNombreDepart(String nombreDepart) {
+        this.nombreDepart = nombreDepart;
+    }
+
+    public void setCodigoMuni(String codigoMuni) {
+        this.codigoMuni = codigoMuni;
+    }
+
+    public void setNombreMuni(String nombreMuni) {
+        this.nombreMuni = nombreMuni;
     }
 
 }

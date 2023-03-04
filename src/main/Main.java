@@ -5,7 +5,9 @@
 package main;
 
 import controlador.ControladorPrincipal;
+import java.util.*;
 import vista.Autenticacion;
+
 /**
  *
  * @author queza
@@ -16,6 +18,6 @@ public class Main {
         Autenticacion aut = new Autenticacion();
         ControladorPrincipal control = new ControladorPrincipal(aut);
         aut.setVisible(true);
-    }
 
+    }
 }
