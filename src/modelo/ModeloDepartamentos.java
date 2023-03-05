@@ -16,15 +16,30 @@ public class ModeloDepartamentos {
     private String codigoDepart;
     private String region;
     private String nombreDepart;
-    private String codigoMuni;
-    private String nombreMuni;
 
-    public ModeloDepartamentos(String codigoDepart, String region, String nombreDepart, String codigoMuni, String nombreMuni) {
+    private List<ModeloMunicipios> list;
+
+    public ModeloDepartamentos(String codigoDepart, String region, String nombreDepart) {
         this.codigoDepart = codigoDepart;
         this.region = region;
         this.nombreDepart = nombreDepart;
-        this.codigoMuni = codigoMuni;
-        this.nombreMuni = nombreMuni;
+        list = new ArrayList();
+    }
+
+    public ModeloDepartamentos() {
+        
+    }
+
+    public String getMunicipios() {
+        String s = "";
+        for (int i = 0; i < list.size(); i++) {
+            s += list.get(i).getNombreMuni() + " - aqui - " + i; 
+        }
+        return s;
+    }
+
+    public void AgregarMunicipios(ModeloMunicipios muni) {
+        list.add(muni);
     }
 
     public String getCodigoDepart() {
@@ -39,14 +54,6 @@ public class ModeloDepartamentos {
         return nombreDepart;
     }
 
-    public String getCodigoMuni() {
-        return codigoMuni;
-    }
-
-    public String getNombreMuni() {
-        return nombreMuni;
-    }
-
     public void setCodigoDepart(String codigoDepart) {
         this.codigoDepart = codigoDepart;
     }
@@ -57,14 +64,6 @@ public class ModeloDepartamentos {
 
     public void setNombreDepart(String nombreDepart) {
         this.nombreDepart = nombreDepart;
-    }
-
-    public void setCodigoMuni(String codigoMuni) {
-        this.codigoMuni = codigoMuni;
-    }
-
-    public void setNombreMuni(String nombreMuni) {
-        this.nombreMuni = nombreMuni;
     }
 
 }

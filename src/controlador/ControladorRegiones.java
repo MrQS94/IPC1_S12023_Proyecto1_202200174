@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.ModeloDepartamentos;
+import modelo.ModeloMunicipios;
 import vista.ManejoDepartamentos;
 
 /**
@@ -28,13 +29,15 @@ public class ControladorRegiones implements ActionListener, KeyListener {
 
     public ControladorRegiones(ManejoDepartamentos mane, List<ModeloDepartamentos> list) {
         manejo = mane;
+        lista = list;
         manejo.jButtonIngresar.addActionListener(this);
         manejo.jTextFieldCodigo.addKeyListener(this);
         manejo.jTextFieldCodigoMuni.addKeyListener(this);
         manejo.jTextFieldNombreMuni.addKeyListener(this);
-        lista = list;
-
     }
+
+    ModeloDepartamentos modDeptAV;
+    ModeloDepartamentos modDeptBV;
 
     private void GuardarDatos() {
         String codigoDepart = manejo.jTextFieldCodigo.getText();
@@ -43,10 +46,69 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         String codigoMuni = manejo.jTextFieldCodigoMuni.getText();
         String nombreMuni = manejo.jTextFieldNombreMuni.getText();
 
-        ModeloDepartamentos modMuni = new ModeloDepartamentos(codigoDepart, region, nombreDepart, codigoMuni, nombreMuni);
-        lista.add(modMuni);
+        ModeloMunicipios muni = new ModeloMunicipios(codigoMuni, nombreMuni);
+        modDeptAV = new ModeloDepartamentos();
+        modDeptBV = new ModeloDepartamentos();
+        switch (nombreDepart) {
+            case "Alta Verapaz":
+                modDeptAV = new ModeloDepartamentos(codigoDepart, region, nombreDepart);
+                modDeptAV.AgregarMunicipios(muni);
+                lista.add(modDeptAV);
+                break;
+            case "Baja Verapaz":
+                modDeptBV = new ModeloDepartamentos(codigoDepart, region, nombreDepart);
+                modDeptBV.AgregarMunicipios(muni);
+                lista.add(modDeptBV);
+                break;
+            case "Chimaltenango":
+                break;
+            case "Chiquimula":
+                break;
+            case "El Progreso":
+                break;
+            case "Escuintla":
+                break;
+            case "Guatemala":
+                break;
+            case "Huehuetenango":
+                break;
+            case "Izabal":
+                break;
+            case "Jalapa":
+                break;
+            case "Jutiapa":
+                break;
+            case "Petén":
+                break;
+            case "Quetzaltenango":
+                break;
+            case "Quiché":
+                break;
+            case "Retalhuleu":
+                break;
+            case "Sacatepéquez":
+                break;
+            case "San Marcos":
+                break;
+            case "Santa Rosa":
+                break;
+            case "Sololá":
+                break;
+            case "Suchitepéquez":
+                break;
+            case "Totonicapán":
+                break;
+            case "Zacapa":
+                break;
+        }
+        
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i).getNombreDepart());
+            System.out.println(lista.get(i).getMunicipios());
+        }
 
-        manejo.jTextFieldCodigo.setText("");
+
+        /*manejo.jTextFieldCodigo.setText("");
         manejo.jTextFieldCodigo.requestFocus();
         manejo.jComboBoxRegion.setSelectedIndex(0);
         manejo.jComboBoxNombre.setSelectedIndex(0);
@@ -54,7 +116,7 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         manejo.jTextFieldNombreMuni.setText("");
         manejo.jButtonIngresar.setEnabled(false);
 
-        JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);*/
     }
 
     private void HabilitarDepart() {
