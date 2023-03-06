@@ -7,7 +7,10 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupServicio">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup3">
     </Component>
@@ -51,7 +54,7 @@
                                           <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jComboBoxOrigenDept" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jComboBoxOrigenMuni" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextFieldDireccionOrg" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldDireccionOrigen" alignment="1" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -219,7 +222,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldDireccionDestino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldDireccionOrg" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldDireccionOrigen" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -533,7 +536,7 @@
         <Component class="javax.swing.JRadioButton" name="jRadioButtonEstandar">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup2"/>
+              <ComponentRef name="buttonGroupServicio"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Servicio Estandar"/>
           </Properties>
@@ -608,7 +611,7 @@
         <Component class="javax.swing.JRadioButton" name="jRadioButtonEspecial">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup2"/>
+              <ComponentRef name="buttonGroupServicio"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Servicio Especial"/>
           </Properties>
@@ -632,7 +635,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="jTextFieldDireccionOrg">
+    <Component class="javax.swing.JTextField" name="jTextFieldDireccionOrigen">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
@@ -708,7 +711,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxHabilitar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Habilitar"/>
+        <Property name="text" type="java.lang.String" value="Habilitar/Editar"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
       <AuxValues>

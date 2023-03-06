@@ -27,7 +27,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroupSize = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroupServicio = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jRadioButtonPequeño = new javax.swing.JRadioButton();
@@ -62,7 +62,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jRadioButtonEspecial = new javax.swing.JRadioButton();
         jLabelEspecial = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextFieldDireccionOrg = new javax.swing.JTextField();
+        jTextFieldDireccionOrigen = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldDireccionDestino = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -150,7 +150,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        buttonGroup2.add(jRadioButtonEstandar);
+        buttonGroupServicio.add(jRadioButtonEstandar);
         jRadioButtonEstandar.setText("Servicio Estandar");
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -188,7 +188,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        buttonGroup2.add(jRadioButtonEspecial);
+        buttonGroupServicio.add(jRadioButtonEspecial);
         jRadioButtonEspecial.setText("Servicio Especial");
 
         jLabelEspecial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -249,7 +249,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jTextFieldGrande.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldGrande.setEnabled(false);
 
-        jCheckBoxHabilitar.setText("Habilitar");
+        jCheckBoxHabilitar.setText("Habilitar/Editar");
         jCheckBoxHabilitar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,7 +272,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jComboBoxOrigenDept, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jComboBoxOrigenMuni, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jTextFieldDireccionOrg, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jTextFieldDireccionOrigen, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel11)
                                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -399,7 +399,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldDireccionDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDireccionOrg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldDireccionOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,8 +441,8 @@ public class Cotizacion extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    public javax.swing.ButtonGroup buttonGroupServicio;
     public javax.swing.ButtonGroup buttonGroupSize;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -485,7 +485,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
     public javax.swing.JRadioButton jRadioButtonPequeño;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField jTextFieldDireccionDestino;
-    public javax.swing.JTextField jTextFieldDireccionOrg;
+    public javax.swing.JTextField jTextFieldDireccionOrigen;
     public javax.swing.JTextField jTextFieldGrande;
     public javax.swing.JTextField jTextFieldMediano;
     public javax.swing.JTextField jTextFieldNoPaquetes;

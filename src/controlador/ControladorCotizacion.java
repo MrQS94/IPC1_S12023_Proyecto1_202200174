@@ -22,11 +22,11 @@ import vista.Cotizacion;
  * @author queza
  */
 public class ControladorCotizacion implements ItemListener, KeyListener, ActionListener {
-    
+
     Cotizacion cot;
     List<ModeloDepartamentos> listDepart;
     List<ModeloPrecios> listReg;
-    
+
     public ControladorCotizacion(Cotizacion cot, List<ModeloDepartamentos> listDepart, List<ModeloPrecios> listReg) {
         this.cot = cot;
         this.listDepart = listDepart;
@@ -44,55 +44,26 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         this.cot.jCheckBoxHabilitar.addActionListener(this);
         PullDepartametns();
     }
-    
+
     private void PullDepartametns() {
         for (int i = 0; i < listDepart.size(); i++) {
             cot.jComboBoxDestinoDept.addItem(listDepart.get(i).getNombreDepart());
             cot.jComboBoxOrigenDept.addItem(listDepart.get(i).getNombreDepart());
         }
     }
-    
-    private void HabilitarButton() {
-        if (cot.jTextFieldNoPaquetes.getText().isEmpty()
-                || cot.jComboBoxOrigenDept.getSelectedIndex() > 0
-                || cot.jComboBoxDestinoDept.getSelectedIndex() > 0
-                || cot.jTextFieldDireccionOrg.getText().isEmpty()
-                || cot.jTextFieldDireccionDestino.getText().isEmpty()
-                || !cot.jRadioButtonEstandar.isSelected()
-                || !cot.jRadioButtonEspecial.isSelected()) {
-            if (cot.jTextFieldPequeño.getText().isEmpty()
-                    && cot.jTextFieldMediano.getText().isEmpty()
-                    && cot.jTextFieldGrande.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Existen campos vacios o no seleccionados.\nVuelva a intentar.", "ERROR!!", JOptionPane.ERROR_MESSAGE);
-                /*cot.jTextFieldNoPaquetes.setText("");
-            cot.jComboBoxOrigenDept.setSelectedIndex(0);
-            cot.jComboBoxDestinoDept.setSelectedIndex(0);
-            cot.jTextFieldDireccionOrg.setText("");
-            cot.jTextFieldDireccionDestino.setText("");
-            cot.buttonGroupSize.clearSelection();
-            cot.jTextFieldPequeño.setText("");
-            cot.jTextFieldMediano.setText("");
-            cot.jTextFieldGrande.setText("");*/
-                cot.jCheckBoxHabilitar.setSelected(false);
-                cot.jButtonCotizar.setEnabled(false);
-            } else {
-                cot.jButtonCotizar.setEnabled(true);
-            }
-        }
-    }
-    
+
     private void CalcularServicio() {
         double precioReg = 0;
         double packageSize = 0;
         int noPaquetes = 0;
         String alerta = "";
-        
+
         if (cot.jRadioButtonEstandar.isSelected()) {
             precioReg = Double.parseDouble(cot.jLabelEstandar.getText());
         } else if (cot.jRadioButtonEspecial.isSelected()) {
             precioReg = Double.parseDouble(cot.jLabelEspecial.getText());
         }
-        
+
         if (cot.jRadioButtonPequeño.isSelected()) {
             packageSize = Double.parseDouble(cot.jTextFieldPequeño.getText());
             if (!(packageSize > 0 && packageSize <= 10)) {
@@ -112,11 +83,11 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         if (!alerta.isEmpty()) {
             JOptionPane.showMessageDialog(null, alerta, "WARNING!", JOptionPane.WARNING_MESSAGE);
             cot.buttonGroupSize.clearSelection();
-            
+
             cot.jTextFieldPequeño.setText("");
             cot.jTextFieldMediano.setText("");
             cot.jTextFieldGrande.setText("");
-            
+
             cot.jTextFieldPequeño.setEnabled(false);
             cot.jTextFieldMediano.setEnabled(false);
             cot.jTextFieldGrande.setEnabled(false);
@@ -124,44 +95,44 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         }
         noPaquetes = Integer.parseInt(cot.jTextFieldNoPaquetes.getText());
         double total = precioReg * packageSize * noPaquetes;
-        
+
     }
-    
+
     private void HabilitarPesoJTF() {
         if (cot.jRadioButtonPequeño.isSelected()) {
             cot.jTextFieldGrande.setEnabled(false);
             cot.jTextFieldMediano.setEnabled(false);
             cot.jTextFieldPequeño.setEnabled(true);
-            
+
             cot.jTextFieldGrande.setText("");
             cot.jTextFieldMediano.setText("");
         } else if (cot.jRadioButtonMediano.isSelected()) {
             cot.jTextFieldGrande.setEnabled(false);
             cot.jTextFieldMediano.setEnabled(true);
             cot.jTextFieldPequeño.setEnabled(false);
-            
+
             cot.jTextFieldGrande.setText("");
             cot.jTextFieldPequeño.setText("");
         } else if (cot.jRadioButtonGrande.isSelected()) {
             cot.jTextFieldGrande.setEnabled(true);
             cot.jTextFieldMediano.setEnabled(false);
             cot.jTextFieldPequeño.setEnabled(false);
-            
+
             cot.jTextFieldMediano.setText("");
             cot.jTextFieldPequeño.setText("");
         }
     }
-    
+
     private void PullRegiones(JComboBox destino) {
         String combo = destino.getSelectedItem().toString();
         String region = "";
-        
+
         for (int i = 0; i < listDepart.size(); i++) {
             if (listDepart.get(i).getNombreDepart().equals(combo)) {
                 region = listDepart.get(i).getRegion();
             }
         }
-        
+
         for (int i = 0; i < listReg.size(); i++) {
             if (listReg.get(i).getNombre().equals(region)) {
                 cot.jLabelEstandar.setText(String.valueOf(listReg.get(i).getPrecioEstandar()));
@@ -169,7 +140,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             }
         }
     }
-    
+
     private void PullMunicipiosDestino(JComboBox combo, JComboBox destino) {
         combo.removeAllItems();
         String s = destino.getSelectedItem().toString();
@@ -328,10 +299,74 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
                     }
                 }
             }
-            
+
         }
     }
-    
+
+    private void HabilitarButton() {
+        if (cot.jTextFieldNoPaquetes.getText().isEmpty()
+                || cot.jComboBoxDestinoDept.getSelectedIndex() == 0
+                || cot.jComboBoxOrigenDept.getSelectedIndex() == 0
+                || cot.jTextFieldDireccionOrigen.getText().isEmpty()
+                || cot.jTextFieldDireccionDestino.getText().isEmpty()
+                || (cot.jTextFieldPequeño.getText().isEmpty()
+                && cot.jTextFieldMediano.getText().isEmpty()
+                && cot.jTextFieldGrande.getText().isEmpty())
+                || (!cot.jRadioButtonEstandar.isSelected()
+                && !cot.jRadioButtonEspecial.isSelected())) {
+            cot.jButtonCotizar.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Existen campos vacios o no seleccionados.\nIntente de nuevo.", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+            cot.jCheckBoxHabilitar.setSelected(false);
+        } else {
+            cot.jButtonCotizar.setEnabled(true);
+            cot.jTextFieldNoPaquetes.setEnabled(false);
+            cot.jComboBoxDestinoDept.setEnabled(false);
+            cot.jComboBoxOrigenDept.setEnabled(false);
+            cot.jTextFieldDireccionOrigen.setEnabled(false);
+            cot.jTextFieldDireccionDestino.setEnabled(false);
+            cot.jTextFieldPequeño.setEnabled(false);
+            cot.jTextFieldMediano.setEnabled(false);
+            cot.jTextFieldGrande.setEnabled(false);
+            cot.jRadioButtonEspecial.setEnabled(false);
+            cot.jRadioButtonEstandar.setEnabled(false);
+            cot.jRadioButtonPequeño.setEnabled(false);
+            cot.jRadioButtonMediano.setEnabled(false);
+            cot.jRadioButtonGrande.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == cot.jRadioButtonPequeño
+                || e.getSource() == cot.jRadioButtonMediano
+                || e.getSource() == cot.jRadioButtonGrande) {
+            HabilitarPesoJTF();
+        } else if (e.getSource() == cot.jButtonCotizar) {
+            CalcularServicio();
+        } else if (e.getSource() == cot.jCheckBoxHabilitar) {
+            if (cot.jCheckBoxHabilitar.isSelected()) {
+                HabilitarButton();
+            } else {
+                HabilitarButton();
+                cot.jButtonCotizar.setEnabled(false);
+                
+                cot.jTextFieldNoPaquetes.setEnabled(true);
+                cot.jComboBoxDestinoDept.setEnabled(true);
+                cot.jComboBoxOrigenDept.setEnabled(true);
+                cot.jTextFieldDireccionOrigen.setEnabled(true);
+                cot.jTextFieldDireccionDestino.setEnabled(true);
+                cot.jTextFieldPequeño.setEnabled(true);
+                cot.jTextFieldMediano.setEnabled(true);
+                cot.jTextFieldGrande.setEnabled(true);
+                cot.jRadioButtonEspecial.setEnabled(true);
+                cot.jRadioButtonEstandar.setEnabled(true);
+                cot.jRadioButtonPequeño.setEnabled(true);
+                cot.jRadioButtonMediano.setEnabled(true);
+                cot.jRadioButtonGrande.setEnabled(true);
+            }
+        }
+    }
+
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -348,22 +383,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             }
         }
     }
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == cot.jRadioButtonPequeño
-                || e.getSource() == cot.jRadioButtonMediano
-                || e.getSource() == cot.jRadioButtonGrande) {
-            HabilitarPesoJTF();
-        } else if (e.getSource() == cot.jButtonCotizar) {
-            CalcularServicio();
-        } else if (e.getSource() == cot.jCheckBoxHabilitar) {
-            if (cot.jCheckBoxHabilitar.isSelected()) {
-                HabilitarButton();
-            }
-        }
-    }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
         char c = e.getKeyChar();
@@ -376,15 +396,15 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             }
         }
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
-        
+
     }
-    
+
     @Override
     public void keyReleased(KeyEvent e) {
-        
+
     }
-    
+
 }
