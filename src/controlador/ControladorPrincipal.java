@@ -31,7 +31,7 @@ public class ControladorPrincipal implements ActionListener {
 
     ModeloPersona modPersona1 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
             "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "admin", "");
-    // ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala", "VN", "Villa Nueva");
+    //ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala", "VN", "Villa Nueva");
     //ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala");
     ModeloPrecios modPrec1 = new ModeloPrecios("(M) Metropolitana", 25, 35);
     ModeloPrecios modPrec2 = new ModeloPrecios("(NT) Norte", 45.55, 68.50);

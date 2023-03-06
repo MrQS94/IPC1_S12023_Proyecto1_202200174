@@ -241,7 +241,7 @@
                 <StringItem index="1" value="(NT) Norte"/>
                 <StringItem index="2" value="(NO) Nororiente"/>
                 <StringItem index="3" value="(SO) Suroriente"/>
-                <StringItem index="4" value="(SOC Suroccidente"/>
+                <StringItem index="4" value="(SOC) Suroccidente"/>
                 <StringItem index="5" value="(NOC) Noroccidente"/>
               </StringArray>
             </Property>

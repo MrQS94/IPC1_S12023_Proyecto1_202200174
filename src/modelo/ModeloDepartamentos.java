@@ -26,18 +26,14 @@ public class ModeloDepartamentos {
         list = new ArrayList();
     }
 
-    public ModeloDepartamentos() {
-        
-    }
-
     public String getMunicipios() {
         String s = "";
         for (int i = 0; i < list.size(); i++) {
-            s += list.get(i).getNombreMuni() + " - aqui - " + i; 
+            s += list.get(i).getNombreMuni();
         }
         return s;
     }
-
+    
     public void AgregarMunicipios(ModeloMunicipios muni) {
         list.add(muni);
     }

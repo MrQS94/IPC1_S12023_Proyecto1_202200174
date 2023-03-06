@@ -91,7 +91,7 @@ public class ManejoDepartamentos extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Nombre");
 
-        jComboBoxRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "(M) Metropolitana", "(NT) Norte", "(NO) Nororiente", "(SO) Suroriente", "(SOC Suroccidente", "(NOC) Noroccidente" }));
+        jComboBoxRegion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "(M) Metropolitana", "(NT) Norte", "(NO) Nororiente", "(SO) Suroriente", "(SOC) Suroccidente", "(NOC) Noroccidente" }));
 
         jLabel10.setText("Código de Departamento");
 

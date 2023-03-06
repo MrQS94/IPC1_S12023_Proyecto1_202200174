@@ -253,7 +253,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCotizacionActionPerformed
         // TODO add your handling code here:
         Cotizacion cotizacion = new Cotizacion();
-        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart);
+        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart, listPrecios);
         EvitarAbrir(cotizacion);
     }//GEN-LAST:event_jMenuItemCotizacionActionPerformed
 
