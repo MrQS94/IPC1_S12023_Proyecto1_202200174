@@ -40,7 +40,8 @@ public class ControladorFacturacion implements ActionListener, KeyListener {
         String direccion = manejo.jTextFieldDireccion.getText();
         String nit = manejo.jTextFieldNit.getText();
         String nombreCard = manejo.jTextFieldNombreCard.getText();
-        String numeroCard = manejo.jTextFieldNumeroCardX.getText() + manejo.jTextFieldNumeroCardLastDigits.getText();
+        //String numeroCard = manejo.jTextFieldNumeroCardX.getText() + manejo.jTextFieldNumeroCardLastDigits.getText();
+        String numeroCard = manejo.jTextFieldNumeroCardLastDigits.getText();
         String fechaVen = manejo.jComboBoxMM.getSelectedItem() + "/" + manejo.jComboBoYYYY.getSelectedItem();
 
         ModeloFacturacion mod = new ModeloFacturacion(nombreCompleto, direccion, nit, nombreCard, numeroCard, fechaVen);
@@ -85,9 +86,6 @@ public class ControladorFacturacion implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejo.jButtonGuardar) {
             GuardarFacturacion();
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(list.get(i).getNombreCompleto());
-            }
         }
     }
 

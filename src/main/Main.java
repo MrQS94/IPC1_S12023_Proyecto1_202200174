@@ -19,4 +19,5 @@ public class Main {
         ControladorPrincipal control = new ControladorPrincipal(aut);
         aut.setVisible(true);
     }
+
 }

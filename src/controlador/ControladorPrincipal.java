@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import modelo.ModeloCotizacion;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloFacturacion;
 import modelo.ModeloKiosco;
@@ -45,6 +46,7 @@ public class ControladorPrincipal implements ActionListener {
     List<ModeloKiosco> listKiosc = new ArrayList();
     List<ModeloPrecios> listPrecio = new ArrayList();
     List<ModeloFacturacion> listFact = new ArrayList();
+    List<ModeloCotizacion> listCot = new ArrayList();
 
     private int intentos = 3;
 
@@ -67,10 +69,11 @@ public class ControladorPrincipal implements ActionListener {
     }
 
     private void Autentificar() {
+        String hola = aut.jTextFieldCorreo.getText();
+        String pass = aut.jPasswordField.getText();
         for (int i = 0; i < listaPersona.size(); i++) {
-            if (aut.jTextFieldCorreo.getText().equals(listaPersona.get(i).getCorreo())
-                    && aut.jPasswordField.getText().equals(listaPersona.get(i).getPass())) {
-                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosc, listPrecio, listFact);
+            if (hola.equals(listaPersona.get(i).getCorreo()) && pass.equals(listaPersona.get(i).getPass())) {
+                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosc, listPrecio, listFact, listCot);
                 aut.dispose();
                 if (listaPersona.get(i).getRol().equals("admin")) {
                     form.jMenuAdmin.setVisible(true);

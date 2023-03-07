@@ -40,20 +40,18 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jButtonCotizar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButtonCobroEntrega = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButton7 = new javax.swing.JRadioButton();
+        jRadioButtonCobroCuenta = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jComboBoxListaFacturacion = new javax.swing.JComboBox<>();
+        jButtonEnviar = new javax.swing.JButton();
         jComboBoxDestinoDept = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
         jComboBoxDestinoMuni = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButtonFactura = new javax.swing.JButton();
+        jButtonGuia = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jRadioButtonEstandar = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
@@ -75,6 +73,8 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jTextFieldPequeño = new javax.swing.JTextField();
         jTextFieldGrande = new javax.swing.JTextField();
         jCheckBoxHabilitar = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea = new javax.swing.JTextArea();
 
         setClosable(true);
         setTitle("Cotización y Realizar Compra");
@@ -116,37 +116,33 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Tipo de Pago");
 
-        buttonGroup3.add(jRadioButton5);
-        jRadioButton5.setText("Cobro contra entrega");
+        buttonGroup3.add(jRadioButtonCobroEntrega);
+        jRadioButtonCobroEntrega.setText("Cobro contra entrega");
 
         jLabel8.setText("Pago con tarjeta de credito o debito");
 
-        buttonGroup3.add(jRadioButton7);
-        jRadioButton7.setText("Cobro a mi cuenta");
+        buttonGroup3.add(jRadioButtonCobroCuenta);
+        jRadioButtonCobroCuenta.setText("Cobro a mi cuenta");
+        jRadioButtonCobroCuenta.setEnabled(false);
 
         jLabel9.setText("Cobro adicional de Q.5.00 ");
 
         jLabel10.setText("Datos de facturación");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lista de datos de facturación favoritas" }));
+        jComboBoxListaFacturacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lista de datos de facturación favoritas" }));
+        jComboBoxListaFacturacion.setEnabled(false);
 
-        jButton2.setText("REALIZAR PAGO Y ENVIAR");
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Servicio Especial", "Total Q.158.00" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jButtonEnviar.setText("REALIZAR PAGO Y ENVIAR");
+        jButtonEnviar.setEnabled(false);
 
         jComboBoxDestinoDept.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
         jComboBoxDestinoDept.setName(""); // NOI18N
 
-        jButton3.setText("DESCARGAR FACTURA");
+        jButtonFactura.setText("DESCARGAR FACTURA");
 
-        jButton4.setText("DESCARGAR GUÍA");
+        jButtonGuia.setText("DESCARGAR GUÍA");
 
-        jButton5.setText("CANCELAR ENVÍO");
+        jButtonCancelar.setText("CANCELAR ENVÍO");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -252,6 +248,12 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jCheckBoxHabilitar.setText("Habilitar/Editar");
         jCheckBoxHabilitar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jTextArea.setEditable(false);
+        jTextArea.setColumns(20);
+        jTextArea.setRows(5);
+        jTextArea.setText("Tipo de Servicio:\nTotal: Q.\n");
+        jScrollPane1.setViewportView(jTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,51 +309,49 @@ public class Cotizacion extends javax.swing.JInternalFrame {
                                             .addComponent(jTextFieldGrande, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jTextFieldNoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonCotizar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                             .addComponent(jCheckBoxHabilitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(112, 112, 112)))
+                        .addGap(112, 112, 112))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jTextFieldNoPaquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonEnviar)
+                                .addGap(71, 71, 71))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jRadioButton5)
-                                    .addComponent(jRadioButton7)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRadioButtonCobroCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRadioButtonCobroEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(21, 21, 21)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8)))
-                                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(32, 32, 32))
+                                    .addComponent(jComboBoxListaFacturacion, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7))
+                                .addGap(43, 43, 43)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonGuia))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addGap(90, 90, 90))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(71, 71, 71))))))
+                        .addComponent(jButtonCancelar)
+                        .addGap(91, 91, 91))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,27 +412,28 @@ public class Cotizacion extends javax.swing.JInternalFrame {
                         .addGap(17, 17, 17)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton5)
+                        .addComponent(jRadioButtonCobroEntrega)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton7)
+                        .addComponent(jRadioButtonCobroCuenta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxListaFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)))
+                            .addComponent(jButtonFactura)
+                            .addComponent(jButtonGuia))
+                        .addGap(26, 26, 26)
+                        .addComponent(jButtonCancelar)
+                        .addGap(18, 18, 18)))
                 .addContainerGap())
         );
 
@@ -444,15 +445,15 @@ public class Cotizacion extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     public javax.swing.ButtonGroup buttonGroupServicio;
     public javax.swing.ButtonGroup buttonGroupSize;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonCancelar;
     public javax.swing.JButton jButtonCotizar;
+    public javax.swing.JButton jButtonEnviar;
+    private javax.swing.JButton jButtonFactura;
+    private javax.swing.JButton jButtonGuia;
     public javax.swing.JCheckBox jCheckBoxHabilitar;
-    private javax.swing.JComboBox<String> jComboBox5;
     public javax.swing.JComboBox<String> jComboBoxDestinoDept;
     public javax.swing.JComboBox<String> jComboBoxDestinoMuni;
+    public javax.swing.JComboBox<String> jComboBoxListaFacturacion;
     public javax.swing.JComboBox<String> jComboBoxOrigenDept;
     public javax.swing.JComboBox<String> jComboBoxOrigenMuni;
     private javax.swing.JLabel jLabel1;
@@ -472,18 +473,18 @@ public class Cotizacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     public javax.swing.JLabel jLabelEspecial;
     public javax.swing.JLabel jLabelEstandar;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton7;
+    public javax.swing.JRadioButton jRadioButtonCobroCuenta;
+    public javax.swing.JRadioButton jRadioButtonCobroEntrega;
     public javax.swing.JRadioButton jRadioButtonEspecial;
     public javax.swing.JRadioButton jRadioButtonEstandar;
     public javax.swing.JRadioButton jRadioButtonGrande;
     public javax.swing.JRadioButton jRadioButtonMediano;
     public javax.swing.JRadioButton jRadioButtonPequeño;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTextArea jTextArea;
     public javax.swing.JTextField jTextFieldDireccionDestino;
     public javax.swing.JTextField jTextFieldDireccionOrigen;
     public javax.swing.JTextField jTextFieldGrande;

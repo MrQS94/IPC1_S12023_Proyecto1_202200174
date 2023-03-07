@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import modelo.ModeloCotizacion;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloFacturacion;
 import modelo.ModeloKiosco;
@@ -36,6 +37,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     List<ModeloKiosco> listKiosc;
     List<ModeloPrecios> listPrecios;
     List<ModeloFacturacion> listFact;
+    List<ModeloCotizacion> listCot;
 
     public FormPrincipal() {
         initComponents();
@@ -43,7 +45,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart,
-            List<ModeloKiosco> listKiosc, List<ModeloPrecios> listPrecios, List<ModeloFacturacion> listFact) {
+            List<ModeloKiosco> listKiosc, List<ModeloPrecios> listPrecios, List<ModeloFacturacion> listFact,
+            List<ModeloCotizacion> listCot) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.listPersona = list;
@@ -51,6 +54,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.listKiosc = listKiosc;
         this.listPrecios = listPrecios;
         this.listFact = listFact;
+        this.listCot = listCot;
     }
 
     /**
@@ -82,9 +86,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuEnvios = new javax.swing.JMenu();
         jMenuItemCotizacion = new javax.swing.JMenuItem();
         jMenuItemFacturacion = new javax.swing.JMenuItem();
-        jMenuItemPaquetes = new javax.swing.JMenuItem();
-        jMenuItemCompra = new javax.swing.JMenuItem();
-        jMenuItemDescargar = new javax.swing.JMenuItem();
         jMenuItemEnvios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -163,7 +164,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuEnvios.setText("Cliente");
 
         jMenuItemCotizacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemCotizacion.setText("Cotización, pago y descarga de factura y guía.");
+        jMenuItemCotizacion.setText("Cotización, pago, descarga de factura y guía.");
         jMenuItemCotizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCotizacionActionPerformed(evt);
@@ -180,28 +181,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenuEnvios.add(jMenuItemFacturacion);
 
-        jMenuItemPaquetes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_8, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemPaquetes.setText("Cotización de Paquetes");
-        jMenuItemPaquetes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPaquetesActionPerformed(evt);
-            }
-        });
-        jMenuEnvios.add(jMenuItemPaquetes);
-
-        jMenuItemCompra.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemCompra.setText("Compra ");
-        jMenuItemCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCompraActionPerformed(evt);
-            }
-        });
-        jMenuEnvios.add(jMenuItemCompra);
-
-        jMenuItemDescargar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemDescargar.setText("Descargar Factura y Guía");
-        jMenuEnvios.add(jMenuItemDescargar);
-
+        jMenuItemEnvios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemEnvios.setText("Ver Envíos Solicitados ");
         jMenuEnvios.add(jMenuItemEnvios);
 
@@ -217,7 +197,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane)
+            .addComponent(jDesktopPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -253,7 +233,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCotizacionActionPerformed
         // TODO add your handling code here:
         Cotizacion cotizacion = new Cotizacion();
-        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart, listPrecios);
+        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart, listPrecios, listFact, listCot, listPersona);
         EvitarAbrir(cotizacion);
     }//GEN-LAST:event_jMenuItemCotizacionActionPerformed
 
@@ -284,15 +264,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         ControladorFacturacion control = new ControladorFacturacion(datos, listFact);
         EvitarAbrir(datos);
     }//GEN-LAST:event_jMenuItemFacturacionActionPerformed
-
-    private void jMenuItemPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPaquetesActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jMenuItemPaquetesActionPerformed
-
-    private void jMenuItemCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCompraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemCompraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,15 +307,12 @@ public class FormPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenu jMenuAdmin;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEnvios;
-    private javax.swing.JMenuItem jMenuItemCompra;
     private javax.swing.JMenuItem jMenuItemCotizacion;
     private javax.swing.JMenuItem jMenuItemDepartamentos;
-    private javax.swing.JMenuItem jMenuItemDescargar;
     private javax.swing.JMenuItem jMenuItemEnvios;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFacturacion;
     private javax.swing.JMenuItem jMenuItemKioscos;
-    private javax.swing.JMenuItem jMenuItemPaquetes;
     private javax.swing.JMenuItem jMenuItemRegiones;
     private javax.swing.JMenuItem jMenuItemRegistro;
     private javax.swing.JMenuItem jMenuItemReportes;
