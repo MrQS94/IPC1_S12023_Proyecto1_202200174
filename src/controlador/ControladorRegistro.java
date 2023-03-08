@@ -25,9 +25,9 @@ import vista.RegistroUsuario;
  */
 public class ControladorRegistro extends ControladorPrincipal implements MouseListener, KeyListener {
 
-    ModeloPersona modelo = this.modPersona1;
     List<ModeloPersona> listPersona;
     List<ModeloKiosco> listKiosco;
+    private String imgUrl = "";
 
     public ControladorRegistro(RegistroUsuario registro) {
         super(registro);
@@ -50,6 +50,13 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         this.registro.jComboBoxRol.addActionListener(this);
         this.listPersona = list;
         this.listKiosco = listKiosco;
+        AgregarKioscos();
+    }
+
+    private void AgregarKioscos() {
+        if (!listKiosco.isEmpty()) {
+            registro.jComboBoxRol.addItem("Kioscos");
+        }
     }
 
     private void GuardarDatos() {
@@ -76,14 +83,34 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         String alias = registro.jTextFieldAlias.getText();
         int telefono = Integer.parseInt(registro.jTextFieldTelefono.getText());
         String rol = (String) registro.jComboBoxRol.getSelectedItem();
-        String foto = registro.jLabelFotografia.getText();
+        String kiosco = "";
 
-        if (modPersona1.getFotografia() == null) {
-            modPersona1.setFotografia("No existe foto");
+        if ((registro.jComboBoxKiosco.getSelectedItem() != null)) {
+            kiosco = registro.jComboBoxKiosco.getSelectedItem().toString();
         }
-        ModeloPersona mod = new ModeloPersona(nombre, apellido, correo, pass, dpi,
-                fechaNac, genero, nacionalidad, alias, telefono, rol, foto);
+
+        String foto = imgUrl;
+        if (imgUrl.isEmpty()) {
+            foto = "No existe foto";
+        }
+
+        ModeloPersona mod;
+        if (kiosco.isEmpty()) {
+            mod = new ModeloPersona(nombre, apellido, correo, pass, dpi,
+                    fechaNac, genero, nacionalidad, alias, telefono, rol, foto);
+        } else {
+            mod = new ModeloPersona(nombre, apellido, correo, pass, dpi,
+                    fechaNac, genero, nacionalidad, alias, telefono, rol, kiosco, foto);
+        }
+
         listPersona.add(mod);
+
+        JOptionPane.showMessageDialog(null, "Usuario registrado!", "INFORMATION!", JOptionPane.INFORMATION_MESSAGE);
+
+        for (int i = 0; i < listPersona.size(); i++) {
+            System.out.println(listPersona.get(i).getKiosco());
+            System.out.println(listPersona.get(i).getFotografia());
+        }
     }
 
     private String ReconocerPass(char[] c) {
@@ -141,20 +168,18 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
     }
 
     private void CargarImagen() {
-        String url = "";
         JFileChooser jf = new JFileChooser();
         FileNameExtensionFilter buscador = new FileNameExtensionFilter("JPG, JPEG PNG", "jpg", "png", "jpeg");
         jf.setFileFilter(buscador);
         int respuesta = jf.showOpenDialog(registro);
 
         if (respuesta == JFileChooser.APPROVE_OPTION) {
-            url = jf.getSelectedFile().getPath();
-            Image imagen = new ImageIcon(url).getImage();
+            imgUrl = jf.getSelectedFile().getPath();
+            Image imagen = new ImageIcon(imgUrl).getImage();
             ImageIcon icono = new ImageIcon(imagen.getScaledInstance(
                     registro.jLabelFotografia.getWidth(), registro.jLabelFotografia.getHeight(), Image.SCALE_SMOOTH));
             registro.jLabelFotografia.setIcon(icono);
         }
-        modPersona1.setFotografia(url);
     }
 
     private void PullKioscos() {
@@ -167,10 +192,6 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registro.jButtonRegistrar) {
             GuardarDatos();
-
-            for (int i = 0; i < listPersona.size(); i++) {
-                System.out.println(listPersona.get(i).getCorreo());
-            }
 
             registro.jButtonRegistrar.setEnabled(false);
             registro.jButtonRegistrar.setVisible(false);
@@ -194,6 +215,7 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
             registro.jRadioButtonMujer.setSelected(false);
             registro.jComboBoxNacionalidad.setSelectedIndex(0);
             registro.jComboBoxRol.setSelectedIndex(0);
+            registro.buttonGroupGenero.clearSelection();
 
             registro.jCheckBoxConfirmar.setEnabled(true);
             registro.jCheckBoxConfirmar.setVisible(true);
@@ -290,6 +312,8 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         } else if (e.getSource() == registro.jComboBoxRol) {
             if (registro.jComboBoxRol.getSelectedIndex() == 1) {
                 PullKioscos();
+            } else if (registro.jComboBoxRol.getSelectedIndex() == 0) {
+                registro.jComboBoxKiosco.removeAllItems();
             }
         }
     }

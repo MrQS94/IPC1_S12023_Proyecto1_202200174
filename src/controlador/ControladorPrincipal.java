@@ -31,7 +31,7 @@ public class ControladorPrincipal implements ActionListener {
     RegistroUsuario registro = new RegistroUsuario();
 
     ModeloPersona modPersona1 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
-            "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "admin", "");
+            "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "admin", "Guatemala Kiosco", "No existe foto");
     ModeloFacturacion modFact1 = new ModeloFacturacion("Andres Q", "Casa 15, Villa Nueva",
             "16415361", "Andres Q", "5813", "08/28");
     ModeloPrecios modPrec1 = new ModeloPrecios("(M) Metropolitana", 25, 35);

@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import modelo.ModeloCotizacion;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloFacturacion;
+import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
 import modelo.ModeloPrecios;
 import vista.Cotizacion;
@@ -39,19 +40,21 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     List<ModeloFacturacion> listFact;
     List<ModeloCotizacion> listCot;
     List<ModeloPersona> listPers;
+    List<ModeloKiosco> listKiosco;
 
     private double totalServicio;
     private String texto;
 
     public ControladorCotizacion(Cotizacion cot, List<ModeloDepartamentos> listDepart,
             List<ModeloPrecios> listReg, List<ModeloFacturacion> listFact,
-            List<ModeloCotizacion> listCot, List<ModeloPersona> listPers) {
+            List<ModeloCotizacion> listCot, List<ModeloPersona> listPers, List<ModeloKiosco> listKiosco) {
         this.cot = cot;
         this.listDepart = listDepart;
         this.listReg = listReg;
         this.listFact = listFact;
         this.listCot = listCot;
         this.listPers = listPers;
+        this.listKiosco = listKiosco;
         this.cot.jComboBoxDestinoDept.addItemListener(this);
         this.cot.jComboBoxOrigenDept.addItemListener(this);
         this.cot.jTextFieldGrande.addKeyListener(this);
@@ -73,6 +76,16 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         PullDepartametns();
         PullFacturacion();
         HabilitarCard();
+        //PullKioscos();
+    }
+
+    private void PullKioscos() {
+        if (listKiosco != null) {
+            for (int i = 0; i < listKiosco.size(); i++) {
+                cot.jComboBoxDestinoDept.addItem(listKiosco.get(i).getNombre());
+                cot.jComboBoxDestinoMuni.setEnabled(false);
+            }
+        }
     }
 
     private void RealizarCompra() {
@@ -87,12 +100,26 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         noFactura++;
         codigoPaquete++;
 
-        String origen = cot.jTextFieldDireccionOrigen.getText() + ", "
-                + cot.jComboBoxOrigenMuni.getSelectedItem().toString() + ", "
-                + cot.jComboBoxOrigenDept.getSelectedItem().toString();
-        String destino = cot.jTextFieldDireccionDestino.getText() + ", "
-                + cot.jComboBoxDestinoMuni.getSelectedItem().toString() + ", "
-                + cot.jComboBoxDestinoDept.getSelectedItem().toString();
+        String origen = "";
+        if (listKiosco.isEmpty()) {
+            origen = cot.jTextFieldDireccionOrigen.getText() + ", "
+                    + cot.jComboBoxOrigenMuni.getSelectedItem().toString() + ", "
+                    + cot.jComboBoxOrigenDept.getSelectedItem().toString();
+        } else {
+            origen = cot.jTextFieldDireccionOrigen.getText() + ", "
+                    + cot.jComboBoxOrigenDept.getSelectedItem().toString();
+        }
+
+        String destino = "";
+        if (listKiosco != null) {
+            destino = cot.jTextFieldDireccionDestino.getText() + ", "
+                    + cot.jComboBoxDestinoDept.getSelectedItem().toString();
+        } else {
+            destino = cot.jTextFieldDireccionDestino.getText() + ", "
+                    + cot.jComboBoxDestinoMuni.getSelectedItem().toString() + ", "
+                    + cot.jComboBoxDestinoDept.getSelectedItem().toString();
+        }
+
         String nit = "";
         if (cot.jComboBoxListaFacturacion.getSelectedIndex() == 0) {
             nit = "";
@@ -153,6 +180,125 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         cot.jButtonEnviar.setEnabled(false);
         JOptionPane.showMessageDialog(null, "COMPRA HECHA!, Puede observar su factura y "
                 + "su guía,\nen los botones conrrespondeintes.", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void CalcularServicio() {
+        double precioReg = 0;
+        double packageSize = 0;
+        int noPaquetes = 0;
+        String alerta = "";
+        String tipoServicio = "";
+        String region = PullReg(cot.jComboBoxDestinoDept);
+
+        if (cot.jRadioButtonEstandar.isSelected()) {
+            precioReg = Double.parseDouble(cot.jLabelEstandar.getText());
+            tipoServicio = cot.jRadioButtonEstandar.getText();
+        } else if (cot.jRadioButtonEspecial.isSelected()) {
+            precioReg = Double.parseDouble(cot.jLabelEspecial.getText());
+            tipoServicio = cot.jRadioButtonEspecial.getText();
+        }
+
+        if (cot.jRadioButtonPequeño.isSelected()) {
+            packageSize = Double.parseDouble(cot.jTextFieldPequeño.getText());
+            if (!(packageSize > 0 && packageSize <= 10)) {
+                alerta = "Número invalido, debe ser entre 1 y 10 lb.";
+            }
+        } else if (cot.jRadioButtonMediano.isSelected()) {
+            packageSize = Double.parseDouble(cot.jTextFieldMediano.getText());
+            if (!(packageSize > 10 && packageSize <= 50)) {
+                alerta = "Número invalido, debe ser entre 11 y 50 lb.";
+            }
+        } else if (cot.jRadioButtonGrande.isSelected()) {
+            packageSize = Double.parseDouble(cot.jTextFieldGrande.getText());
+            if (!(packageSize > 50)) {
+                alerta = "Número invalido, debe ser de 51 en adelante.";
+            }
+        }
+        if (!alerta.isEmpty()) {
+            JOptionPane.showMessageDialog(null, alerta, "WARNING!", JOptionPane.WARNING_MESSAGE);
+            cot.buttonGroupSize.clearSelection();
+
+            cot.jTextFieldPequeño.setText("");
+            cot.jTextFieldMediano.setText("");
+            cot.jTextFieldGrande.setText("");
+
+            cot.jTextFieldPequeño.setEnabled(false);
+            cot.jTextFieldMediano.setEnabled(false);
+            cot.jTextFieldGrande.setEnabled(false);
+
+            cot.jButtonCotizar.setEnabled(false);
+            cot.jTextFieldNoPaquetes.setEnabled(true);
+            cot.jComboBoxDestinoDept.setEnabled(true);
+            cot.jComboBoxOrigenDept.setEnabled(true);
+            cot.jComboBoxDestinoMuni.setEnabled(true);
+            cot.jComboBoxOrigenMuni.setEnabled(true);
+            cot.jTextFieldDireccionOrigen.setEnabled(true);
+            cot.jTextFieldDireccionDestino.setEnabled(true);
+            cot.jRadioButtonEspecial.setEnabled(true);
+            cot.jRadioButtonEstandar.setEnabled(true);
+            cot.jRadioButtonPequeño.setEnabled(true);
+            cot.jRadioButtonMediano.setEnabled(true);
+            cot.jRadioButtonGrande.setEnabled(true);
+            cot.jCheckBoxHabilitar.setSelected(false);
+            packageSize = 0;
+        } else {
+            noPaquetes = Integer.parseInt(cot.jTextFieldNoPaquetes.getText());
+            totalServicio = precioReg * packageSize * noPaquetes;
+
+            texto = "";
+            texto += "El " + tipoServicio + " por region " + region + " es: Q." + precioReg;
+            texto += "\nEl peso del paquete es de: " + packageSize + " lb";
+            texto += "\nLa cantidad de paquete(s) es: " + noPaquetes;
+            texto += "\nEl total de lo cotizado es: Q." + totalServicio;
+            int hola = JOptionPane.showConfirmDialog(null, texto
+                    + "\nConfirmar que sean los datos correctos.", "INFORMACIÓN!", JOptionPane.YES_NO_OPTION);
+            if (hola == 0) {
+                cot.jTextArea.setText(texto);
+                cot.jButtonCotizar.setEnabled(false);
+                cot.jRadioButtonCobroEntrega.setEnabled(true);
+            } else if (hola == 1) {
+                cot.jButtonCotizar.setEnabled(false);
+
+                cot.jTextFieldNoPaquetes.setEnabled(true);
+                cot.jComboBoxDestinoDept.setEnabled(true);
+                cot.jComboBoxOrigenDept.setEnabled(true);
+                cot.jTextFieldDireccionOrigen.setEnabled(true);
+                cot.jTextFieldDireccionDestino.setEnabled(true);
+                cot.jTextFieldPequeño.setEnabled(false);
+                cot.jTextFieldMediano.setEnabled(false);
+                cot.jTextFieldGrande.setEnabled(false);
+                cot.jRadioButtonEspecial.setEnabled(true);
+                cot.jRadioButtonEstandar.setEnabled(true);
+                cot.jRadioButtonPequeño.setEnabled(true);
+                cot.jRadioButtonMediano.setEnabled(true);
+                cot.jRadioButtonGrande.setEnabled(true);
+                cot.jCheckBoxHabilitar.setSelected(false);
+            }
+        }
+    }
+
+    private String PullReg(JComboBox destino) {
+        String combo = destino.getSelectedItem().toString();
+        String region = "";
+        String reg = "";
+
+        for (int i = 0; i < listDepart.size(); i++) {
+            if (listDepart.get(i).getNombreDepart().equals(combo)) {
+                region = listDepart.get(i).getRegion();
+            } else if (listKiosco != null) {
+                if (listKiosco.get(i).getNombre().equals(combo)) {
+                    region = listKiosco.get(i).getCodigoRegion();
+                }
+            }
+        }
+
+        for (int i = 0; i < listReg.size(); i++) {
+            if (listReg.get(i).getNombre().equals(region)) {
+                reg = listReg.get(i).getNombre();
+            }
+        }
+
+        return reg;
     }
 
     private void OtroEnvio() {
@@ -354,8 +500,17 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     }
 
     private void PullDepartametns() {
+        if (!listKiosco.isEmpty()) {
+            for (int i = 0; i < listKiosco.size(); i++) {
+                cot.jComboBoxDestinoDept.addItem(listKiosco.get(i).getNombre());
+            }
+        } else {
+            for (int i = 0; i < listDepart.size(); i++) {
+                cot.jComboBoxDestinoDept.addItem(listDepart.get(i).getNombreDepart());
+            }
+        }
+
         for (int i = 0; i < listDepart.size(); i++) {
-            cot.jComboBoxDestinoDept.addItem(listDepart.get(i).getNombreDepart());
             cot.jComboBoxOrigenDept.addItem(listDepart.get(i).getNombreDepart());
         }
     }
@@ -374,101 +529,6 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     private void ConfirmarCVV() {
         if (cot.jComboBoxListaFacturacion.getSelectedIndex() == 0) {
             JOptionPane.showInputDialog(null, "Ingrese el CVV de su tarjeta:", "Tarjeta Credito/Debito", JOptionPane.QUESTION_MESSAGE);
-        }
-    }
-
-    private void CalcularServicio() {
-        double precioReg = 0;
-        double packageSize = 0;
-        int noPaquetes = 0;
-        String alerta = "";
-        String tipoServicio = "";
-        String region = PullReg(cot.jComboBoxDestinoDept);
-
-        if (cot.jRadioButtonEstandar.isSelected()) {
-            precioReg = Double.parseDouble(cot.jLabelEstandar.getText());
-            tipoServicio = cot.jRadioButtonEstandar.getText();
-        } else if (cot.jRadioButtonEspecial.isSelected()) {
-            precioReg = Double.parseDouble(cot.jLabelEspecial.getText());
-            tipoServicio = cot.jRadioButtonEspecial.getText();
-        }
-
-        if (cot.jRadioButtonPequeño.isSelected()) {
-            packageSize = Double.parseDouble(cot.jTextFieldPequeño.getText());
-            if (!(packageSize > 0 && packageSize <= 10)) {
-                alerta = "Número invalido, debe ser entre 1 y 10 lb.";
-            }
-        } else if (cot.jRadioButtonMediano.isSelected()) {
-            packageSize = Double.parseDouble(cot.jTextFieldMediano.getText());
-            if (!(packageSize > 10 && packageSize <= 50)) {
-                alerta = "Número invalido, debe ser entre 11 y 50 lb.";
-            }
-        } else if (cot.jRadioButtonGrande.isSelected()) {
-            packageSize = Double.parseDouble(cot.jTextFieldGrande.getText());
-            if (!(packageSize > 50)) {
-                alerta = "Número invalido, debe ser de 51 en adelante.";
-            }
-        }
-        if (!alerta.isEmpty()) {
-            JOptionPane.showMessageDialog(null, alerta, "WARNING!", JOptionPane.WARNING_MESSAGE);
-            cot.buttonGroupSize.clearSelection();
-
-            cot.jTextFieldPequeño.setText("");
-            cot.jTextFieldMediano.setText("");
-            cot.jTextFieldGrande.setText("");
-
-            cot.jTextFieldPequeño.setEnabled(false);
-            cot.jTextFieldMediano.setEnabled(false);
-            cot.jTextFieldGrande.setEnabled(false);
-
-            cot.jButtonCotizar.setEnabled(false);
-            cot.jTextFieldNoPaquetes.setEnabled(true);
-            cot.jComboBoxDestinoDept.setEnabled(true);
-            cot.jComboBoxOrigenDept.setEnabled(true);
-            cot.jComboBoxDestinoMuni.setEnabled(true);
-            cot.jComboBoxOrigenMuni.setEnabled(true);
-            cot.jTextFieldDireccionOrigen.setEnabled(true);
-            cot.jTextFieldDireccionDestino.setEnabled(true);
-            cot.jRadioButtonEspecial.setEnabled(true);
-            cot.jRadioButtonEstandar.setEnabled(true);
-            cot.jRadioButtonPequeño.setEnabled(true);
-            cot.jRadioButtonMediano.setEnabled(true);
-            cot.jRadioButtonGrande.setEnabled(true);
-            cot.jCheckBoxHabilitar.setSelected(false);
-            packageSize = 0;
-        } else {
-            noPaquetes = Integer.parseInt(cot.jTextFieldNoPaquetes.getText());
-            totalServicio = precioReg * packageSize * noPaquetes;
-
-            texto = "";
-            texto += "El " + tipoServicio + " por region " + region + " es: Q." + precioReg;
-            texto += "\nEl peso del paquete es de: " + packageSize + " lb";
-            texto += "\nLa cantidad de paquete(s) es: " + noPaquetes;
-            texto += "\nEl total de lo cotizado es: Q." + totalServicio;
-            int hola = JOptionPane.showConfirmDialog(null, texto
-                    + "\nConfirmar que sean los datos correctos.", "INFORMACIÓN!", JOptionPane.YES_NO_OPTION);
-            if (hola == 0) {
-                cot.jTextArea.setText(texto);
-                cot.jButtonCotizar.setEnabled(false);
-                cot.jRadioButtonCobroEntrega.setEnabled(true);
-            } else if (hola == 1) {
-                cot.jButtonCotizar.setEnabled(false);
-
-                cot.jTextFieldNoPaquetes.setEnabled(true);
-                cot.jComboBoxDestinoDept.setEnabled(true);
-                cot.jComboBoxOrigenDept.setEnabled(true);
-                cot.jTextFieldDireccionOrigen.setEnabled(true);
-                cot.jTextFieldDireccionDestino.setEnabled(true);
-                cot.jTextFieldPequeño.setEnabled(false);
-                cot.jTextFieldMediano.setEnabled(false);
-                cot.jTextFieldGrande.setEnabled(false);
-                cot.jRadioButtonEspecial.setEnabled(true);
-                cot.jRadioButtonEstandar.setEnabled(true);
-                cot.jRadioButtonPequeño.setEnabled(true);
-                cot.jRadioButtonMediano.setEnabled(true);
-                cot.jRadioButtonGrande.setEnabled(true);
-                cot.jCheckBoxHabilitar.setSelected(false);
-            }
         }
     }
 
@@ -507,31 +567,20 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             }
         }
 
+        if (listKiosco != null) {
+            for (int i = 0; i < listKiosco.size(); i++) {
+                if (listKiosco.get(i).getNombre().equals(combo)) {
+                    region = listKiosco.get(i).getCodigoRegion();
+                }
+            }
+        }
+
         for (int i = 0; i < listReg.size(); i++) {
             if (listReg.get(i).getNombre().equals(region)) {
                 cot.jLabelEstandar.setText(String.valueOf(listReg.get(i).getPrecioEstandar()));
                 cot.jLabelEspecial.setText(String.valueOf(listReg.get(i).getPrecioEspecial()));
             }
         }
-    }
-
-    private String PullReg(JComboBox destino) {
-        String combo = destino.getSelectedItem().toString();
-        String region = "";
-        String reg = "";
-
-        for (int i = 0; i < listDepart.size(); i++) {
-            if (listDepart.get(i).getNombreDepart().equals(combo)) {
-                region = listDepart.get(i).getRegion();
-            }
-        }
-
-        for (int i = 0; i < listReg.size(); i++) {
-            if (listReg.get(i).getNombre().equals(region)) {
-                reg = listReg.get(i).getNombre();
-            }
-        }
-        return reg;
     }
 
     private void PullMunicipiosDestino(JComboBox combo, JComboBox destino) {

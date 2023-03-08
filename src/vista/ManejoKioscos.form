@@ -27,26 +27,31 @@
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jComboBoxRegion" pref="130" max="32767" attributes="0"/>
-                          <Component id="jLabel3" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextFieldNombre" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel2" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" pref="130" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="54" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel1" pref="130" max="32767" attributes="0"/>
-                              <Component id="jTextFieldCodigoKiosco" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jTextFieldCodigoKiosco" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldNombre" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="54" max="32767" attributes="0"/>
                       <Component id="jButtonEnviar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel3" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="jComboBoxRegion" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -113,7 +118,14 @@
     <Component class="javax.swing.JComboBox" name="jComboBoxRegion">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="6">
+            <StringItem index="0" value="(M) Metropolitana"/>
+            <StringItem index="1" value="(NT) Norte"/>
+            <StringItem index="2" value="(NO) Nororiente"/>
+            <StringItem index="3" value="(SO) Suroriente"/>
+            <StringItem index="4" value="(SOC) Suroccidente"/>
+            <StringItem index="5" value="(NOC) Noroccidente"/>
+          </StringArray>
         </Property>
       </Properties>
       <AuxValues>

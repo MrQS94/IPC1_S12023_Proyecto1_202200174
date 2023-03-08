@@ -26,7 +26,7 @@ public class RegistroUsuario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroupGenero = new javax.swing.ButtonGroup();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -78,10 +78,10 @@ public class RegistroUsuario extends javax.swing.JInternalFrame {
 
         jTextFieldAlias.setToolTipText("");
 
-        buttonGroup1.add(jRadioButtonHombre);
+        buttonGroupGenero.add(jRadioButtonHombre);
         jRadioButtonHombre.setText("Hombre");
 
-        buttonGroup1.add(jRadioButtonMujer);
+        buttonGroupGenero.add(jRadioButtonMujer);
         jRadioButtonMujer.setText("Mujer");
 
         jLabel1.setText("Nombre");
@@ -142,7 +142,7 @@ public class RegistroUsuario extends javax.swing.JInternalFrame {
         jButtonRegistrar.setText("REGISTRAR");
         jButtonRegistrar.setEnabled(false);
 
-        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario Individual", "Kiosco" }));
+        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario Individual" }));
 
         jLabel14.setText("Kiosco");
 
@@ -332,7 +332,7 @@ public class RegistroUsuario extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
+    public javax.swing.ButtonGroup buttonGroupGenero;
     public javax.swing.JButton jButtonRegistrar;
     public javax.swing.JButton jButtonSubir;
     public javax.swing.JCheckBox jCheckBoxConfirmar;

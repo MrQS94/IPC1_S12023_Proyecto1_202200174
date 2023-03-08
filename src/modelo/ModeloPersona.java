@@ -4,9 +4,6 @@
  */
 package modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author queza
@@ -24,18 +21,34 @@ public class ModeloPersona {
     private String alias;
     private int telefono;
     private String rol;
+    private String kiosco;
     private String fotografia;
-    private List<ModeloPersona> list = new ArrayList();
 
     public ModeloPersona() {
 
     }
 
-    public ModeloPersona(List<ModeloPersona> list) {
-        this.list = list;
+    public ModeloPersona(String nombre, String apellido, String correo, String pass,
+            String dpi, String fechaNac, String genero, String nacionalidad,
+            String alias, int telefono, String rol, String kiosco, String foto) {
+        this.nombre = nombre;
+        this.correo = correo;
+        this.apellido = apellido;
+        this.pass = pass;
+        this.dpi = dpi;
+        this.fechaNac = fechaNac;
+        this.genero = genero;
+        this.nacionalidad = nacionalidad;
+        this.alias = alias;
+        this.telefono = telefono;
+        this.rol = rol;
+        this.kiosco = kiosco;
+        this.fotografia = foto;
     }
-
-    public ModeloPersona(String nombre, String apellido, String correo, String pass, String dpi, String fechaNac, String genero, String nacionalidad, String alias, int telefono, String rol, String foto) {
+    
+    public ModeloPersona(String nombre, String apellido, String correo, String pass,
+            String dpi, String fechaNac, String genero, String nacionalidad,
+            String alias, int telefono, String rol, String foto) {
         this.nombre = nombre;
         this.correo = correo;
         this.apellido = apellido;
@@ -48,6 +61,10 @@ public class ModeloPersona {
         this.telefono = telefono;
         this.rol = rol;
         this.fotografia = foto;
+    }
+
+    public String getKiosco() {
+        return kiosco;
     }
 
     public String getNombre() {
@@ -144,14 +161,6 @@ public class ModeloPersona {
 
     public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
-    }
-
-    public List<ModeloPersona> getList() {
-        return list;
-    }
-
-    public void setList(List<ModeloPersona> list) {
-        this.list = list;
     }
 
 }
