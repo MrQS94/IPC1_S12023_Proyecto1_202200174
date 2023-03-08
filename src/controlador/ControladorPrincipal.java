@@ -32,8 +32,8 @@ public class ControladorPrincipal implements ActionListener {
 
     ModeloPersona modPersona1 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
             "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "admin", "");
-    //ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala", "VN", "Villa Nueva");
-    //ModeloDepartamentos modDepart = new ModeloDepartamentos("GT", "(M) Metropolitana", "Guatemala");
+    ModeloFacturacion modFact1 = new ModeloFacturacion("Andres Q", "Casa 15, Villa Nueva",
+            "16415361", "Andres Q", "5813", "08/28");
     ModeloPrecios modPrec1 = new ModeloPrecios("(M) Metropolitana", 25, 35);
     ModeloPrecios modPrec2 = new ModeloPrecios("(NT) Norte", 45.55, 68.50);
     ModeloPrecios modPrec3 = new ModeloPrecios("(NO) Nororiente", 35.48, 58.68);
@@ -55,7 +55,6 @@ public class ControladorPrincipal implements ActionListener {
         this.aut.jButtonIngresar.addActionListener(this);
         this.aut.jCheckBoxMostrar.addActionListener(this);
         listaPersona.add(modPersona1);
-        //listaDepart.add(modDepart);
         listPrecio.add(modPrec1);
         listPrecio.add(modPrec2);
         listPrecio.add(modPrec3);

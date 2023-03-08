@@ -4,14 +4,20 @@
  */
 package controlador;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import modelo.ModeloCotizacion;
@@ -61,6 +67,9 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         this.cot.jRadioButtonCobroEntrega.addActionListener(this);
         this.cot.jComboBoxListaFacturacion.addItemListener(this);
         this.cot.jButtonEnviar.addActionListener(this);
+        this.cot.jButtonFactura.addActionListener(this);
+        this.cot.jButtonGuia.addActionListener(this);
+        this.cot.jButtonOtro.addActionListener(this);
         PullDepartametns();
         PullFacturacion();
         HabilitarCard();
@@ -85,8 +94,10 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
                 + cot.jComboBoxDestinoMuni.getSelectedItem().toString() + ", "
                 + cot.jComboBoxDestinoDept.getSelectedItem().toString();
         String nit = "";
-        for (int i = 0; i < listFact.size(); i++) {
-            nit = listFact.get(noFactura).getNit();
+        if (cot.jComboBoxListaFacturacion.getSelectedIndex() == 0) {
+            nit = "";
+        } else {
+            nit = listFact.get(cot.jComboBoxListaFacturacion.getSelectedIndex() - 1).getNit();
         }
         String tipoPago = "";
         if (cot.jRadioButtonCobroEntrega.isSelected()) {
@@ -118,10 +129,202 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             tipoServicio = cot.jRadioButtonEspecial.getText();
         }
         double totPagar = totalServicio;
-        ModeloCotizacion mod = new ModeloCotizacion(noFactura, codigoPaquete,
+        String guia = "IPC1D";
+        String number = "0123456789";
+        String letraMin = "abcdefghijklmnñopqrstuvwxyz";
+        String letraMay = letraMin.toUpperCase();
+        String guion = "________________";
+        String cadena = number + letraMin + letraMay + guion;
+
+        for (int i = 0; i < 5; i++) {
+            int num = (int) (Math.random() * 80);
+            char letra = cadena.charAt(num);
+            guia += letra;
+        }
+
+        ModeloCotizacion mod = new ModeloCotizacion(noFactura, codigoPaquete, guia,
                 origen, destino, nit, tipoPago, packageSize, noPaquetes,
                 totPagar, fechaEnvio, tipoServicio);
         listCot.add(mod);
+
+        cot.jButtonFactura.setEnabled(true);
+        cot.jButtonGuia.setEnabled(true);
+        cot.jButtonOtro.setEnabled(true);
+        cot.jButtonEnviar.setEnabled(false);
+        JOptionPane.showMessageDialog(null, "COMPRA HECHA!, Puede observar su factura y "
+                + "su guía,\nen los botones conrrespondeintes.", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void OtroEnvio() {
+        cot.buttonGroupSize.clearSelection();
+        cot.buttonGroupServicio.clearSelection();
+        cot.buttonGroupTipo.clearSelection();
+
+        cot.jTextFieldNoPaquetes.setText("");
+        cot.jComboBoxDestinoDept.setSelectedIndex(0);
+        cot.jComboBoxOrigenDept.setSelectedIndex(0);
+        cot.jTextFieldDireccionOrigen.setText("");
+        cot.jTextFieldDireccionDestino.setText("");
+        cot.jTextFieldPequeño.setText("");
+        cot.jTextFieldMediano.setText("");
+        cot.jTextFieldGrande.setText("");
+
+        cot.jComboBoxListaFacturacion.setSelectedIndex(0);
+        cot.jTextArea.setText("Tipo de Servicio:\n" + "Total: Q.");
+        cot.jButtonFactura.setEnabled(false);
+        cot.jButtonGuia.setEnabled(false);
+        cot.jCheckBoxHabilitar.setSelected(false);
+        cot.jButtonEnviar.setEnabled(false);
+        cot.jButtonCotizar.setEnabled(false);
+        cot.jTextFieldNoPaquetes.setEnabled(true);
+        cot.jComboBoxDestinoDept.setEnabled(true);
+        cot.jComboBoxOrigenDept.setEnabled(true);
+        cot.jTextFieldDireccionOrigen.setEnabled(true);
+        cot.jTextFieldDireccionDestino.setEnabled(true);
+        cot.jRadioButtonEspecial.setEnabled(true);
+        cot.jRadioButtonEstandar.setEnabled(true);
+        cot.jRadioButtonPequeño.setEnabled(true);
+        cot.jRadioButtonMediano.setEnabled(true);
+        cot.jRadioButtonGrande.setEnabled(true);
+        cot.jComboBoxOrigenMuni.setEnabled(true);
+        cot.jComboBoxDestinoMuni.setEnabled(true);
+        cot.jTextFieldPequeño.setEnabled(false);
+        cot.jTextFieldMediano.setEnabled(false);
+        cot.jTextFieldGrande.setEnabled(false);
+    }
+
+    private void DescargarGuia() {
+        String estructuraHTML = "";
+        String tablaHTML = "";
+
+        for (int i = 0; i < listCot.size(); i++) {
+            tablaHTML
+                    += "<tr>"
+                    + "<td>" + listCot.get(i).getGuia() + "</td>"
+                    + "<td> RA00" + listCot.get(i).getCodigoPaquete() + "CN</td>"
+                    + "<td>" + listCot.get(i).getOrigen() + "</td>"
+                    + "<td>" + listCot.get(i).getDestino() + "</td>"
+                    + "<td>" + listCot.get(i).getTipoPago() + "</td>"
+                    + "<td>" + listCot.get(i).getPackageSize() + "</td>"
+                    + "<td>" + listCot.get(i).getNoPaquetes() + "</td>"
+                    + "<td>" + listCot.get(i).getFechaEnvio() + "</td>"
+                    + "<td>" + listCot.get(i).getTotPagar() + "</td>"
+                    + "</tr>";
+        }
+
+        estructuraHTML += """
+                          <!DOCTYPE html>
+                                          <!-- Acá importar archivos necesarios --->
+                                          <html>
+                                              <head>
+                                                  <title>Guía</title>
+                                                  <meta charset="UTF-8">
+                                                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                                  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+                                              </head>
+                                              <body>
+                                                  <!-- Acá compenzar a conectar con el programa  -->
+                                                  <div class="container">
+                                                      <h1>Guia sobre la entrega</h1>
+                                                      <hr>
+                                                      <table class="table table-bordered">
+                                                          <tr>
+                                                              <th class="text-center">Código de guía</th>
+                                                              <th class="text-center">Código de paquete</th>
+                                                              <th class="text-center">Origen</th>
+                                                              <th class="text-center">Destino</th>
+                                                              <th class="text-center">Tipo de pago</th>
+                                                              <th class="text-center">Peso del paquete</th>       
+                                                              <th class="text-center">Número de paquetes</th>
+                                                              <th class="text-center">Fecha y hora de Envío</th>
+                                                              <th class="text-center">Total a pagar</th>
+                                                          </tr>
+                                         """
+                + tablaHTML + """
+                                     </table>
+                                  </div>
+                              </body>
+                          </html>
+                        """;
+        File file = new File("guia.html");
+        try {
+            file.createNewFile();
+            FileWriter fw = new FileWriter("guia.html");
+            fw.write(estructuraHTML);
+            fw.close();
+            Desktop desk = Desktop.getDesktop();
+            desk.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void DescargarFactura() {
+        String estructuraHTML = "";
+        String tablaHTML = "";
+
+        for (int i = 0; i < listCot.size(); i++) {
+            tablaHTML
+                    += "<tr>"
+                    + "<td> #0000" + listCot.get(i).getNoFactura() + "</td>"
+                    + "<td> RA00" + listCot.get(i).getCodigoPaquete() + "CN</td>"
+                    + "<td>" + listCot.get(i).getOrigen() + "</td>"
+                    + "<td>" + listCot.get(i).getDestino() + "</td>"
+                    + "<td>" + listCot.get(i).getNit() + "</td>"
+                    + "<td>" + listCot.get(i).getTipoPago() + "</td>"
+                    + "<td>" + listCot.get(i).getPackageSize() + "</td>"
+                    + "<td>" + listCot.get(i).getNoPaquetes() + "</td>"
+                    + "<td>" + listCot.get(i).getTotPagar() + "</td>"
+                    + "</tr>";
+        }
+
+        estructuraHTML += """
+                          <!DOCTYPE html>
+                          <!-- Acá importar archivos necesarios --->
+                          <html>
+                              <head>
+                                  <title>Factura</title>
+                                  <meta charset="UTF-8">
+                                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+                              </head>
+                              <body>
+                                  <!-- Acá compenzar a conectar con el programa  -->
+                                  <div class="container">
+                                      <h1>Factura sobre la compra</h1>
+                                      <hr>
+                                      <table class="table table-bordered">
+                                          <tr>
+                                              <th class="text-center">Número de factura</th>
+                                              <th class="text-center">Código de paquete</th>
+                                              <th class="text-center">Origen</th>
+                                              <th class="text-center">Destino</th>
+                                              <th class="text-center">NIT</th>
+                                              <th class="text-center">Tipo de pago</th>
+                                              <th class="text-center">Peso del paquete (lb)</th>
+                                              <th class="text-center">Número de paquetes</th>
+                                              <th class="text-center">Total a pagar</th>
+                                          </tr>
+                                          
+                                          <!-- Acá pedir el ArrayList que recorra hasta detenerse -->
+                                         """
+                + tablaHTML + """
+                                     </table>
+                                  </div>
+                              </body>
+                          </html>
+                        """;
+        File file = new File("factura.html");
+        try {
+            file.createNewFile();
+            FileWriter fw = new FileWriter("factura.html");
+            fw.write(estructuraHTML);
+            fw.close();
+            Desktop desk = Desktop.getDesktop();
+            desk.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(ControladorCotizacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void HabilitarCard() {
@@ -132,9 +335,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     }
 
     private void HabilitarButtonEnviar() {
-        if (cot.jRadioButtonCobroEntrega.isSelected()
-                && !cot.jRadioButtonCobroCuenta.isEnabled()
-                && !(cot.jComboBoxListaFacturacion.getSelectedIndex() > 0)) {
+        if (cot.jRadioButtonCobroEntrega.isSelected()) {
             cot.jButtonEnviar.setEnabled(true);
         } else if ((cot.jRadioButtonCobroEntrega.isSelected() || cot.jRadioButtonCobroCuenta.isSelected())
                 && (cot.jComboBoxListaFacturacion.getSelectedIndex() > 0)) {
@@ -147,8 +348,8 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     private void PullFacturacion() {
         for (int i = 0; i < listFact.size(); i++) {
             cot.jComboBoxListaFacturacion.addItem(listFact.get(i).getNombreCompleto()
-                    + " - XXXX-XXXX-XXXX-" + listFact.get(i).getNumeroTarjeta()
-                    + " - " + listFact.get(i).getDireccion());
+                    + " - " + listFact.get(i).getDireccion()
+                    + " - " + listFact.get(i).getNumeroTarjeta());
         }
     }
 
@@ -219,6 +420,21 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             cot.jTextFieldPequeño.setEnabled(false);
             cot.jTextFieldMediano.setEnabled(false);
             cot.jTextFieldGrande.setEnabled(false);
+
+            cot.jButtonCotizar.setEnabled(false);
+            cot.jTextFieldNoPaquetes.setEnabled(true);
+            cot.jComboBoxDestinoDept.setEnabled(true);
+            cot.jComboBoxOrigenDept.setEnabled(true);
+            cot.jComboBoxDestinoMuni.setEnabled(true);
+            cot.jComboBoxOrigenMuni.setEnabled(true);
+            cot.jTextFieldDireccionOrigen.setEnabled(true);
+            cot.jTextFieldDireccionDestino.setEnabled(true);
+            cot.jRadioButtonEspecial.setEnabled(true);
+            cot.jRadioButtonEstandar.setEnabled(true);
+            cot.jRadioButtonPequeño.setEnabled(true);
+            cot.jRadioButtonMediano.setEnabled(true);
+            cot.jRadioButtonGrande.setEnabled(true);
+            cot.jCheckBoxHabilitar.setSelected(false);
             packageSize = 0;
         } else {
             noPaquetes = Integer.parseInt(cot.jTextFieldNoPaquetes.getText());
@@ -234,6 +450,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             if (hola == 0) {
                 cot.jTextArea.setText(texto);
                 cot.jButtonCotizar.setEnabled(false);
+                cot.jRadioButtonCobroEntrega.setEnabled(true);
             } else if (hola == 1) {
                 cot.jButtonCotizar.setEnabled(false);
 
@@ -253,7 +470,6 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
                 cot.jCheckBoxHabilitar.setSelected(false);
             }
         }
-
     }
 
     private void HabilitarPesoJTF() {
@@ -481,6 +697,11 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     }
 
     private void HabilitarButtonCotizacion() {
+        double packageSizePeque = 0;
+        double packageSizeMed = 0;
+        double packageSizeGrande = 0;
+        String alerta = "";
+
         if (cot.jTextFieldNoPaquetes.getText().isEmpty()
                 || cot.jComboBoxDestinoDept.getSelectedIndex() == 0
                 || cot.jComboBoxOrigenDept.getSelectedIndex() == 0
@@ -553,6 +774,12 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             HabilitarButtonEnviar();
         } else if (e.getSource() == cot.jButtonEnviar) {
             RealizarCompra();
+        } else if (e.getSource() == cot.jButtonFactura) {
+            DescargarFactura();
+        } else if (e.getSource() == cot.jButtonGuia) {
+            DescargarGuia();
+        } else if (e.getSource() == cot.jButtonOtro) {
+            OtroEnvio();
         }
     }
 

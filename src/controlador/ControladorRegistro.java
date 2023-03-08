@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.ModeloKiosco;
 import modelo.ModeloPersona;
 import vista.RegistroUsuario;
 
@@ -25,13 +26,14 @@ import vista.RegistroUsuario;
 public class ControladorRegistro extends ControladorPrincipal implements MouseListener, KeyListener {
 
     ModeloPersona modelo = this.modPersona1;
-    List<ModeloPersona> list;
+    List<ModeloPersona> listPersona;
+    List<ModeloKiosco> listKiosco;
 
     public ControladorRegistro(RegistroUsuario registro) {
         super(registro);
     }
 
-    public ControladorRegistro(RegistroUsuario registro, List<ModeloPersona> list) {
+    public ControladorRegistro(RegistroUsuario registro, List<ModeloPersona> list, List<ModeloKiosco> listKiosco) {
         super(registro);
         this.registro.jButtonRegistrar.addActionListener(this);
         this.registro.jTextFieldYYYY.addMouseListener(this);
@@ -45,10 +47,12 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         this.registro.jCheckBoxMostrar.addActionListener(this);
         this.registro.jCheckBoxConfirmar.addActionListener(this);
         this.registro.jButtonRegistrar.setVisible(false);
-        this.list = list;
+        this.registro.jComboBoxRol.addActionListener(this);
+        this.listPersona = list;
+        this.listKiosco = listKiosco;
     }
 
-    private void LlenarDatos() {
+    private void GuardarDatos() {
         String nombre = registro.jTextFieldNombre.getText();
         String apellido = registro.jTextFieldApellido.getText();
         String correo = registro.jTextFieldEmail.getText();
@@ -78,8 +82,8 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
             modPersona1.setFotografia("No existe foto");
         }
         ModeloPersona mod = new ModeloPersona(nombre, apellido, correo, pass, dpi,
-                fechaNac, genero, nacionalidad, alias, telefono, rol, foto);  
-        list.add(mod);
+                fechaNac, genero, nacionalidad, alias, telefono, rol, foto);
+        listPersona.add(mod);
     }
 
     private String ReconocerPass(char[] c) {
@@ -153,15 +157,21 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         modPersona1.setFotografia(url);
     }
 
+    private void PullKioscos() {
+        for (int i = 0; i < listKiosco.size(); i++) {
+            registro.jComboBoxKiosco.addItem(listKiosco.get(i).getNombre());
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registro.jButtonRegistrar) {
-            LlenarDatos();
-            
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(list.get(i).getCorreo());
+            GuardarDatos();
+
+            for (int i = 0; i < listPersona.size(); i++) {
+                System.out.println(listPersona.get(i).getCorreo());
             }
-            
+
             registro.jButtonRegistrar.setEnabled(false);
             registro.jButtonRegistrar.setVisible(false);
             registro.jCheckBoxConfirmar.setVisible(true);
@@ -276,6 +286,10 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
                 registro.jComboBoxRol.setEnabled(true);
                 registro.jButtonSubir.setEnabled(true);
                 registro.jCheckBoxMostrar.setEnabled(true);
+            }
+        } else if (e.getSource() == registro.jComboBoxRol) {
+            if (registro.jComboBoxRol.getSelectedIndex() == 1) {
+                PullKioscos();
             }
         }
     }

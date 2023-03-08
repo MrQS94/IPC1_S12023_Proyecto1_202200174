@@ -5,6 +5,7 @@
 package vista;
 
 import controlador.ControladorCotizacion;
+import controlador.ControladorEnvios;
 import controlador.ControladorFacturacion;
 import controlador.ControladorKioscos;
 import controlador.ControladorPrecios;
@@ -34,24 +35,24 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     List<ModeloPersona> listPersona;
     List<ModeloDepartamentos> listDepart;
-    List<ModeloKiosco> listKiosc;
+    List<ModeloKiosco> listKiosco;
     List<ModeloPrecios> listPrecios;
     List<ModeloFacturacion> listFact;
     List<ModeloCotizacion> listCot;
-
+    
     public FormPrincipal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart,
-            List<ModeloKiosco> listKiosc, List<ModeloPrecios> listPrecios, List<ModeloFacturacion> listFact,
+            List<ModeloKiosco> listKiosco, List<ModeloPrecios> listPrecios, List<ModeloFacturacion> listFact,
             List<ModeloCotizacion> listCot) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.listPersona = list;
         this.listDepart = listDepart;
-        this.listKiosc = listKiosc;
+        this.listKiosco = listKiosco;
         this.listPrecios = listPrecios;
         this.listFact = listFact;
         this.listCot = listCot;
@@ -81,8 +82,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuItemKioscos = new javax.swing.JMenuItem();
         jMenuItemRegiones = new javax.swing.JMenuItem();
         jMenuItemDepartamentos = new javax.swing.JMenuItem();
-        jMenuItemReportes = new javax.swing.JMenuItem();
         jMenuItemRegistro = new javax.swing.JMenuItem();
+        jMenuItemReportes = new javax.swing.JMenuItem();
         jMenuEnvios = new javax.swing.JMenu();
         jMenuItemCotizacion = new javax.swing.JMenuItem();
         jMenuItemFacturacion = new javax.swing.JMenuItem();
@@ -146,11 +147,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenuAdmin.add(jMenuItemDepartamentos);
 
-        jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuItemReportes.setText("Reportes");
-        jMenuAdmin.add(jMenuItemReportes);
-
-        jMenuItemRegistro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemRegistro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemRegistro.setText("Registro de usuarios");
         jMenuItemRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +155,10 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuAdmin.add(jMenuItemRegistro);
+
+        jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemReportes.setText("Reportes");
+        jMenuAdmin.add(jMenuItemReportes);
 
         jMenuBar1.add(jMenuAdmin);
 
@@ -183,6 +184,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuItemEnvios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemEnvios.setText("Ver Envíos Solicitados ");
+        jMenuItemEnvios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEnviosActionPerformed(evt);
+            }
+        });
         jMenuEnvios.add(jMenuItemEnvios);
 
         jMenuBar1.add(jMenuEnvios);
@@ -226,7 +232,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroActionPerformed
         // TODO add your handling code here:
         RegistroUsuario registro = new RegistroUsuario();
-        ControladorRegistro controlador = new ControladorRegistro(registro, listPersona);
+        ControladorRegistro controlador = new ControladorRegistro(registro, listPersona, listKiosco);
         EvitarAbrir(registro);
     }//GEN-LAST:event_jMenuItemRegistroActionPerformed
 
@@ -240,7 +246,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemKioscosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemKioscosActionPerformed
         // TODO add your handling code here:
         ManejoKioscos manejo = new ManejoKioscos();
-        ControladorKioscos kiosco = new ControladorKioscos(manejo, listDepart, listKiosc);
+        ControladorKioscos kiosco = new ControladorKioscos(manejo, listDepart, listKiosco);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemKioscosActionPerformed
 
@@ -264,6 +270,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         ControladorFacturacion control = new ControladorFacturacion(datos, listFact);
         EvitarAbrir(datos);
     }//GEN-LAST:event_jMenuItemFacturacionActionPerformed
+
+    private void jMenuItemEnviosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEnviosActionPerformed
+        // TODO add your handling code here:
+        EnviosSolicitados envio = new EnviosSolicitados();
+        ControladorEnvios en = new ControladorEnvios(envio, listCot);
+        EvitarAbrir(envio);
+    }//GEN-LAST:event_jMenuItemEnviosActionPerformed
 
     /**
      * @param args the command line arguments

@@ -28,7 +28,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
 
         buttonGroupSize = new javax.swing.ButtonGroup();
         buttonGroupServicio = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroupTipo = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jRadioButtonPequeño = new javax.swing.JRadioButton();
         jRadioButtonMediano = new javax.swing.JRadioButton();
@@ -51,7 +51,7 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jComboBoxDestinoMuni = new javax.swing.JComboBox<>();
         jButtonFactura = new javax.swing.JButton();
         jButtonGuia = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
+        jButtonOtro = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jRadioButtonEstandar = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
@@ -116,12 +116,13 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Tipo de Pago");
 
-        buttonGroup3.add(jRadioButtonCobroEntrega);
+        buttonGroupTipo.add(jRadioButtonCobroEntrega);
         jRadioButtonCobroEntrega.setText("Cobro contra entrega");
+        jRadioButtonCobroEntrega.setEnabled(false);
 
         jLabel8.setText("Pago con tarjeta de credito o debito");
 
-        buttonGroup3.add(jRadioButtonCobroCuenta);
+        buttonGroupTipo.add(jRadioButtonCobroCuenta);
         jRadioButtonCobroCuenta.setText("Cobro a mi cuenta");
         jRadioButtonCobroCuenta.setEnabled(false);
 
@@ -139,10 +140,12 @@ public class Cotizacion extends javax.swing.JInternalFrame {
         jComboBoxDestinoDept.setName(""); // NOI18N
 
         jButtonFactura.setText("DESCARGAR FACTURA");
+        jButtonFactura.setEnabled(false);
 
         jButtonGuia.setText("DESCARGAR GUÍA");
+        jButtonGuia.setEnabled(false);
 
-        jButtonCancelar.setText("CANCELAR ENVÍO");
+        jButtonOtro.setText("OTRO ENVIIO");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -350,8 +353,8 @@ public class Cotizacion extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonGuia))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonCancelar)
-                        .addGap(91, 91, 91))))
+                        .addComponent(jButtonOtro)
+                        .addGap(99, 99, 99))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,9 +434,9 @@ public class Cotizacion extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonFactura)
                             .addComponent(jButtonGuia))
-                        .addGap(26, 26, 26)
-                        .addComponent(jButtonCancelar)
-                        .addGap(18, 18, 18)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonOtro)
+                        .addGap(26, 26, 26)))
                 .addContainerGap())
         );
 
@@ -442,14 +445,14 @@ public class Cotizacion extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup3;
     public javax.swing.ButtonGroup buttonGroupServicio;
     public javax.swing.ButtonGroup buttonGroupSize;
-    private javax.swing.JButton jButtonCancelar;
+    public javax.swing.ButtonGroup buttonGroupTipo;
     public javax.swing.JButton jButtonCotizar;
     public javax.swing.JButton jButtonEnviar;
-    private javax.swing.JButton jButtonFactura;
-    private javax.swing.JButton jButtonGuia;
+    public javax.swing.JButton jButtonFactura;
+    public javax.swing.JButton jButtonGuia;
+    public javax.swing.JButton jButtonOtro;
     public javax.swing.JCheckBox jCheckBoxHabilitar;
     public javax.swing.JComboBox<String> jComboBoxDestinoDept;
     public javax.swing.JComboBox<String> jComboBoxDestinoMuni;

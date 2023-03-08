@@ -5,7 +5,6 @@
 package main;
 
 import controlador.ControladorPrincipal;
-import java.util.*;
 import vista.Autenticacion;
 
 /**

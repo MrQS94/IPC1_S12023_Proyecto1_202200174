@@ -12,6 +12,7 @@ public class ModeloCotizacion {
 
     private int noFactura;
     private int codigoPaquete;
+    private String guia;
     private String origen;
     private String destino;
     private String nit;
@@ -22,11 +23,12 @@ public class ModeloCotizacion {
     private String fechaEnvio;
     private String tipoServicio;
 
-    public ModeloCotizacion(int noFactura, int codigoPaquete,
-            String origen, String destino, String nit, String tipoPago,
-            double packageSize, int noPaquetes, double totPagar, String fechaEnvio, String tipoServicio) {
+    public ModeloCotizacion(int noFactura, int codigoPaquete, String guia, String origen, 
+            String destino, String nit, String tipoPago, double packageSize, int noPaquetes, 
+            double totPagar, String fechaEnvio, String tipoServicio) {
         this.noFactura = noFactura;
         this.codigoPaquete = codigoPaquete;
+        this.guia = guia;
         this.origen = origen;
         this.destino = destino;
         this.nit = nit;
@@ -74,6 +76,10 @@ public class ModeloCotizacion {
         this.totPagar = totPagar;
         this.tipoServicio = tipoServicio;
     }*/
+    public String getGuia() {
+        return guia;
+    }
+
     public int getNoFactura() {
         return noFactura;
     }
