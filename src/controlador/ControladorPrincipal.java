@@ -43,13 +43,27 @@ public class ControladorPrincipal implements ActionListener {
 
     List<ModeloPersona> listaPersona = new ArrayList();
     List<ModeloDepartamentos> listaDepart = new ArrayList();
-    List<ModeloKiosco> listKiosc = new ArrayList();
+    List<ModeloKiosco> listKiosco = new ArrayList();
     List<ModeloPrecios> listPrecio = new ArrayList();
     List<ModeloFacturacion> listFact = new ArrayList();
     List<ModeloCotizacion> listCot = new ArrayList();
 
     private int intentos = 3;
 
+    public ControladorPrincipal(Autenticacion aut, List<ModeloKiosco> listKiosco) {
+        this.aut = aut;
+        this.listKiosco = listKiosco;
+        this.aut.jButtonIngresar.addActionListener(this);
+        this.aut.jCheckBoxMostrar.addActionListener(this);
+        listaPersona.add(modPersona1);
+        listPrecio.add(modPrec1);
+        listPrecio.add(modPrec2);
+        listPrecio.add(modPrec3);
+        listPrecio.add(modPrec4);
+        listPrecio.add(modPrec5);
+        listPrecio.add(modPrec6);
+    }
+    
     public ControladorPrincipal(Autenticacion aut) {
         this.aut = aut;
         this.aut.jButtonIngresar.addActionListener(this);
@@ -72,7 +86,7 @@ public class ControladorPrincipal implements ActionListener {
         String pass = aut.jPasswordField.getText();
         for (int i = 0; i < listaPersona.size(); i++) {
             if (hola.equals(listaPersona.get(i).getCorreo()) && pass.equals(listaPersona.get(i).getPass())) {
-                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosc, listPrecio, listFact, listCot);
+                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot);
                 aut.dispose();
                 if (listaPersona.get(i).getRol().equals("admin")) {
                     form.jMenuAdmin.setVisible(true);

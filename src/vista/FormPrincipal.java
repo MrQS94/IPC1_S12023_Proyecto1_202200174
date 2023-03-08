@@ -9,6 +9,7 @@ import controlador.ControladorEnvios;
 import controlador.ControladorFacturacion;
 import controlador.ControladorKioscos;
 import controlador.ControladorPrecios;
+import controlador.ControladorPrincipal;
 import controlador.ControladorRegiones;
 import controlador.ControladorRegistro;
 import java.awt.Graphics;
@@ -77,6 +78,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         ;
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItemVolver = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
         jMenuAdmin = new javax.swing.JMenu();
         jMenuItemKioscos = new javax.swing.JMenuItem();
@@ -102,10 +104,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         );
         jDesktopPaneLayout.setVerticalGroup(
             jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 381, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Archivo");
+
+        jMenuItemVolver.setText("Inicio de Sesión");
+        jMenuItemVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVolverActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemVolver);
 
         jMenuItemExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemExit.setText("Salir");
@@ -221,12 +231,10 @@ public class FormPrincipal extends javax.swing.JFrame {
                 show = false;
             }
         }
-
         if (show) {
             jDesktopPane.add(frame);
             frame.setVisible(true);
         }
-
     }
 
     private void jMenuItemRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistroActionPerformed
@@ -277,6 +285,20 @@ public class FormPrincipal extends javax.swing.JFrame {
         ControladorEnvios en = new ControladorEnvios(envio, listCot);
         EvitarAbrir(envio);
     }//GEN-LAST:event_jMenuItemEnviosActionPerformed
+
+    private void jMenuItemVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVolverActionPerformed
+        // TODO add your handling code here:
+        Autenticacion aut = new Autenticacion();
+        ControladorPrincipal control = new ControladorPrincipal(aut, listKiosco);
+        List<ModeloPersona> listPersona;
+        List<ModeloDepartamentos> listDepart;
+        List<ModeloKiosco> listKiosco;
+        List<ModeloPrecios> listPrecios;
+        List<ModeloFacturacion> listFact;
+        List<ModeloCotizacion> listCot;
+        aut.show();
+        this.hide();
+    }//GEN-LAST:event_jMenuItemVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,5 +351,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemRegiones;
     private javax.swing.JMenuItem jMenuItemRegistro;
     private javax.swing.JMenuItem jMenuItemReportes;
+    private javax.swing.JMenuItem jMenuItemVolver;
     // End of variables declaration//GEN-END:variables
 }
