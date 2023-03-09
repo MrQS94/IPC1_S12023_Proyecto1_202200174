@@ -56,6 +56,8 @@ public class ControladorPrecios implements ActionListener, MouseListener, KeyLis
         manejo.jCheckBoxMostrar.setSelected(false);
         manejo.jCheckBoxMostrar.setText("MOSTRAR");
         LlenarTabla();
+
+        JOptionPane.showMessageDialog(null, "Cambio realizado satisfactoriamente.", "INFORMATION!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void LlenarTabla() {

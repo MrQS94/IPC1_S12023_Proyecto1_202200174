@@ -16,14 +16,20 @@ public class ModeloFacturacion {
     private String nombreTarjeta;
     private String numeroTarjeta;
     private String fechaVen;
+    private String dpi;
 
-    public ModeloFacturacion(String nombreCompleto, String direccion, String nit, String nombreTarjeta, String numeroTarjeta, String fechaVen) {
+    public ModeloFacturacion(String nombreCompleto, String direccion, String nit, String nombreTarjeta, String numeroTarjeta, String fechaVen, String dpi) {
         this.nombreCompleto = nombreCompleto;
         this.direccion = direccion;
         this.nit = nit;
         this.nombreTarjeta = nombreTarjeta;
         this.numeroTarjeta = numeroTarjeta;
         this.fechaVen = fechaVen;
+        this.dpi = dpi;
+    }
+
+    public String getDpi() {
+        return dpi;
     }
 
     public String getNombreCompleto() {

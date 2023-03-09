@@ -30,10 +30,10 @@ public class ControladorPrincipal implements ActionListener {
     Autenticacion aut = new Autenticacion();
     RegistroUsuario registro = new RegistroUsuario();
 
-    ModeloPersona modPersona1 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
+    ModeloPersona modPersona0 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
             "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "admin", "Guatemala Kiosco", "No existe foto");
     ModeloFacturacion modFact1 = new ModeloFacturacion("Andres Q", "Casa 15, Villa Nueva",
-            "16415361", "Andres Q", "5813", "08/28");
+            "16415361", "Andres Q", "5813", "08/28", "3903542010101");
     ModeloPrecios modPrec1 = new ModeloPrecios("(M) Metropolitana", 25, 35);
     ModeloPrecios modPrec2 = new ModeloPrecios("(NT) Norte", 45.55, 68.50);
     ModeloPrecios modPrec3 = new ModeloPrecios("(NO) Nororiente", 35.48, 58.68);
@@ -49,26 +49,28 @@ public class ControladorPrincipal implements ActionListener {
     List<ModeloCotizacion> listCot = new ArrayList();
 
     private int intentos = 3;
+    private String nombreUser = "";
+    private String dpi = "";
 
-    public ControladorPrincipal(Autenticacion aut, List<ModeloKiosco> listKiosco) {
+    public ControladorPrincipal(Autenticacion aut, List<ModeloKiosco> listKiosco,
+            List<ModeloPrecios> listPrecio, List<ModeloDepartamentos> listaDepart,
+            List<ModeloFacturacion> listFact, List<ModeloPersona> listaPersona, List<ModeloCotizacion> listCot) {
         this.aut = aut;
         this.listKiosco = listKiosco;
+        this.listPrecio = listPrecio;
+        this.listaDepart = listaDepart;
+        this.listFact = listFact;
+        this.listaPersona = listaPersona;
+        this.listCot = listCot;
         this.aut.jButtonIngresar.addActionListener(this);
         this.aut.jCheckBoxMostrar.addActionListener(this);
-        listaPersona.add(modPersona1);
-        listPrecio.add(modPrec1);
-        listPrecio.add(modPrec2);
-        listPrecio.add(modPrec3);
-        listPrecio.add(modPrec4);
-        listPrecio.add(modPrec5);
-        listPrecio.add(modPrec6);
     }
-    
+
     public ControladorPrincipal(Autenticacion aut) {
         this.aut = aut;
         this.aut.jButtonIngresar.addActionListener(this);
         this.aut.jCheckBoxMostrar.addActionListener(this);
-        listaPersona.add(modPersona1);
+        listaPersona.add(modPersona0);
         listPrecio.add(modPrec1);
         listPrecio.add(modPrec2);
         listPrecio.add(modPrec3);
@@ -82,27 +84,47 @@ public class ControladorPrincipal implements ActionListener {
     }
 
     private void Autentificar() {
-        String hola = aut.jTextFieldCorreo.getText();
+        String email = aut.jTextFieldCorreo.getText();
         String pass = aut.jPasswordField.getText();
-        for (int i = 0; i < listaPersona.size(); i++) {
-            if (hola.equals(listaPersona.get(i).getCorreo()) && pass.equals(listaPersona.get(i).getPass())) {
-                FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot);
-                aut.dispose();
-                if (listaPersona.get(i).getRol().equals("admin")) {
-                    form.jMenuAdmin.setVisible(true);
-                } else {
-                    form.jMenuAdmin.setVisible(false);
-                }
-                form.setVisible(true);
-                break;
+
+        if (VerificarEmailPass(email, pass)) {
+            FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot, dpi);
+            if (VerificarAdmin(email, pass)) {
+                form.jMenuAdmin.setVisible(true);
+                form.jMenuCliente.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Tiene " + intentos-- + " intentos restantes.", "WARNING!", JOptionPane.WARNING_MESSAGE);
-                if (intentos < 0) {
-                    JOptionPane.showMessageDialog(null, "Se va a cerrar el programa", "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
-                    System.exit(0);
+                form.jMenuAdmin.setVisible(false);
+            }
+            aut.dispose();
+            form.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiene " + intentos-- + " intentos restantes.", "WARNING!", JOptionPane.WARNING_MESSAGE);
+            if (intentos < 0) {
+                JOptionPane.showMessageDialog(null, "Se va a cerrar el programa", "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+    }
+
+    private boolean VerificarAdmin(String email, String pass) {
+        for (int i = 0; i < listaPersona.size(); i++) {
+            if (email.equals(listaPersona.get(i).getCorreo()) && pass.equals(listaPersona.get(i).getPass())) {
+                if (listaPersona.get(i).getRol().equals("admin")) {
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    private boolean VerificarEmailPass(String email, String pass) {
+        for (int i = 0; i < listaPersona.size(); i++) {
+            if (email.equals(listaPersona.get(i).getCorreo()) && pass.equals(listaPersona.get(i).getPass())) {
+                dpi = listaPersona.get(i).getDpi();
+                return true;
+            }
+        }
+        return false;
     }
 
     protected void MostrarPass(JCheckBox check, JPasswordField password) {

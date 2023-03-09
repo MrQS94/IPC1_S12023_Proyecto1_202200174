@@ -104,13 +104,7 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         }
 
         listPersona.add(mod);
-
         JOptionPane.showMessageDialog(null, "Usuario registrado!", "INFORMATION!", JOptionPane.INFORMATION_MESSAGE);
-
-        for (int i = 0; i < listPersona.size(); i++) {
-            System.out.println(listPersona.get(i).getKiosco());
-            System.out.println(listPersona.get(i).getFotografia());
-        }
     }
 
     private String ReconocerPass(char[] c) {
@@ -348,28 +342,36 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
     @Override
     public void keyTyped(KeyEvent e) {
         char c = e.getKeyChar();
-        if (e.getSource() == registro.jTextFieldYYYY
-                || e.getSource() == registro.jTextFieldDPI
-                || e.getSource() == registro.jTextFieldTelefono) {
-            if (c >= 58 || c <= 46) {
-                e.consume();
-            }
-        } else if (e.getSource() == registro.jTextFieldNombre
+        if (e.getSource() == registro.jTextFieldNombre
                 || e.getSource() == registro.jTextFieldApellido
                 || e.getSource() == registro.jTextFieldAlias) {
             if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+                e.consume();
+            }
+        } else if (e.getSource() == registro.jTextFieldTelefono) {
+            if (registro.jTextFieldTelefono.getText().length() > 7 || (c >= 58 || c <= 46)) {
+                e.consume();
+            }
+        } else if (e.getSource() == registro.jTextFieldYYYY) {
+            if (registro.jTextFieldYYYY.getText().length() > 3 || (c >= 58 || c <= 46)) {
+                e.consume();
+            }
+        } else if (e.getSource() == registro.jTextFieldDPI) {
+            if (registro.jTextFieldDPI.getText().length() > 12 || (c >= 58 || c <= 46)) {
                 e.consume();
             }
         }
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e
+    ) {
 
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e
+    ) {
 
     }
 }

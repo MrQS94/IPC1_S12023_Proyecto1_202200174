@@ -22,10 +22,11 @@ public class ModeloCotizacion {
     private double totPagar;
     private String fechaEnvio;
     private String tipoServicio;
+    private String dpi;
 
-    public ModeloCotizacion(int noFactura, int codigoPaquete, String guia, String origen, 
-            String destino, String nit, String tipoPago, double packageSize, int noPaquetes, 
-            double totPagar, String fechaEnvio, String tipoServicio) {
+    public ModeloCotizacion(int noFactura, int codigoPaquete, String guia, String origen,
+            String destino, String nit, String tipoPago, double packageSize, int noPaquetes,
+            double totPagar, String fechaEnvio, String tipoServicio, String dpi) {
         this.noFactura = noFactura;
         this.codigoPaquete = codigoPaquete;
         this.guia = guia;
@@ -38,44 +39,17 @@ public class ModeloCotizacion {
         this.totPagar = totPagar;
         this.fechaEnvio = fechaEnvio;
         this.tipoServicio = tipoServicio;
+        this.dpi = dpi;
+    }
+
+    public String getDpi() {
+        return dpi;
     }
 
     public ModeloCotizacion(int codigoPaquete) {
         this.codigoPaquete = codigoPaquete;
     }
 
-    /*public ModeloCotizacion(String noFactura, String codigoPaquete, String origen, String destino,
-            String nit, String tipoPago, double packageSize, int noPaquetes, double totPagar) {
-        this.noFactura = noFactura;
-        this.codigoPaquete = codigoPaquete;
-        this.origen = origen;
-        this.destino = destino;
-        this.nit = nit;
-        this.tipoPago = tipoPago;
-        this.packageSize = packageSize;
-        this.noPaquetes = noPaquetes;
-        this.totPagar = totPagar;
-    }
-
-    public ModeloCotizacion(String codigoPaquete, String origen, String destino,
-            String tipoPago, double packageSize, int noPaquetes, String fechaEnvio, double totPagar) {
-        this.codigoPaquete = codigoPaquete;
-        this.origen = origen;
-        this.destino = destino;
-        this.tipoPago = tipoPago;
-        this.packageSize = packageSize;
-        this.noPaquetes = noPaquetes;
-        this.totPagar = totPagar;
-        this.fechaEnvio = fechaEnvio;
-    }
-
-    public ModeloCotizacion(String codigoPaquete, String tipoServicio, String destino, double totPagar, String tipoPago) {
-        this.codigoPaquete = codigoPaquete;
-        this.destino = destino;
-        this.tipoPago = tipoPago;
-        this.totPagar = totPagar;
-        this.tipoServicio = tipoServicio;
-    }*/
     public String getGuia() {
         return guia;
     }

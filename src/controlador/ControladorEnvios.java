@@ -27,28 +27,32 @@ public class ControladorEnvios implements MouseListener {
 
     List<ModeloCotizacion> list;
     EnviosSolicitados envio;
+    private String dpi;
 
-    public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> list) {
+    public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> list, String dpi) {
         this.envio = envio;
         this.list = list;
+        this.dpi = dpi;
         this.envio.jTable.addMouseListener(this);
         LlenarTabla();
     }
-
-    private void LlenarTabla() {
+ 
+    private void LlenarTabla() {      
         DefaultTableModel dtm = new DefaultTableModel(new String[]{"Código de Paquete", "Tipo de Servicio",
             "Destinatario", "Total Envio", "Total de Pago"}, list.size());
         envio.jTable.setModel(dtm);
         TableModel model = envio.jTable.getModel();
         for (int i = 0; i < list.size(); i++) {
-            model.setValueAt("RA00" + list.get(i).getCodigoPaquete() + "CN", i, 0);
-            model.setValueAt(list.get(i).getTipoServicio(), i, 1);
-            model.setValueAt(list.get(i).getDestino(), i, 2);
-            model.setValueAt(list.get(i).getTotPagar(), i, 3);
-            model.setValueAt(list.get(i).getTipoPago(), i, 4);
+            if (list.get(i).getDpi().equals(dpi)) {
+                model.setValueAt("RA00" + list.get(i).getCodigoPaquete() + "CN", i, 0);
+                model.setValueAt(list.get(i).getTipoServicio(), i, 1);
+                model.setValueAt(list.get(i).getDestino(), i, 2);
+                model.setValueAt(list.get(i).getTotPagar(), i, 3);
+                model.setValueAt(list.get(i).getTipoPago(), i, 4);
+            }
         }
     }
-
+    
     private void DescargarFactura(int select) {
         String estructuraHTML = "";
         String tablaHTML = "";

@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.ModeloFacturacion;
+import modelo.ModeloPersona;
 import vista.DatosFacturacion;
 
 /**
@@ -20,11 +21,16 @@ import vista.DatosFacturacion;
 public class ControladorFacturacion implements ActionListener, KeyListener {
 
     DatosFacturacion manejo;
-    List<ModeloFacturacion> list;
+    List<ModeloFacturacion> listFact;
+    List<ModeloPersona> listPersona;
+    private String dpi;
 
-    public ControladorFacturacion(DatosFacturacion datos, List<ModeloFacturacion> lista) {
-        manejo = datos;
-        list = lista;
+    public ControladorFacturacion(DatosFacturacion fact, List<ModeloFacturacion> listaFact,
+            List<ModeloPersona> listPersona, String dpi) {
+        manejo = fact;
+        this.listFact = listaFact;
+        this.listPersona = listPersona;
+        this.dpi = dpi;
         manejo.jButtonGuardar.addActionListener(this);
         manejo.jTextFieldNit.addKeyListener(this);
         manejo.jTextFieldNumeroCardX.addKeyListener(this);
@@ -40,12 +46,11 @@ public class ControladorFacturacion implements ActionListener, KeyListener {
         String direccion = manejo.jTextFieldDireccion.getText();
         String nit = manejo.jTextFieldNit.getText();
         String nombreCard = manejo.jTextFieldNombreCard.getText();
-        //String numeroCard = manejo.jTextFieldNumeroCardX.getText() + manejo.jTextFieldNumeroCardLastDigits.getText();
         String numeroCard = manejo.jTextFieldNumeroCardLastDigits.getText();
         String fechaVen = manejo.jComboBoxMM.getSelectedItem() + "/" + manejo.jComboBoYYYY.getSelectedItem();
 
-        ModeloFacturacion mod = new ModeloFacturacion(nombreCompleto, direccion, nit, nombreCard, numeroCard, fechaVen);
-        list.add(mod);
+        ModeloFacturacion mod = new ModeloFacturacion(nombreCompleto, direccion, nit, nombreCard, numeroCard, fechaVen, dpi);
+        listFact.add(mod);
 
         manejo.jTextFieldNombreCompleto.setText("");
         manejo.jTextFieldNombreCompleto.requestFocus();
