@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,22 +29,27 @@ public class ControladorEnvios implements MouseListener {
     List<ModeloCotizacion> list;
     EnviosSolicitados envio;
     private String dpi;
+    private List<Integer> listPosicion;
 
     public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> list, String dpi) {
+        this.listPosicion = new ArrayList<>();
         this.envio = envio;
         this.list = list;
         this.dpi = dpi;
         this.envio.jTable.addMouseListener(this);
         LlenarTabla();
+
     }
- 
-    private void LlenarTabla() {      
+
+    private void LlenarTabla() {
+
         DefaultTableModel dtm = new DefaultTableModel(new String[]{"Código de Paquete", "Tipo de Servicio",
             "Destinatario", "Total Envio", "Total de Pago"}, list.size());
         envio.jTable.setModel(dtm);
         TableModel model = envio.jTable.getModel();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getDpi().equals(dpi)) {
+                listPosicion.add(i);
                 model.setValueAt("RA00" + list.get(i).getCodigoPaquete() + "CN", i, 0);
                 model.setValueAt(list.get(i).getTipoServicio(), i, 1);
                 model.setValueAt(list.get(i).getDestino(), i, 2);
@@ -52,7 +58,7 @@ public class ControladorEnvios implements MouseListener {
             }
         }
     }
-    
+
     private void DescargarFactura(int select) {
         String estructuraHTML = "";
         String tablaHTML = "";
@@ -189,9 +195,25 @@ public class ControladorEnvios implements MouseListener {
         if (e.getSource() == envio.jTable) {
             int hola = Integer.parseInt(JOptionPane.showInputDialog(null, "0) Factura\n" + "1) Guia" + "\nIngrese entre 0 y 1 para abrir un archivo.", "FACTURA O GUÍA", JOptionPane.QUESTION_MESSAGE));
             if (hola == 0) {
-                DescargarFactura(select);
+                for (int i = 0; i < listPosicion.size(); i++) {
+                    if (listPosicion.get(i).equals(select)) {
+                        DescargarFactura(select);
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NO TIENE PERMISO DE HACER ESTA ACCIÓN", "GRAVE ERROR!", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                }
             } else if (hola == 1) {
-                DescargarGuia(select);
+                for (int i = 0; i < listPosicion.size(); i++) {
+                    if (listPosicion.get(i).equals(select)) {
+                        DescargarGuia(select);
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NO TIENE PERMISO DE HACER ESTA ACCIÓN", "GRAVE ERROR!", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                }
             }
         }
     }

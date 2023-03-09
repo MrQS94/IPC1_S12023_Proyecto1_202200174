@@ -79,6 +79,22 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         PullDepartametnsKioscos();
         PullFacturacion();
         HabilitarCard();
+        PullKisocosUser();
+    }
+
+    private void PullKisocosUser() {
+
+        for (int i = 0; i < listPersona.size(); i++) {
+            if (listPersona.get(i).getDpi().equals(dpi)) {
+                if (listPersona.get(i).getKiosco() != null) {
+                    if (!listPersona.get(i).getKiosco().equals("")) {
+                        cot.jComboBoxOrigenDept.addItem(listPersona.get(i).getKiosco());
+                        cot.jComboBoxOrigenDept.setSelectedItem(listPersona.get(i).getKiosco());
+                        cot.jComboBoxOrigenDept.setEnabled(false);
+                    }
+                }
+            }
+        }//listPersona.get(i).getKiosco()
     }
 
     private void PullDepartametnsKioscos() {
@@ -342,6 +358,34 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         }
     }
 
+    private String PullReg(JComboBox destino) {
+        String combo = destino.getSelectedItem().toString();
+        String region = "";
+        String reg = "";
+
+        for (int i = 0; i < listDepart.size(); i++) {
+            if (listDepart.get(i).getNombreDepart().equals(combo)) {
+                region = listDepart.get(i).getRegion();
+            }
+        }
+
+        if (listKiosco != null) {
+            for (int i = 0; i < listKiosco.size(); i++) {
+                if (listKiosco.get(i).getNombre().equals(combo)) {
+                    region = listKiosco.get(i).getCodigoRegion();
+                }
+            }
+        }
+
+        for (int i = 0; i < listReg.size(); i++) {
+            if (listReg.get(i).getNombre().equals(region)) {
+                reg = listReg.get(i).getNombre();
+            }
+        }
+
+        return reg;
+    }
+
     private void CalcularServicio() {
         double precioReg = 0;
         double packageSize = 0;
@@ -435,30 +479,6 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
                 cot.jCheckBoxHabilitar.setSelected(false);
             }
         }
-    }
-
-    private String PullReg(JComboBox destino) {
-        String combo = destino.getSelectedItem().toString();
-        String region = "";
-        String reg = "";
-
-        for (int i = 0; i < listDepart.size(); i++) {
-            if (listDepart.get(i).getNombreDepart().equals(combo)) {
-                region = listDepart.get(i).getRegion();
-            } else if (listKiosco != null) {
-                if (listKiosco.get(i).getNombre().equals(combo)) {
-                    region = listKiosco.get(i).getCodigoRegion();
-                }
-            }
-        }
-
-        for (int i = 0; i < listReg.size(); i++) {
-            if (listReg.get(i).getNombre().equals(region)) {
-                reg = listReg.get(i).getNombre();
-            }
-        }
-
-        return reg;
     }
 
     private void OtroEnvio() {

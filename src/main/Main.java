@@ -12,11 +12,9 @@ import vista.Autenticacion;
  * @author queza
  */
 public class Main {
-
     public static void main(String[] args) {
         Autenticacion aut = new Autenticacion();
         ControladorPrincipal control = new ControladorPrincipal(aut);
         aut.setVisible(true);
     }
-
 }
