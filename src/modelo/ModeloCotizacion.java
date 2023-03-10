@@ -99,5 +99,4 @@ public class ModeloCotizacion {
     public String getTipoServicio() {
         return tipoServicio;
     }
-
 }
