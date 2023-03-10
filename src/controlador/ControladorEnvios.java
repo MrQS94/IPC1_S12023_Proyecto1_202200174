@@ -30,6 +30,7 @@ public class ControladorEnvios implements MouseListener {
     EnviosSolicitados envio;
     private String dpi;
     private List<Integer> listPosicion;
+    private List<ModeloCotizacion> listNew = new ArrayList();
 
     public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> listCot, String dpi) {
         this.listPosicion = new ArrayList<>();
@@ -43,19 +44,27 @@ public class ControladorEnvios implements MouseListener {
 
     private void LlenarTabla() {
 
-        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Código de Paquete", "Tipo de Servicio",
-            "Destinatario", "Total Envio", "Total de Pago"}, listCot.size());
-        envio.jTable.setModel(dtm);
-        TableModel model = envio.jTable.getModel();
         for (int i = 0; i < listCot.size(); i++) {
             if (listCot.get(i).getDpi().equals(dpi)) {
-                listPosicion.add(i);
-                model.setValueAt("RA00" + listCot.get(i).getCodigoPaquete() + "CN", i, 0);
-                model.setValueAt(listCot.get(i).getTipoServicio(), i, 1);
-                model.setValueAt(listCot.get(i).getDestino(), i, 2);
-                model.setValueAt(listCot.get(i).getTotPagar(), i, 3);
-                model.setValueAt(listCot.get(i).getTipoPago(), i, 4);
+                ModeloCotizacion mod = new ModeloCotizacion(listCot.get(i).getNoFactura(),
+                        listCot.get(i).getCodigoPaquete(), listCot.get(i).getGuia(), listCot.get(i).getOrigen(),
+                        listCot.get(i).getDestino(), listCot.get(i).getNit(), listCot.get(i).getTipoPago(),
+                        listCot.get(i).getPackageSize(), listCot.get(i).getNoPaquetes(), listCot.get(i).getTotPagar(),
+                        listCot.get(i).getFechaEnvio(), listCot.get(i).getTipoServicio(),
+                        listCot.get(i).getDpi(), listCot.get(i).getRegion());
+                listNew.add(mod);
             }
+        }
+        DefaultTableModel dtm = new DefaultTableModel(new String[]{"Código de Paquete", "Tipo de Servicio",
+            "Destinatario", "Total Envio", "Total de Pago"}, listNew.size());
+        envio.jTable.setModel(dtm);
+        TableModel model = envio.jTable.getModel();
+        for (int i = 0; i < listNew.size(); i++) {
+                model.setValueAt("RA00" + listNew.get(i).getCodigoPaquete() + "CN", i, 0);
+                model.setValueAt(listNew.get(i).getTipoServicio(), i, 1);
+                model.setValueAt(listNew.get(i).getDestino(), i, 2);
+                model.setValueAt(listNew.get(i).getTotPagar(), i, 3);
+                model.setValueAt(listNew.get(i).getTipoPago(), i, 4);
         }
     }
 
@@ -127,7 +136,7 @@ public class ControladorEnvios implements MouseListener {
     private void DescargarGuia(int select) {
         String estructuraHTML = "";
         String tablaHTML = "";
-        
+
         tablaHTML
                 += "<tr>"
                 + "<td>" + listCot.get(select).getGuia() + "</td>"
@@ -193,25 +202,9 @@ public class ControladorEnvios implements MouseListener {
         if (e.getSource() == envio.jTable) {
             int hola = Integer.parseInt(JOptionPane.showInputDialog(null, "0) Factura\n" + "1) Guia" + "\nIngrese entre 0 y 1 para abrir un archivo.", "FACTURA O GUÍA", JOptionPane.QUESTION_MESSAGE));
             if (hola == 0) {
-                for (int i = 0; i < listPosicion.size(); i++) {
-                    if (listPosicion.get(i).equals(select)) {
-                        DescargarFactura(select);
-                        break;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "NO TIENE PERMISO DE HACER ESTA ACCIÓN", "GRAVE ERROR!", JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
-                }
+                DescargarFactura(select);
             } else if (hola == 1) {
-                for (int i = 0; i < listPosicion.size(); i++) {
-                    if (listPosicion.get(i).equals(select)) {
-                        DescargarGuia(select);
-                        break;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "NO TIENE PERMISO DE HACER ESTA ACCIÓN", "GRAVE ERROR!", JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }
-                }
+                DescargarGuia(select);
             }
         }
     }

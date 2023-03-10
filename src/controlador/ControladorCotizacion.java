@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -489,7 +489,6 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
 
         cot.jTextFieldNoPaquetes.setText("");
         cot.jComboBoxDestinoDept.setSelectedIndex(0);
-        cot.jComboBoxOrigenDept.setSelectedIndex(0);
         cot.jTextFieldDireccionOrigen.setText("");
         cot.jTextFieldDireccionDestino.setText("");
         cot.jTextFieldPequeño.setText("");
@@ -505,7 +504,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         cot.jButtonCotizar.setEnabled(false);
         cot.jTextFieldNoPaquetes.setEnabled(true);
         cot.jComboBoxDestinoDept.setEnabled(true);
-        cot.jComboBoxOrigenDept.setEnabled(true);
+
         cot.jTextFieldDireccionOrigen.setEnabled(true);
         cot.jTextFieldDireccionDestino.setEnabled(true);
         cot.jRadioButtonEspecial.setEnabled(true);

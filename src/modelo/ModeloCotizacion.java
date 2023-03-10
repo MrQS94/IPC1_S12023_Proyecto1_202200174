@@ -52,10 +52,6 @@ public class ModeloCotizacion {
         return dpi;
     }
 
-    public ModeloCotizacion(int codigoPaquete) {
-        this.codigoPaquete = codigoPaquete;
-    }
-
     public String getGuia() {
         return guia;
     }

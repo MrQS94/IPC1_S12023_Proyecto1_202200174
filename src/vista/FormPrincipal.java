@@ -23,6 +23,7 @@ import modelo.ModeloCotizacion;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloFacturacion;
 import modelo.ModeloKiosco;
+import modelo.ModeloMunicipios;
 import modelo.ModeloPersona;
 import modelo.ModeloPrecios;
 
@@ -37,6 +38,7 @@ public class FormPrincipal extends javax.swing.JFrame {
      */
     List<ModeloPersona> listPersona;
     List<ModeloDepartamentos> listDepart;
+    List<ModeloMunicipios> listMuni;
     List<ModeloKiosco> listKiosco;
     List<ModeloPrecios> listPrecios;
     List<ModeloFacturacion> listFact;
@@ -51,7 +53,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public FormPrincipal(List<ModeloPersona> list, List<ModeloDepartamentos> listDepart,
             List<ModeloKiosco> listKiosco, List<ModeloPrecios> listPrecios, List<ModeloFacturacion> listFact,
-            List<ModeloCotizacion> listCot, String dpi) {
+            List<ModeloCotizacion> listCot, String dpi, List<ModeloMunicipios> listMuni) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.listPersona = list;
@@ -61,6 +63,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.listFact = listFact;
         this.listCot = listCot;
         this.dpi = dpi;
+        this.listMuni = listMuni;
     }
 
     /**
@@ -272,7 +275,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDepartamentosActionPerformed
         // TODO add your handling code here:
         ManejoDepartamentos manejo = new ManejoDepartamentos();
-        ControladorDepartamentos control = new ControladorDepartamentos(manejo, listDepart);
+        ControladorDepartamentos control = new ControladorDepartamentos(manejo, listDepart, listMuni);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemDepartamentosActionPerformed
 
@@ -301,7 +304,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Autenticacion aut = new Autenticacion();
         ControladorPrincipal control = new ControladorPrincipal(aut, listKiosco,
-                listPrecios, listDepart, listFact, listPersona, listCot);
+                listPrecios, listDepart, listMuni, listFact, listPersona, listCot);
         aut.show();
         this.hide();
     }//GEN-LAST:event_jMenuItemVolverActionPerformed

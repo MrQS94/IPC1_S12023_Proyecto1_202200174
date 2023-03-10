@@ -22,10 +22,12 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
 
     ManejoDepartamentos manejo;
     List<ModeloDepartamentos> list;
+    List<ModeloMunicipios> listMuni;
 
-    public ControladorDepartamentos(ManejoDepartamentos mane, List<ModeloDepartamentos> list) {
+    public ControladorDepartamentos(ManejoDepartamentos mane, List<ModeloDepartamentos> list, List<ModeloMunicipios> listMuni) {
         manejo = mane;
         this.list = list;
+        this.listMuni = listMuni;
         manejo.jButtonIngresar.addActionListener(this);
         manejo.jTextFieldCodigo.addKeyListener(this);
         manejo.jTextFieldCodigoMuni.addKeyListener(this);
@@ -41,6 +43,7 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
 
         ModeloDepartamentos modDept = new ModeloDepartamentos(codigoDepart, region, nombreDepart);
         ModeloMunicipios modMuni = new ModeloMunicipios(codigoMuni, nombreMuni);
+        listMuni.add(modMuni);
 
         modDept.AgregarMunicipios(modMuni);
         list.add(modDept);
@@ -78,9 +81,9 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
         }
     }
 
-    private boolean isDepartamentoValid(String departamento) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getCodigoDepart().equals(departamento)) {
+    private boolean isDepartamentoValid(String codigo) {
+        for (int i = 0; i < listMuni.size(); i++) {
+            if (listMuni.get(i).getCodigoMuni().equals(codigo)) {
                 return false;
             }
         }
@@ -90,10 +93,10 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejo.jButtonIngresar) {
-            if (isDepartamentoValid(manejo.jTextFieldCodigo.getText())) {
+            if (isDepartamentoValid(manejo.jTextFieldCodigoMuni.getText())) {
                 GuardarDatos();
             } else {
-                JOptionPane.showMessageDialog(null, "Ya existe un kiosco con este código", "DUPLICADOS!", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ya existe un municipio con este código", "DUPLICADOS!", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

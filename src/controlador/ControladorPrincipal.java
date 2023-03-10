@@ -15,6 +15,7 @@ import modelo.ModeloCotizacion;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloFacturacion;
 import modelo.ModeloKiosco;
+import modelo.ModeloMunicipios;
 import modelo.ModeloPersona;
 import modelo.ModeloPrecios;
 import vista.Autenticacion;
@@ -45,6 +46,7 @@ public class ControladorPrincipal implements ActionListener {
     List<ModeloPrecios> listPrecio = new ArrayList();
     List<ModeloFacturacion> listFact = new ArrayList();
     List<ModeloCotizacion> listCot = new ArrayList();
+    List<ModeloMunicipios> listMuni = new ArrayList();
 
     private int intentos = 3;
     private String nombreUser = "";
@@ -52,14 +54,16 @@ public class ControladorPrincipal implements ActionListener {
 
     public ControladorPrincipal(Autenticacion aut, List<ModeloKiosco> listKiosco,
             List<ModeloPrecios> listPrecio, List<ModeloDepartamentos> listaDepart,
-            List<ModeloFacturacion> listFact, List<ModeloPersona> listaPersona, List<ModeloCotizacion> listCot) {
+            List<ModeloMunicipios> listMuni, List<ModeloFacturacion> listFact,
+            List<ModeloPersona> listaPersona, List<ModeloCotizacion> listCot) {
         this.aut = aut;
         this.listKiosco = listKiosco;
         this.listPrecio = listPrecio;
         this.listaDepart = listaDepart;
+        this.listMuni = listMuni;
         this.listFact = listFact;
         this.listaPersona = listaPersona;
-        this.listCot = listCot;
+        this.listCot = listCot; 
         this.aut.jButtonIngresar.addActionListener(this);
         this.aut.jCheckBoxMostrar.addActionListener(this);
     }
@@ -86,10 +90,10 @@ public class ControladorPrincipal implements ActionListener {
         String pass = aut.jPasswordField.getText();
 
         if (VerificarEmailPass(email, pass)) {
-            FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot, dpi);
+            FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot, dpi, listMuni);
             if (VerificarAdmin(email, pass)) {
                 form.jMenuAdmin.setVisible(true);
-                form.jMenuCliente.setVisible(false);
+                //form.jMenuCliente.setVisible(false);
             } else {
                 form.jMenuAdmin.setVisible(false);
             }
