@@ -45,6 +45,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
     private double totalServicio;
     private String texto;
     private String dpi;
+    private String region;
 
     public ControladorCotizacion(Cotizacion cot, List<ModeloDepartamentos> listDepart,
             List<ModeloPrecios> listReg, List<ModeloFacturacion> listFact,
@@ -82,8 +83,37 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
         PullKisocosUser();
     }
 
-    private void PullKisocosUser() {
+    private String PullReg(JComboBox destino) {
+        String combo = destino.getSelectedItem().toString();
+        String region = "";
+        String reg = "";
 
+        for (int i = 0; i < listDepart.size(); i++) {
+            if (listDepart.get(i).getNombreDepart().equals(combo)) {
+                region = listDepart.get(i).getRegion();
+                this.region = listDepart.get(i).getRegion();
+            }
+        }
+
+        if (listKiosco != null) {
+            for (int i = 0; i < listKiosco.size(); i++) {
+                if (listKiosco.get(i).getNombre().equals(combo)) {
+                    region = listKiosco.get(i).getCodigoRegion();
+                    this.region = listDepart.get(i).getRegion();
+                }
+            }
+        }
+
+        for (int i = 0; i < listReg.size(); i++) {
+            if (listReg.get(i).getNombre().equals(region)) {
+                reg = listReg.get(i).getNombre();
+            }
+        }
+
+        return reg;
+    }
+
+    private void PullKisocosUser() {
         for (int i = 0; i < listPersona.size(); i++) {
             if (listPersona.get(i).getDpi().equals(dpi)) {
                 if (listPersona.get(i).getKiosco() != null) {
@@ -94,7 +124,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
                     }
                 }
             }
-        }//listPersona.get(i).getKiosco()
+        }
     }
 
     private void PullDepartametnsKioscos() {
@@ -208,7 +238,7 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
 
         ModeloCotizacion mod = new ModeloCotizacion(noFactura, codigoPaquete, guia,
                 origen, destino, nit, tipoPago, packageSize, noPaquetes,
-                totPagar, fechaEnvio, tipoServicio, dpi);
+                totPagar, fechaEnvio, tipoServicio, dpi, region);
         listCot.add(mod);
 
         cot.jButtonFactura.setEnabled(true);
@@ -356,34 +386,6 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             Logger.getLogger(ControladorCotizacion.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private String PullReg(JComboBox destino) {
-        String combo = destino.getSelectedItem().toString();
-        String region = "";
-        String reg = "";
-
-        for (int i = 0; i < listDepart.size(); i++) {
-            if (listDepart.get(i).getNombreDepart().equals(combo)) {
-                region = listDepart.get(i).getRegion();
-            }
-        }
-
-        if (listKiosco != null) {
-            for (int i = 0; i < listKiosco.size(); i++) {
-                if (listKiosco.get(i).getNombre().equals(combo)) {
-                    region = listKiosco.get(i).getCodigoRegion();
-                }
-            }
-        }
-
-        for (int i = 0; i < listReg.size(); i++) {
-            if (listReg.get(i).getNombre().equals(region)) {
-                reg = listReg.get(i).getNombre();
-            }
-        }
-
-        return reg;
     }
 
     private void CalcularServicio() {

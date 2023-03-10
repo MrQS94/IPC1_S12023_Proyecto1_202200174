@@ -18,18 +18,14 @@ import vista.ManejoDepartamentos;
  *
  * @author queza
  */
-public class ControladorRegiones implements ActionListener, KeyListener {
+public class ControladorDepartamentos implements ActionListener, KeyListener {
 
-    ManejoDepartamentos manejo = new ManejoDepartamentos();
-    List<ModeloDepartamentos> lista;
+    ManejoDepartamentos manejo;
+    List<ModeloDepartamentos> list;
 
-    public ControladorRegiones() {
-
-    }
-
-    public ControladorRegiones(ManejoDepartamentos mane, List<ModeloDepartamentos> list) {
+    public ControladorDepartamentos(ManejoDepartamentos mane, List<ModeloDepartamentos> list) {
         manejo = mane;
-        lista = list;
+        this.list = list;
         manejo.jButtonIngresar.addActionListener(this);
         manejo.jTextFieldCodigo.addKeyListener(this);
         manejo.jTextFieldCodigoMuni.addKeyListener(this);
@@ -47,7 +43,7 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         ModeloMunicipios modMuni = new ModeloMunicipios(codigoMuni, nombreMuni);
 
         modDept.AgregarMunicipios(modMuni);
-        lista.add(modDept);
+        list.add(modDept);
 
         manejo.jTextFieldCodigo.setText("");
         manejo.jTextFieldCodigo.requestFocus();
@@ -82,10 +78,23 @@ public class ControladorRegiones implements ActionListener, KeyListener {
         }
     }
 
+    private boolean isDepartamentoValid(String departamento) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getCodigoDepart().equals(departamento)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejo.jButtonIngresar) {
-            GuardarDatos();
+            if (isDepartamentoValid(manejo.jTextFieldCodigo.getText())) {
+                GuardarDatos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya existe un kiosco con este código", "DUPLICADOS!", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

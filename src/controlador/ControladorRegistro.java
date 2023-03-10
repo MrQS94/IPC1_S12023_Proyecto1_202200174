@@ -68,7 +68,6 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         String fechaNac = registro.jComboBoxDD.getSelectedItem() + "/"
                 + registro.jComboBoxMM.getSelectedItem() + "/"
                 + registro.jTextFieldYYYY.getText();
-
         String genero = "";
         if (registro.jRadioButtonHombre.isSelected()) {
             genero = "Hombre";
@@ -145,7 +144,16 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
         return pass.equals(pass2) && CaracteresPass(pass) && CaracteresPass(pass2);
     }
 
-    private boolean ComprobarText() {
+    private boolean isDpiEmailValid(String dpi, String email) {
+        for (int i = 0; i < listPersona.size(); i++) {
+            if (listPersona.get(i).getDpi().equals(dpi) || listPersona.get(i).getCorreo().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean ComprobarTextField() {
         return registro.jTextFieldNombre.getText().isBlank()
                 || registro.jTextFieldApellido.getText().isBlank()
                 || registro.jTextFieldAlias.getText().isBlank()
@@ -238,9 +246,9 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
             MostrarPass(registro.jCheckBoxMostrar, registro.jPasswordField);
         } else if (e.getSource() == registro.jCheckBoxConfirmar) {
             if (registro.jCheckBoxConfirmar.isSelected()) {
-                if (ComprobarText()) {
+                if (ComprobarTextField() || isDpiEmailValid(registro.jTextFieldDPI.getText(), registro.jTextFieldEmail.getText())) {
                     registro.jCheckBoxConfirmar.setSelected(false);
-                    JOptionPane.showMessageDialog(null, "Existen valores vacíos.", "WARNING!", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Existen valores vacíos o repetidos.", "WARNING!", JOptionPane.WARNING_MESSAGE);
                 } else {
                     if (ComprobarPass()) {
                         registro.jButtonRegistrar.setEnabled(true);

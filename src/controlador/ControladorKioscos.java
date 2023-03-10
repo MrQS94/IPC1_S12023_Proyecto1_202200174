@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.ModeloDepartamentos;
+import modelo.ModeloPrecios;
 import vista.ManejoKioscos;
 
 /**
@@ -20,32 +20,29 @@ import vista.ManejoKioscos;
  */
 public class ControladorKioscos implements ActionListener, KeyListener {
 
-    ManejoKioscos manejoKiosc = new ManejoKioscos();
-    ControladorRegiones controlReg = new ControladorRegiones();
-    List<ModeloDepartamentos> listDepart;
-    List<ModeloKiosco> listKiosc;
+    ManejoKioscos manejoKiosc;
+    List<ModeloPrecios> listPrecios;
+    List<ModeloKiosco> listKiosco;
 
-    public ControladorKioscos(ManejoKioscos manejo, List<ModeloDepartamentos> listDepart, List<ModeloKiosco> listKiosc) {
+    public ControladorKioscos(ManejoKioscos manejo, List<ModeloPrecios> listPrecios, List<ModeloKiosco> listKiosc) {
         manejoKiosc = manejo;
         manejoKiosc.jButtonEnviar.addActionListener(this);
-        this.listDepart = listDepart;
-        this.listKiosc = listKiosc;
+        this.listPrecios = listPrecios;
+        this.listKiosco = listKiosc;
         manejoKiosc.jTextFieldNombre.addKeyListener(this);
         manejoKiosc.jTextFieldCodigoKiosco.addKeyListener(this);
         PullRegion();
     }
 
     private void PullRegion() {
-        for (int i = 0; i < listDepart.size(); i++) {
-            manejoKiosc.jComboBoxRegion.addItem(listDepart.get(i).getCodigoDepart());
+        for (int i = 0; i < listPrecios.size(); i++) {
+            manejoKiosc.jComboBoxRegion.addItem(listPrecios.get(i).getNombre());
         }
     }
 
     private void HabilitarBoton() {
         String nombre = manejoKiosc.jTextFieldNombre.getText();
         String codigoKiosc = manejoKiosc.jTextFieldCodigoKiosco.getText();
-        //int codigoReg = manejoKiosc.jComboBoxRegion.getSelectedIndex();
-
         if (!(nombre.isEmpty() || codigoKiosc.isEmpty())) {
             manejoKiosc.jButtonEnviar.setEnabled(true);
         } else {
@@ -59,7 +56,7 @@ public class ControladorKioscos implements ActionListener, KeyListener {
         String codigoReg = (String) manejoKiosc.jComboBoxRegion.getSelectedItem();
 
         ModeloKiosco mod = new ModeloKiosco(nombre, codigoReg, codigoKiosc);
-        listKiosc.add(mod);
+        listKiosco.add(mod);
 
         manejoKiosc.jTextFieldNombre.setText("");
         manejoKiosc.jTextFieldNombre.requestFocus();
@@ -69,10 +66,23 @@ public class ControladorKioscos implements ActionListener, KeyListener {
         JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private boolean isCodigoKioscoValid(String kiosco) {
+        for (int i = 0; i < listKiosco.size(); i++) {
+            if (listKiosco.get(i).getCodigoKiosco().equals(kiosco)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejoKiosc.jButtonEnviar) {
-            AgregarKiosco();
+            if (isCodigoKioscoValid(manejoKiosc.jTextFieldCodigoKiosco.getText())) {
+                AgregarKiosco();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya existe un kiosco con este código", "DUPLICADOS!", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

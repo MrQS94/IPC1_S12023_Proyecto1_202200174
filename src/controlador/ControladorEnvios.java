@@ -26,15 +26,15 @@ import vista.EnviosSolicitados;
  */
 public class ControladorEnvios implements MouseListener {
 
-    List<ModeloCotizacion> list;
+    List<ModeloCotizacion> listCot;
     EnviosSolicitados envio;
     private String dpi;
     private List<Integer> listPosicion;
 
-    public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> list, String dpi) {
+    public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> listCot, String dpi) {
         this.listPosicion = new ArrayList<>();
         this.envio = envio;
-        this.list = list;
+        this.listCot = listCot;
         this.dpi = dpi;
         this.envio.jTable.addMouseListener(this);
         LlenarTabla();
@@ -44,17 +44,17 @@ public class ControladorEnvios implements MouseListener {
     private void LlenarTabla() {
 
         DefaultTableModel dtm = new DefaultTableModel(new String[]{"Código de Paquete", "Tipo de Servicio",
-            "Destinatario", "Total Envio", "Total de Pago"}, list.size());
+            "Destinatario", "Total Envio", "Total de Pago"}, listCot.size());
         envio.jTable.setModel(dtm);
         TableModel model = envio.jTable.getModel();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDpi().equals(dpi)) {
+        for (int i = 0; i < listCot.size(); i++) {
+            if (listCot.get(i).getDpi().equals(dpi)) {
                 listPosicion.add(i);
-                model.setValueAt("RA00" + list.get(i).getCodigoPaquete() + "CN", i, 0);
-                model.setValueAt(list.get(i).getTipoServicio(), i, 1);
-                model.setValueAt(list.get(i).getDestino(), i, 2);
-                model.setValueAt(list.get(i).getTotPagar(), i, 3);
-                model.setValueAt(list.get(i).getTipoPago(), i, 4);
+                model.setValueAt("RA00" + listCot.get(i).getCodigoPaquete() + "CN", i, 0);
+                model.setValueAt(listCot.get(i).getTipoServicio(), i, 1);
+                model.setValueAt(listCot.get(i).getDestino(), i, 2);
+                model.setValueAt(listCot.get(i).getTotPagar(), i, 3);
+                model.setValueAt(listCot.get(i).getTipoPago(), i, 4);
             }
         }
     }
@@ -65,17 +65,16 @@ public class ControladorEnvios implements MouseListener {
 
         tablaHTML
                 += "<tr>"
-                + "<td> #0000" + list.get(select).getNoFactura() + "</td>"
-                + "<td> RA00" + list.get(select).getCodigoPaquete() + "CN</td>"
-                + "<td>" + list.get(select).getOrigen() + "</td>"
-                + "<td>" + list.get(select).getDestino() + "</td>"
-                + "<td>" + list.get(select).getNit() + "</td>"
-                + "<td>" + list.get(select).getTipoPago() + "</td>"
-                + "<td>" + list.get(select).getPackageSize() + "</td>"
-                + "<td>" + list.get(select).getNoPaquetes() + "</td>"
-                + "<td>" + list.get(select).getTotPagar() + "</td>"
+                + "<td> #0000" + listCot.get(select).getNoFactura() + "</td>"
+                + "<td> RA00" + listCot.get(select).getCodigoPaquete() + "CN</td>"
+                + "<td>" + listCot.get(select).getOrigen() + "</td>"
+                + "<td>" + listCot.get(select).getDestino() + "</td>"
+                + "<td>" + listCot.get(select).getNit() + "</td>"
+                + "<td>" + listCot.get(select).getTipoPago() + "</td>"
+                + "<td>" + listCot.get(select).getPackageSize() + "</td>"
+                + "<td>" + listCot.get(select).getNoPaquetes() + "</td>"
+                + "<td>" + listCot.get(select).getTotPagar() + "</td>"
                 + "</tr>";
-
         estructuraHTML += """
                           <!DOCTYPE html>
                           <!-- Acá importar archivos necesarios --->
@@ -128,20 +127,19 @@ public class ControladorEnvios implements MouseListener {
     private void DescargarGuia(int select) {
         String estructuraHTML = "";
         String tablaHTML = "";
-
+        
         tablaHTML
                 += "<tr>"
-                + "<td>" + list.get(select).getGuia() + "</td>"
-                + "<td> RA00" + list.get(select).getCodigoPaquete() + "CN</td>"
-                + "<td>" + list.get(select).getOrigen() + "</td>"
-                + "<td>" + list.get(select).getDestino() + "</td>"
-                + "<td>" + list.get(select).getTipoPago() + "</td>"
-                + "<td>" + list.get(select).getPackageSize() + "</td>"
-                + "<td>" + list.get(select).getNoPaquetes() + "</td>"
-                + "<td>" + list.get(select).getFechaEnvio() + "</td>"
-                + "<td>" + list.get(select).getTotPagar() + "</td>"
+                + "<td>" + listCot.get(select).getGuia() + "</td>"
+                + "<td> RA00" + listCot.get(select).getCodigoPaquete() + "CN</td>"
+                + "<td>" + listCot.get(select).getOrigen() + "</td>"
+                + "<td>" + listCot.get(select).getDestino() + "</td>"
+                + "<td>" + listCot.get(select).getTipoPago() + "</td>"
+                + "<td>" + listCot.get(select).getPackageSize() + "</td>"
+                + "<td>" + listCot.get(select).getNoPaquetes() + "</td>"
+                + "<td>" + listCot.get(select).getFechaEnvio() + "</td>"
+                + "<td>" + listCot.get(select).getTotPagar() + "</td>"
                 + "</tr>";
-
         estructuraHTML += """
                           <!DOCTYPE html>
                                           <!-- Acá importar archivos necesarios --->

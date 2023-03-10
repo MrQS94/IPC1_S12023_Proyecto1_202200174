@@ -10,8 +10,9 @@ import controlador.ControladorFacturacion;
 import controlador.ControladorKioscos;
 import controlador.ControladorPrecios;
 import controlador.ControladorPrincipal;
-import controlador.ControladorRegiones;
+import controlador.ControladorDepartamentos;
 import controlador.ControladorRegistro;
+import controlador.ControladorReportes;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.List;
@@ -40,9 +41,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     List<ModeloPrecios> listPrecios;
     List<ModeloFacturacion> listFact;
     List<ModeloCotizacion> listCot;
-    
+
     private String dpi;
-    
 
     public FormPrincipal() {
         initComponents();
@@ -113,6 +113,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
+        jMenuItemVolver.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemVolver.setText("Inicio de Sesión");
         jMenuItemVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +173,11 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenuItemReportes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemReportes.setText("Reportes");
+        jMenuItemReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReportesActionPerformed(evt);
+            }
+        });
         jMenuAdmin.add(jMenuItemReportes);
 
         jMenuBar1.add(jMenuAdmin);
@@ -251,7 +257,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemCotizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCotizacionActionPerformed
         // TODO add your handling code here:
         Cotizacion cotizacion = new Cotizacion();
-        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart, 
+        ControladorCotizacion cot = new ControladorCotizacion(cotizacion, listDepart,
                 listPrecios, listFact, listCot, listPersona, listKiosco, dpi);
         EvitarAbrir(cotizacion);
     }//GEN-LAST:event_jMenuItemCotizacionActionPerformed
@@ -259,14 +265,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemKioscosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemKioscosActionPerformed
         // TODO add your handling code here:
         ManejoKioscos manejo = new ManejoKioscos();
-        ControladorKioscos kiosco = new ControladorKioscos(manejo, listDepart, listKiosco);
+        ControladorKioscos kiosco = new ControladorKioscos(manejo, listPrecios, listKiosco);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemKioscosActionPerformed
 
     private void jMenuItemDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDepartamentosActionPerformed
         // TODO add your handling code here:
         ManejoDepartamentos manejo = new ManejoDepartamentos();
-        ControladorRegiones control = new ControladorRegiones(manejo, listDepart);
+        ControladorDepartamentos control = new ControladorDepartamentos(manejo, listDepart);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemDepartamentosActionPerformed
 
@@ -294,11 +300,18 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVolverActionPerformed
         // TODO add your handling code here:
         Autenticacion aut = new Autenticacion();
-        ControladorPrincipal control = new ControladorPrincipal(aut, listKiosco, 
+        ControladorPrincipal control = new ControladorPrincipal(aut, listKiosco,
                 listPrecios, listDepart, listFact, listPersona, listCot);
         aut.show();
         this.hide();
     }//GEN-LAST:event_jMenuItemVolverActionPerformed
+
+    private void jMenuItemReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReportesActionPerformed
+        // TODO add your handling code here:
+        Reporte reporte = new Reporte();
+        ControladorReportes control = new ControladorReportes(reporte, listPrecios, listCot, listPersona);
+        EvitarAbrir(reporte);
+    }//GEN-LAST:event_jMenuItemReportesActionPerformed
 
     /**
      * @param args the command line arguments

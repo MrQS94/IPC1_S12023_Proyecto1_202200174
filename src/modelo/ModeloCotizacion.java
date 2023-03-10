@@ -23,10 +23,11 @@ public class ModeloCotizacion {
     private String fechaEnvio;
     private String tipoServicio;
     private String dpi;
+    private String region;
 
     public ModeloCotizacion(int noFactura, int codigoPaquete, String guia, String origen,
             String destino, String nit, String tipoPago, double packageSize, int noPaquetes,
-            double totPagar, String fechaEnvio, String tipoServicio, String dpi) {
+            double totPagar, String fechaEnvio, String tipoServicio, String dpi, String region) {
         this.noFactura = noFactura;
         this.codigoPaquete = codigoPaquete;
         this.guia = guia;
@@ -40,6 +41,11 @@ public class ModeloCotizacion {
         this.fechaEnvio = fechaEnvio;
         this.tipoServicio = tipoServicio;
         this.dpi = dpi;
+        this.region = region;
+    }
+    
+    public String getRegion() {
+        return region;
     }
 
     public String getDpi() {
