@@ -49,10 +49,6 @@ public class Autenticacion extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Correo Electronico");
 
-        jTextFieldCorreo.setText("ipc1_202200174@ipc1delivery.com");
-
-        jPasswordField.setText("202200174");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
