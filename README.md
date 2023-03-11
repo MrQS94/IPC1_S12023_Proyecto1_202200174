@@ -1,1 +1,4 @@
-# IPC1_S12023_Proyecto1_202200174
+
+Nombre completo: Andres Alejandro Quezada Cabrera
+Carné: 202200174
+Nombre de curso y sección: LAB IPC1, Seccion D
