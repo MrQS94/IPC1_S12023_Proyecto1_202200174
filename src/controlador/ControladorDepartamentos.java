@@ -21,12 +21,12 @@ import vista.ManejoDepartamentos;
 public class ControladorDepartamentos implements ActionListener, KeyListener {
 
     ManejoDepartamentos manejo;
-    List<ModeloDepartamentos> list;
+    List<ModeloDepartamentos> listDepart;
     List<ModeloMunicipios> listMuni;
 
     public ControladorDepartamentos(ManejoDepartamentos mane, List<ModeloDepartamentos> list, List<ModeloMunicipios> listMuni) {
         manejo = mane;
-        this.list = list;
+        this.listDepart = list;
         this.listMuni = listMuni;
         manejo.jButtonIngresar.addActionListener(this);
         manejo.jTextFieldCodigo.addKeyListener(this);
@@ -46,7 +46,7 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
         listMuni.add(modMuni);
 
         modDept.AgregarMunicipios(modMuni);
-        list.add(modDept);
+        listDepart.add(modDept);
 
         manejo.jTextFieldCodigo.setText("");
         manejo.jTextFieldCodigo.requestFocus();
@@ -81,7 +81,7 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
         }
     }
 
-    private boolean isDepartamentoValid(String codigo) {
+    private boolean isMunicipioValid(String codigo) {
         for (int i = 0; i < listMuni.size(); i++) {
             if (listMuni.get(i).getCodigoMuni().equals(codigo)) {
                 return false;
@@ -93,7 +93,7 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejo.jButtonIngresar) {
-            if (isDepartamentoValid(manejo.jTextFieldCodigoMuni.getText())) {
+            if (isMunicipioValid(manejo.jTextFieldCodigoMuni.getText())) {
                 GuardarDatos();
             } else {
                 JOptionPane.showMessageDialog(null, "Ya existe un municipio con este código", "DUPLICADOS!", JOptionPane.WARNING_MESSAGE);
@@ -114,7 +114,7 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
             HabilitarBoton();
         } else if (e.getSource() == manejo.jTextFieldCodigoMuni) {
             HabilitarBoton();
-        }
+        } 
     }
 
     @Override

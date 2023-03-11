@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import modelo.ModeloCotizacion;
+import modelo.ModeloPrecios;
 import vista.EnviosSolicitados;
 
 /**
@@ -29,11 +30,9 @@ public class ControladorEnvios implements MouseListener {
     List<ModeloCotizacion> listCot;
     EnviosSolicitados envio;
     private String dpi;
-    private List<Integer> listPosicion;
     private List<ModeloCotizacion> listNew = new ArrayList();
 
     public ControladorEnvios(EnviosSolicitados envio, List<ModeloCotizacion> listCot, String dpi) {
-        this.listPosicion = new ArrayList<>();
         this.envio = envio;
         this.listCot = listCot;
         this.dpi = dpi;
@@ -43,7 +42,6 @@ public class ControladorEnvios implements MouseListener {
     }
 
     private void LlenarTabla() {
-
         for (int i = 0; i < listCot.size(); i++) {
             if (listCot.get(i).getDpi().equals(dpi)) {
                 ModeloCotizacion mod = new ModeloCotizacion(listCot.get(i).getNoFactura(),
@@ -51,7 +49,7 @@ public class ControladorEnvios implements MouseListener {
                         listCot.get(i).getDestino(), listCot.get(i).getNit(), listCot.get(i).getTipoPago(),
                         listCot.get(i).getPackageSize(), listCot.get(i).getNoPaquetes(), listCot.get(i).getTotPagar(),
                         listCot.get(i).getFechaEnvio(), listCot.get(i).getTipoServicio(),
-                        listCot.get(i).getDpi(), listCot.get(i).getRegion());
+                        listCot.get(i).getDpi(), listCot.get(i).getRegion(), listCot.get(i).getPrecioRegion());
                 listNew.add(mod);
             }
         }
@@ -60,11 +58,11 @@ public class ControladorEnvios implements MouseListener {
         envio.jTable.setModel(dtm);
         TableModel model = envio.jTable.getModel();
         for (int i = 0; i < listNew.size(); i++) {
-                model.setValueAt("RA00" + listNew.get(i).getCodigoPaquete() + "CN", i, 0);
-                model.setValueAt(listNew.get(i).getTipoServicio(), i, 1);
-                model.setValueAt(listNew.get(i).getDestino(), i, 2);
-                model.setValueAt(listNew.get(i).getTotPagar(), i, 3);
-                model.setValueAt(listNew.get(i).getTipoPago(), i, 4);
+            model.setValueAt("RA00" + listNew.get(i).getCodigoPaquete() + "CN", i, 0);
+            model.setValueAt(listNew.get(i).getTipoServicio(), i, 1);
+            model.setValueAt(listNew.get(i).getDestino(), i, 2);
+            model.setValueAt(listNew.get(i).getPrecioRegion(), i, 3);
+            model.setValueAt(listNew.get(i).getTipoPago(), i, 4);
         }
     }
 

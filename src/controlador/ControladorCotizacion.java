@@ -234,10 +234,15 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             char letra = cadena.charAt(num);
             guia += letra;
         }
-
+        double precioRegion = 0;     
+        if (cot.jRadioButtonEstandar.isSelected()) {
+            precioRegion = Double.parseDouble(cot.jLabelEstandar.getText());
+        } else if (cot.jRadioButtonEspecial.isSelected()) {
+            precioRegion = Double.parseDouble(cot.jLabelEspecial.getText());
+        }
         ModeloCotizacion mod = new ModeloCotizacion(noFactura, codigoPaquete, guia,
                 origen, destino, nit, tipoPago, packageSize, noPaquetes,
-                totPagar, fechaEnvio, tipoServicio, dpi, region);
+                totPagar, fechaEnvio, tipoServicio, dpi, region, precioRegion);
         listCot.add(mod);
 
         cot.jButtonFactura.setEnabled(true);

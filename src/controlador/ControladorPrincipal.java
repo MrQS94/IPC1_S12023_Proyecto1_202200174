@@ -31,8 +31,8 @@ public class ControladorPrincipal implements ActionListener {
     Autenticacion aut = new Autenticacion();
     RegistroUsuario registro = new RegistroUsuario();
 
-    ModeloPersona modPersona0 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174", "3903542010101",
-            "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "admin", "", "No existe foto");
+    ModeloPersona modPersona0 = new ModeloPersona("Andres", "Quezada", "ipc1_202200174@ipc1delivery.com", "202200174",
+            "3903542010101", "24/12/2002", "Hombre", "Guatemala", "MrQS", 42201602, "adnin", "", "No existe foto");
     ModeloPrecios modPrec1 = new ModeloPrecios("(M) Metropolitana", 25, 35);
     ModeloPrecios modPrec2 = new ModeloPrecios("(NT) Norte", 45.55, 68.50);
     ModeloPrecios modPrec3 = new ModeloPrecios("(NO) Nororiente", 35.48, 58.68);
@@ -63,7 +63,7 @@ public class ControladorPrincipal implements ActionListener {
         this.listMuni = listMuni;
         this.listFact = listFact;
         this.listaPersona = listaPersona;
-        this.listCot = listCot; 
+        this.listCot = listCot;
         this.aut.jButtonIngresar.addActionListener(this);
         this.aut.jCheckBoxMostrar.addActionListener(this);
     }
@@ -93,7 +93,7 @@ public class ControladorPrincipal implements ActionListener {
             FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot, dpi, listMuni);
             if (VerificarAdmin(email, pass)) {
                 form.jMenuAdmin.setVisible(true);
-                //form.jMenuCliente.setVisible(false);
+                form.jMenuCliente.setVisible(false);
             } else {
                 form.jMenuAdmin.setVisible(false);
             }
@@ -111,7 +111,7 @@ public class ControladorPrincipal implements ActionListener {
     private boolean VerificarAdmin(String email, String pass) {
         for (int i = 0; i < listaPersona.size(); i++) {
             if (email.equals(listaPersona.get(i).getCorreo()) && pass.equals(listaPersona.get(i).getPass())) {
-                if (listaPersona.get(i).getRol().equals("admin")) {
+                if (listaPersona.get(i).getRol().equals("adnin")) {
                     return true;
                 }
             }
