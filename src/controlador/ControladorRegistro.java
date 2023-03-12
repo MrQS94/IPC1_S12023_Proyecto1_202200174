@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -211,6 +212,8 @@ public class ControladorRegistro extends ControladorPrincipal implements MouseLi
             registro.jPasswordFieldConfirm.setText("");
             registro.jTextFieldYYYY.setText("YYYY");
             registro.jTextFieldEmail.setText("");
+            Icon icon = new ImageIcon();
+            registro.jLabelFotografia.setIcon(icon);
             registro.jComboBoxDD.setSelectedIndex(0);
             registro.jComboBoxMM.setSelectedIndex(0);
             registro.jRadioButtonHombre.setSelected(false);

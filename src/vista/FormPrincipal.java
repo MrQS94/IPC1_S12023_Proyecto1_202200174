@@ -11,6 +11,7 @@ import controlador.ControladorKioscos;
 import controlador.ControladorPrecios;
 import controlador.ControladorPrincipal;
 import controlador.ControladorDepartamentos;
+import controlador.ControladorProfile;
 import controlador.ControladorRegistro;
 import controlador.ControladorReportes;
 import java.awt.Graphics;
@@ -96,6 +97,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jMenuCliente = new javax.swing.JMenu();
         jMenuItemCotizacion = new javax.swing.JMenuItem();
         jMenuItemFacturacion = new javax.swing.JMenuItem();
+        jMenuItemPerfil = new javax.swing.JMenuItem();
         jMenuItemEnvios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -116,7 +118,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItemVolver.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemVolver.setText("Inicio de Sesión");
         jMenuItemVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +206,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jMenuCliente.add(jMenuItemFacturacion);
 
-        jMenuItemEnvios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemPerfil.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_9, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItemPerfil.setText("Ver Perfil");
+        jMenuItemPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPerfilActionPerformed(evt);
+            }
+        });
+        jMenuCliente.add(jMenuItemPerfil);
+
+        jMenuItemEnvios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         jMenuItemEnvios.setText("Ver Envíos Solicitados ");
         jMenuItemEnvios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,6 +326,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         EvitarAbrir(reporte);
     }//GEN-LAST:event_jMenuItemReportesActionPerformed
 
+    private void jMenuItemPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPerfilActionPerformed
+        // TODO add your handling code here:
+        Profile pro = new Profile();
+        ControladorProfile control = new ControladorProfile(pro, listPersona, dpi);
+        EvitarAbrir(pro);
+    }//GEN-LAST:event_jMenuItemPerfilActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -364,6 +381,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemFacturacion;
     private javax.swing.JMenuItem jMenuItemKioscos;
+    private javax.swing.JMenuItem jMenuItemPerfil;
     private javax.swing.JMenuItem jMenuItemRegiones;
     private javax.swing.JMenuItem jMenuItemRegistro;
     private javax.swing.JMenuItem jMenuItemReportes;
