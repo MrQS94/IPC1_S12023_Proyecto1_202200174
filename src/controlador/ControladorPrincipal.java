@@ -74,11 +74,11 @@ public class ControladorPrincipal implements ActionListener {
         this.aut.jCheckBoxMostrar.addActionListener(this);
         listaPersona.add(modPersona0);
         listPrecio.add(modPrec1);
-        listPrecio.add(modPrec2);
+        /*listPrecio.add(modPrec2);
         listPrecio.add(modPrec3);
         listPrecio.add(modPrec4);
         listPrecio.add(modPrec5);
-        listPrecio.add(modPrec6);
+        listPrecio.add(modPrec6);*/
     }
 
     public ControladorPrincipal(RegistroUsuario reg) {
@@ -93,7 +93,7 @@ public class ControladorPrincipal implements ActionListener {
             FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot, dpi, listMuni);
             if (VerificarAdmin(email, pass)) {
                 form.jMenuAdmin.setVisible(true);
-                form.jMenuCliente.setVisible(false);
+                //form.jMenuCliente.setVisible(false);
             } else {
                 form.jMenuAdmin.setVisible(false);
             }

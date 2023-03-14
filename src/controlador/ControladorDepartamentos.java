@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.ModeloDepartamentos;
 import modelo.ModeloMunicipios;
+import modelo.ModeloPrecios;
 import vista.ManejoDepartamentos;
 
 /**
@@ -23,17 +24,30 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
     ManejoDepartamentos manejo;
     List<ModeloDepartamentos> listDepart;
     List<ModeloMunicipios> listMuni;
+    List<ModeloPrecios> listPrec;
 
-    public ControladorDepartamentos(ManejoDepartamentos mane, List<ModeloDepartamentos> list, List<ModeloMunicipios> listMuni) {
+    public ControladorDepartamentos(ManejoDepartamentos mane, List<ModeloDepartamentos> list, List<ModeloMunicipios> listMuni, List<ModeloPrecios> listPrec) {
         manejo = mane;
         this.listDepart = list;
         this.listMuni = listMuni;
+        this.listPrec = listPrec;
         manejo.jButtonIngresar.addActionListener(this);
+        manejo.jButtonModificarDept.addActionListener(this);
+        manejo.jButtonEliminarDept.addActionListener(this);
         manejo.jTextFieldCodigo.addKeyListener(this);
         manejo.jTextFieldCodigoMuni.addKeyListener(this);
         manejo.jTextFieldNombreMuni.addKeyListener(this);
+        CargarDepartamento();
+        CargarMunicipio();
+        CargarRegiones();
     }
 
+    private void CargarRegiones(){
+        for (int i = 0; i < listPrec.size(); i++) {
+            manejo.jComboBoxRegion.addItem(listPrec.get(i).getNombre());
+        }
+    }
+    
     private void GuardarDatos() {
         String codigoDepart = manejo.jTextFieldCodigo.getText();
         String region = manejo.jComboBoxRegion.getSelectedItem().toString();
@@ -57,6 +71,10 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
         manejo.jButtonIngresar.setEnabled(false);
 
         JOptionPane.showMessageDialog(null, "Datos guardados exitosamente!", "INFORMACIÓN!", JOptionPane.INFORMATION_MESSAGE);
+        manejo.jComboBoxRegistradosDept.addItem(codigoDepart);
+        manejo.jComboBoxRegistradosDept.setEnabled(true);
+        manejo.jComboBoxRegistradosMuni.addItem(codigoMuni);
+        manejo.jComboBoxRegistradosMuni.setEnabled(true);
     }
 
     private void HabilitarDepart() {
@@ -90,6 +108,44 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
         return true;
     }
 
+    private void CargarMunicipio() {
+        for (int i = 0; i < listMuni.size(); i++) {
+            manejo.jComboBoxRegistradosMuni.setEnabled(true);
+            manejo.jComboBoxRegistradosMuni.addItem(listMuni.get(i).getCodigoMuni());
+        }
+    }
+
+    private void CargarDepartamento() {
+        for (int i = 0; i < listDepart.size(); i++) {
+            manejo.jComboBoxRegistradosDept.setEnabled(true);
+            manejo.jComboBoxRegistradosDept.addItem(listDepart.get(i).getCodigoDepart());
+        }
+    }
+
+    private void EliminarDepartamento() {
+        String hola = manejo.jComboBoxRegistradosDept.getSelectedItem().toString();
+        for (int i = 0; i < listDepart.size(); i++) {
+            if (listDepart.get(i).getCodigoDepart().equals(hola)) {
+                listDepart.remove(i);
+                manejo.jComboBoxRegistradosDept.remove(i);
+                JOptionPane.showMessageDialog(null, "Se elimino: " + hola, "INFORMATION!!", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    private void ModificarDepartamento() {
+        String hola = manejo.jComboBoxRegistradosDept.getSelectedItem().toString();
+        for (int i = 0; i < listDepart.size(); i++) {
+            if (listDepart.get(i).getCodigoDepart().equals(hola)) {
+                listDepart.get(i).setNombreDepart(manejo.jComboBoxNombre.getSelectedItem().toString());
+                listDepart.get(i).setRegion(manejo.jComboBoxRegion.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(null, "Se modifico: " + hola + "\nCon nombre: " + listDepart.get(i).getNombreDepart()
+                        + "\nCon region: " + listDepart.get(i).getRegion(), "INFORMATION!!", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            }
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == manejo.jButtonIngresar) {
@@ -98,7 +154,11 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Ya existe un municipio con este código", "DUPLICADOS!", JOptionPane.WARNING_MESSAGE);
             }
-        }
+        } else if (e.getSource() == manejo.jButtonModificarDept) {
+            ModificarDepartamento();
+        } else if (e.getSource() == manejo.jButtonEliminarDept) {
+            EliminarDepartamento();
+        } 
     }
 
     @Override
@@ -114,7 +174,7 @@ public class ControladorDepartamentos implements ActionListener, KeyListener {
             HabilitarBoton();
         } else if (e.getSource() == manejo.jTextFieldCodigoMuni) {
             HabilitarBoton();
-        } 
+        }
     }
 
     @Override

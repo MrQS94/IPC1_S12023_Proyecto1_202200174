@@ -15,25 +15,48 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import modelo.ModeloPrecios;
-import vista.ManejoPrecios;
+import vista.ManejoRegiones;
 
 /**
  *
  * @author queza
  */
-public class ControladorPrecios implements ActionListener, MouseListener, KeyListener {
+public class ControladorRegiones implements ActionListener, MouseListener, KeyListener {
 
-    ManejoPrecios manejo;
+    ManejoRegiones manejo;
     List<ModeloPrecios> list;
 
-    public ControladorPrecios(ManejoPrecios manejo, List<ModeloPrecios> list) {
+    public ControladorRegiones(ManejoRegiones manejo, List<ModeloPrecios> list) {
         this.manejo = manejo;
         this.list = list;
-        this.manejo.jButtonEnviar.addActionListener(this);
+        this.manejo.jButtonCambiar.addActionListener(this);
+        this.manejo.jButtonAgregar.addActionListener(this);
+        this.manejo.jButtonEliminar.addActionListener(this);
         this.manejo.jTable.addMouseListener(this);
-        this.manejo.jCheckBoxMostrar.addActionListener(this);
         this.manejo.jTextFieldPrecioEstandar.addKeyListener(this);
         this.manejo.jTextFieldPrecioEspecial.addKeyListener(this);
+        LlenarTabla();
+    }
+
+    private void AgregarPrecios() {
+        String region = manejo.jComboBoxRegion.getSelectedItem().toString();
+        double precioEstandar = Double.parseDouble(manejo.jTextFieldPrecioEstandar.getText());
+        double precioEspecial = Double.parseDouble(manejo.jTextFieldPrecioEspecial.getText());
+
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getNombre().equals(region)) {
+                ModeloPrecios mod = new ModeloPrecios(region, precioEstandar, precioEspecial);
+                list.add(mod);
+                JOptionPane.showMessageDialog(null, "Está region ha sido agregada.", "INFORMATION!", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya existe esta region.", "WARNING!", JOptionPane.WARNING_MESSAGE);
+                break;
+            }
+        }
+        manejo.jComboBoxRegion.setSelectedIndex(0);
+        manejo.jTextFieldPrecioEstandar.setText("");
+        manejo.jTextFieldPrecioEspecial.setText("");
         LlenarTabla();
     }
 
@@ -51,13 +74,25 @@ public class ControladorPrecios implements ActionListener, MouseListener, KeyLis
         manejo.jComboBoxRegion.setSelectedIndex(0);
         manejo.jTextFieldPrecioEstandar.setText("");
         manejo.jTextFieldPrecioEspecial.setText("");
-        manejo.jTextFieldPrecioEstandar.setEnabled(false);
-        manejo.jTextFieldPrecioEspecial.setEnabled(false);
-        manejo.jCheckBoxMostrar.setSelected(false);
-        manejo.jCheckBoxMostrar.setText("MOSTRAR");
         LlenarTabla();
 
         JOptionPane.showMessageDialog(null, "Cambio realizado satisfactoriamente.", "INFORMATION!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void EliminarPrecios() {
+        String region = manejo.jComboBoxRegion.getSelectedItem().toString();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getNombre().equals(region)) {
+                list.remove(i);
+                JOptionPane.showMessageDialog(null, "Región eliminada satisfactoriamente.", "INFORMATION!", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            }
+        }
+
+        manejo.jComboBoxRegion.setSelectedIndex(0);
+        manejo.jTextFieldPrecioEstandar.setText("");
+        manejo.jTextFieldPrecioEspecial.setText("");
+        LlenarTabla();
     }
 
     private void LlenarTabla() {
@@ -73,30 +108,17 @@ public class ControladorPrecios implements ActionListener, MouseListener, KeyLis
         }
     }
 
-    private void ComprobarCampos() {
-        String codigo = (String) manejo.jComboBoxRegion.getSelectedItem();
-        String precioEstandar = manejo.jTextFieldPrecioEstandar.getText();
-        String precioEspecial = manejo.jTextFieldPrecioEspecial.getText();
-        if (codigo.isEmpty() || precioEstandar.isEmpty() || precioEspecial.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Seleccione un dato de la tabla para modificar si deasea ser modificado.", "ADVERTENCIA!!", JOptionPane.WARNING_MESSAGE);
-            manejo.jCheckBoxMostrar.setSelected(false);
-            manejo.jTextFieldPrecioEstandar.setEnabled(false);
-            manejo.jTextFieldPrecioEspecial.setEnabled(false);
-            manejo.jCheckBoxMostrar.setText("MOSTRAR");
-        } else {
-            manejo.jTextFieldPrecioEstandar.setEnabled(true);
-            manejo.jTextFieldPrecioEspecial.setEnabled(true);
-            manejo.jCheckBoxMostrar.setText("CONFIRMAR");
-        }
-    }
-
     private void HabilitarBoton() {
         String codigo = manejo.jTextFieldPrecioEspecial.getText();
         String codigoDepart = manejo.jTextFieldPrecioEstandar.getText();
         if (!(codigo.isEmpty() || codigoDepart.isEmpty())) {
-            manejo.jButtonEnviar.setEnabled(true);
+            manejo.jButtonAgregar.setEnabled(true);
+            manejo.jButtonCambiar.setEnabled(true);
+            manejo.jButtonEliminar.setEnabled(true);
         } else {
-            manejo.jButtonEnviar.setEnabled(false);
+            manejo.jButtonAgregar.setEnabled(false);
+            manejo.jButtonCambiar.setEnabled(false);
+            manejo.jButtonEliminar.setEnabled(false);
         }
     }
 
@@ -108,12 +130,12 @@ public class ControladorPrecios implements ActionListener, MouseListener, KeyLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == manejo.jButtonEnviar) {
+        if (e.getSource() == manejo.jButtonCambiar) {
             CambiarPrecios();
-        } else if (e.getSource() == manejo.jCheckBoxMostrar) {
-            if (manejo.jCheckBoxMostrar.isSelected()) {
-                ComprobarCampos();
-            }
+        } else if (e.getSource() == manejo.jButtonAgregar) {
+            AgregarPrecios();
+        } else if (e.getSource() == manejo.jButtonEliminar) {
+            EliminarPrecios();
         }
     }
 

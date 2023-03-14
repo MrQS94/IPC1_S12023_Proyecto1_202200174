@@ -611,154 +611,154 @@ public class ControladorCotizacion implements ItemListener, KeyListener, ActionL
             case "Alta Verapaz" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Baja Verapaz" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Chimaltenango" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Chiquimula" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "El Progreso" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Escuintla" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Guatemala" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Huehuetenango" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Izabal" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Jalapa" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Jutiapa" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Petén" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Quetzaltenango" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Quiché" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Retalhuleu" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Sacatepéquez" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "San Marcos" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Santa Rosa" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Sololá" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Suchitepéquez" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Totonicapán" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }
             case "Zacapa" -> {
                 for (int i = 0; i < listDepart.size(); i++) {
                     if (s.equals(listDepart.get(i).getNombreDepart())) {
-                        combo.addItem(listDepart.get(i).getMunicipios());
+                        combo.addItem(listDepart.get(i).getNombreMunicipios());
                     }
                 }
             }

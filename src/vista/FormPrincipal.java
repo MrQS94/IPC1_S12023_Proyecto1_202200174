@@ -8,7 +8,7 @@ import controlador.ControladorCotizacion;
 import controlador.ControladorEnvios;
 import controlador.ControladorFacturacion;
 import controlador.ControladorKioscos;
-import controlador.ControladorPrecios;
+import controlador.ControladorRegiones;
 import controlador.ControladorPrincipal;
 import controlador.ControladorDepartamentos;
 import controlador.ControladorProfile;
@@ -285,14 +285,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void jMenuItemDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDepartamentosActionPerformed
         // TODO add your handling code here:
         ManejoDepartamentos manejo = new ManejoDepartamentos();
-        ControladorDepartamentos control = new ControladorDepartamentos(manejo, listDepart, listMuni);
+        ControladorDepartamentos control = new ControladorDepartamentos(manejo, listDepart, listMuni, listPrecios);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemDepartamentosActionPerformed
 
     private void jMenuItemRegionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegionesActionPerformed
         // TODO add your handling code here:
-        ManejoPrecios manejo = new ManejoPrecios();
-        ControladorPrecios control = new ControladorPrecios(manejo, listPrecios);
+        ManejoRegiones manejo = new ManejoRegiones();
+        ControladorRegiones control = new ControladorRegiones(manejo, listPrecios);
         EvitarAbrir(manejo);
     }//GEN-LAST:event_jMenuItemRegionesActionPerformed
 
