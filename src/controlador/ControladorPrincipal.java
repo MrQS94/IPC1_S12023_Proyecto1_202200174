@@ -74,15 +74,46 @@ public class ControladorPrincipal implements ActionListener {
         this.aut.jCheckBoxMostrar.addActionListener(this);
         listaPersona.add(modPersona0);
         listPrecio.add(modPrec1);
-        /*listPrecio.add(modPrec2);
-        listPrecio.add(modPrec3);
-        listPrecio.add(modPrec4);
-        listPrecio.add(modPrec5);
-        listPrecio.add(modPrec6);*/
     }
 
     public ControladorPrincipal(RegistroUsuario reg) {
         registro = reg;
+    }
+
+    private boolean ComprobarPass() {
+        char[] c = aut.jPasswordField.getPassword();
+        String pass = ReconocerPass(c);
+        return CaracteresPass(pass);
+    }
+
+    private String ReconocerPass(char[] c) {
+        String pass = "";
+        for (int i = 0; i < c.length; i++) {
+            pass += c[i];
+        }
+        return pass;
+    }
+
+    private static boolean CaracteresPass(String sd) {
+        int upper = 0;
+        int digit = 0;
+        int lower = 0;
+        int charr = 0;
+        for (int i = 0; i < sd.length(); i++) {
+            if (Character.isUpperCase(sd.charAt(i))) {
+                upper++;
+            }
+            if (Character.isDigit(sd.charAt(i))) {
+                digit++;
+            }
+            if (Character.isLowerCase(sd.charAt(i))) {
+                lower++;
+            }
+            if (sd.charAt(i) >= 33 && sd.charAt(i) <= 47 && sd.charAt(i) != 32) {
+                charr++;
+            }
+        }
+        return (upper > 0 && digit > 0 && lower > 0 && charr > 0);
     }
 
     private void Autentificar() {
@@ -93,13 +124,24 @@ public class ControladorPrincipal implements ActionListener {
             FormPrincipal form = new FormPrincipal(listaPersona, listaDepart, listKiosco, listPrecio, listFact, listCot, dpi, listMuni);
             if (VerificarAdmin(email, pass)) {
                 form.jMenuAdmin.setVisible(true);
-                //form.jMenuCliente.setVisible(false);
+                form.jMenuCliente.setVisible(false);
             } else {
                 form.jMenuAdmin.setVisible(false);
             }
             aut.dispose();
             form.setVisible(true);
         } else {
+            if (!ComprobarPass()) {
+                JOptionPane.showMessageDialog(null, """
+                                                        Las contraseñas no son iguales o
+                                                        La contraseña debe llevar: 
+                                                        Letras mayúsculas
+                                                        Letras minúsculas
+                                                        Números
+                                                        Caracteres especiales (Ej. #,%,&,_,etc.)
+                                                        Sin espacios
+                                                        """, "WARNING!", JOptionPane.WARNING_MESSAGE);
+            }
             JOptionPane.showMessageDialog(null, "Tiene " + intentos-- + " intentos restantes.", "WARNING!", JOptionPane.WARNING_MESSAGE);
             if (intentos < 0) {
                 JOptionPane.showMessageDialog(null, "Se va a cerrar el programa", "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
